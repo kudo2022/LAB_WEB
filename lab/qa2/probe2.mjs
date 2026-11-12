@@ -1,0 +1,13 @@
+import { chromium } from 'playwright-core';
+const b = await chromium.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
+const ctx = await b.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
+await ctx.addInitScript(() => { localStorage.setItem('irod-theme', 'dark'); localStorage.setItem('irod-lang', 'vi'); });
+const p = await ctx.newPage();
+await p.goto('http://localhost:4500/index.html', { waitUntil: 'networkidle' });
+await p.evaluate(() => { document.querySelectorAll('[data-sc-in],[data-sc-stagger]>*').forEach(e => e.classList.add('sc-in')); document.documentElement.style.scrollBehavior='auto'; const f=document.querySelector('.reg__frame'); window.scrollTo({top: f.getBoundingClientRect().top + scrollY - 300, behavior:'instant'}); });
+await p.waitForTimeout(800);
+const r = await p.evaluate(() => { const r = document.querySelector('.reg__frame').getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; });
+console.log(r);
+await p.screenshot({ path: 'lab/qa2/z-frame-tl.png', clip: { x: r[0]-30, y: r[1]-30, width: 120, height: 80 } });
+await p.screenshot({ path: 'lab/qa2/z-frame-br.png', clip: { x: r[0]+r[2]-90, y: r[1]+r[3]-50, width: 120, height: 80 } });
+await b.close();

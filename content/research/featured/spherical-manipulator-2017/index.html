@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" data-title-vi="Tay máy robot cầu tách rời dùng cho nội soi thần kinh · Interactive Robot Design Lab">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A spherical decoupled robotic manipulator for neuroendoscopy · Interactive Robot Design Lab</title>
+<meta name="description" content="This project aims to develop a robotic manipulator for neuroendoscopy. The manipulator is constructed based on a novel five-bar spherical decoupled mechani">
+<meta name="color-scheme" content="light dark">
+<script>(function(){var d=document.documentElement,s=null;try{s=window.localStorage}catch(e){}
+var th=null,la=null;try{th=s&&s.getItem('irod-theme');la=s&&s.getItem('irod-lang')}catch(e){}
+if(th!=='dark'&&th!=='light')th=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+if(la!=='en'&&la!=='vi')la=/^vi/i.test(navigator.language||'')?'vi':'en';
+d.setAttribute('data-theme',th);d.setAttribute('data-lang',la);d.lang=la;})();</script>
+<link rel="icon" href="../../../../images/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500..700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../../../../scrollcraft.css">
+<link rel="stylesheet" href="../../../../site.css">
+<link rel="stylesheet" href="../../../../pages.css">
+</head>
+<body class="sub">
+<a class="skip" href="#main"><span data-l="en">Skip to content</span><span data-l="vi" lang="vi">Chuyển đến nội dung chính</span></a>
+<div class="folio" aria-hidden="true">
+  <a class="folio__mark" href="../../../../index.html" tabindex="-1">IRoD</a>
+  <span class="folio__sheet"><span class="folio__code">R9</span> <span class="folio__title"><span data-l="en">Project</span><span data-l="vi" lang="vi">Dự án</span></span></span>
+</div>
+<header class="bar">
+  <a class="bar__logo" href="../../../../index.html" aria-label="Interactive Robot Design Lab, home" data-aria-vi="Interactive Robot Design Lab, trang chủ"><img src="../../../../images/logo.png" alt="" width="698" height="427"><span>IRoD Lab</span></a>
+  <nav class="bar__nav" aria-label="Site" data-aria-vi="Điều hướng"><ul class="navlist"><li><a href="../../../../index.html"><span data-l="en">Home</span><span data-l="vi" lang="vi">Trang chủ</span></a></li><li><a href="../../../../content/news/index.html"><span data-l="en">News</span><span data-l="vi" lang="vi">Tin tức</span></a></li><li><a href="../../../../content/research/index.html" aria-current="page"><span data-l="en">Research</span><span data-l="vi" lang="vi">Nghiên cứu</span></a></li><li><a href="../../../../content/people/index.html"><span data-l="en">People</span><span data-l="vi" lang="vi">Thành viên</span></a></li><li><a href="../../../../content/openings/index.html"><span data-l="en">Openings</span><span data-l="vi" lang="vi">Tuyển dụng</span></a></li><li><a href="https://github.com/IROD-Lab">GitHub</a></li></ul></nav>
+  <div class="bar__tools">
+    <div class="seg" role="group" aria-label="Language" data-aria-vi="Ngôn ngữ"><button type="button" class="seg__b" data-set-lang="en" aria-pressed="true">EN</button><button type="button" class="seg__b" data-set-lang="vi" aria-pressed="false">VI</button></div>
+    <button type="button" class="themeb" data-theme-toggle aria-label="Switch to dark mode"><svg class="ic ic--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><svg class="ic ic--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8Z"/></svg></button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+<section class="phead">
+  <div class="ch__wrap phead__wrap">
+    <div class="phead__text" data-sc-in data-sc-stagger="60">
+      <p class="label"><span data-l="en">Research project</span><span data-l="vi" lang="vi">Dự án nghiên cứu</span></p>
+      <h1 class="phead__title"><span data-l="en">A spherical decoupled robotic manipulator for neuroendoscopy</span><span data-l="vi" lang="vi">Tay máy robot cầu tách rời dùng cho nội soi thần kinh</span></h1>
+      
+    </div>
+    
+  </div>
+  <div class="ch__wrap"><dl class="meta"><div><dt><span data-l="en">Published</span><span data-l="vi" lang="vi">Ngày đăng</span></dt><dd><span data-l="en">December 20, 2017</span><span data-l="vi" lang="vi">20/12/2017</span></dd></div><div><dt><span data-l="en">Year of work</span><span data-l="vi" lang="vi">Năm thực hiện</span></dt><dd>2017</dd></div><div><dt><span data-l="en">Categories</span><span data-l="vi" lang="vi">Chủ đề</span></dt><dd><span data-l="en">robotics · medical robotics · mechanism design</span><span data-l="vi" lang="vi">robot học · robot y tế · thiết kế cơ cấu</span></dd></div><div><dt><span data-l="en">Sheet</span><span data-l="vi" lang="vi">Tờ</span></dt><dd><span data-l="en">9 of 9</span><span data-l="vi" lang="vi">9 / 9</span></dd></div></dl></div>
+</section>
+<section class="psec psec--fig">
+  <div class="ch__wrap">
+    <figure class="pfig" data-sc-in>
+      <div class="pfig__frame"><img src="spherical.avif" width="720" height="321" alt="Five-bar spherical decoupled mechanism positioned over a patient model" data-alt-vi="Cơ cấu cầu năm khâu tách rời đặt phía trên mô hình bệnh nhân"></div>
+      <figcaption class="reg__cap"><span class="reg__capk"><span data-l="en">Fig.</span><span data-l="vi" lang="vi">Hình</span></span> <span data-l="en">A spherical decoupled robotic manipulator for neuroendoscopy</span><span data-l="vi" lang="vi">Tay máy robot cầu tách rời dùng cho nội soi thần kinh</span></figcaption>
+    </figure>
+  </div>
+</section>
+<section class="psec">
+  <div class="ch__wrap narrow">
+    <h2 class="display display--sm"><span data-l="en">Summary</span><span data-l="vi" lang="vi">Tóm tắt</span></h2>
+    <p class="body prose"><span data-l="en">This project aims to develop a robotic manipulator for neuroendoscopy. The manipulator is constructed based on a novel five-bar spherical decoupled mechanism that can provide a remote center of motion of two decoupled degrees of freedom. In this work, the design concept, kinematics, and statics of the proposed mechanism are first studied and then used for demonstrating its superior performance compared with conventional five-bar spherical mechanisms. A multi-objective optimization was taken to find an optimal dimension for the spherical decoupled robotic manipulator with high performance. The optimization is modeled from a Genetic algorithm and Pareto Frontier considering the real operational workspace in neuroendoscopy. Finally, a prototype of the manipulator was manufactured and tested by a surgeon during neuroendoscopy.</span><span data-l="vi" lang="vi">Dự án này nhằm phát triển một tay máy robot dùng trong nội soi thần kinh. Tay máy được xây dựng dựa trên một cơ cấu cầu năm khâu tách rời mới, có khả năng tạo ra tâm chuyển động từ xa với hai bậc tự do tách rời. Trong nghiên cứu này, ý tưởng thiết kế, động học và tĩnh học của cơ cấu đề xuất được nghiên cứu trước, sau đó được dùng để chứng minh hiệu năng vượt trội so với các cơ cấu cầu năm khâu thông thường. Bài toán tối ưu hóa đa mục tiêu được thực hiện để tìm kích thước tối ưu cho tay máy robot cầu tách rời có hiệu năng cao. Bài toán tối ưu được mô hình hóa dựa trên thuật toán di truyền và biên Pareto, có xét đến không gian làm việc vận hành thực tế trong nội soi thần kinh. Cuối cùng, một mẫu thử nghiệm của tay máy đã được chế tạo và được một bác sĩ phẫu thuật thử nghiệm trong quá trình nội soi thần kinh.</span></p>
+  </div>
+</section>
+
+<nav class="psec pnav" aria-label="More projects" data-aria-vi="Dự án khác"><div class="ch__wrap pnav__wrap"><a class="pn pn--prev" href="../../../../content/research/featured/serial-manipulator-2019/index.html"><span class="pn__k"><span data-l="en">Newer</span><span data-l="vi" lang="vi">Mới hơn</span></span><span class="pn__t"><span data-l="en">Gravity compensation for serial robotic manipulators</span><span data-l="vi" lang="vi">Cân bằng trọng lực cho tay máy robot nối tiếp</span></span></a><a class="pn pn--all" href="../../../../content/research/index.html"><span class="pn__k"><span data-l="en">Index</span><span data-l="vi" lang="vi">Danh mục</span></span><span class="pn__t"><span data-l="en">All research</span><span data-l="vi" lang="vi">Tất cả nghiên cứu</span></span></a><span></span></div></nav>
+</main>
+<footer class="ch ch--close ch--close-sub">
+  <div class="ch__wrap">
+    <div class="tblock" aria-label="Lab details" data-aria-vi="Thông tin phòng lab">
+      <div class="tblock__cell tblock__cell--name"><span class="tblock__k"><span data-l="en">Drawn by</span><span data-l="vi" lang="vi">Thực hiện</span></span><span class="tblock__brand"><img src="../../../../images/logo.png" alt="" width="698" height="427"> Interactive Robot Design Lab</span></div>
+      <div class="tblock__cell"><span class="tblock__k"><span data-l="en">Location</span><span data-l="vi" lang="vi">Địa chỉ</span></span><span><span data-l="en">H114, VinUniversity, Hanoi, Vietnam</span><span data-l="vi" lang="vi">Phòng H114, Trường Đại học VinUni, Hà Nội, Việt Nam</span></span></div>
+      <div class="tblock__cell"><span class="tblock__k"><span data-l="en">Contact</span><span data-l="vi" lang="vi">Liên hệ</span></span><a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a></div>
+      <div class="tblock__cell"><span class="tblock__k"><span data-l="en">Elsewhere</span><span data-l="vi" lang="vi">Trang khác</span></span><span><a href="https://scholar.google.com/citations?user=d1J4vbsAAAAJ&amp;hl=en">Google Scholar</a> · <a href="https://github.com/IROD-Lab">GitHub</a></span></div>
+      <div class="tblock__cell tblock__cell--pages"><span class="tblock__k"><span data-l="en">Sheets</span><span data-l="vi" lang="vi">Các trang</span></span><span><a href="../../../../index.html"><span data-l="en">Home</span><span data-l="vi" lang="vi">Trang chủ</span></a> · <a href="../../../../content/news/index.html"><span data-l="en">News</span><span data-l="vi" lang="vi">Tin tức</span></a> · <a href="../../../../content/research/index.html"><span data-l="en">Research</span><span data-l="vi" lang="vi">Nghiên cứu</span></a> · <a href="../../../../content/people/index.html"><span data-l="en">People</span><span data-l="vi" lang="vi">Thành viên</span></a> · <a href="../../../../content/openings/index.html"><span data-l="en">Openings</span><span data-l="vi" lang="vi">Tuyển dụng</span></a></span></div>
+      <div class="tblock__cell"><span class="tblock__k">Rev.</span><span>© 2026 Interactive Robot Design Lab</span></div>
+    </div>
+  </div>
+</footer>
+<script src="../../../../ui.js"></script>
+<script src="../../../../scrollcraft.js"></script>
+<script>
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.querySelectorAll('[data-sc-count]').forEach(function (n) { n.removeAttribute('data-sc-count'); });
+  ScrollCraft.mount(document.body);
+</script>
+<script src="../../../../pages.js"></script>
+</body>
+</html>

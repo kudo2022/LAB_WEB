@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en" data-title-vi="Interactive Robot Design Lab · Trường Đại học VinUni">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Interactive Robot Design Lab · VinUniversity</title>
+<meta name="description" content="The Interactive Robot Design (IRoD) Lab at VinUniversity designs compliant, reconfigurable and gravity-balanced mechanisms for safer human-robot interaction.">
+<meta name="color-scheme" content="light dark">
+<script>(function(){var d=document.documentElement,s=null;try{s=window.localStorage}catch(e){}
+var th=null,la=null;try{th=s&&s.getItem('irod-theme');la=s&&s.getItem('irod-lang')}catch(e){}
+if(th!=='dark'&&th!=='light')th=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+if(la!=='en'&&la!=='vi')la=/^vi/i.test(navigator.language||'')?'vi':'en';
+d.setAttribute('data-theme',th);d.setAttribute('data-lang',la);d.lang=la;})();</script>
+<link rel="icon" href="images/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,500..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="scrollcraft.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<a class="skip" href="#main"><span data-l="en">Skip to content</span><span data-l="vi" lang="vi">Chuyển đến nội dung chính</span></a>
+
+<header class="bar">
+  <a class="bar__logo" href="./index.html" aria-label="Interactive Robot Design Lab, home" data-aria-vi="Interactive Robot Design Lab, trang chủ"><img src="./images/logo.png" alt="" width="698" height="427"><span>IRoD Lab</span></a>
+  <nav class="bar__nav" aria-label="Site" data-aria-vi="Điều hướng"><ul class="navlist"><li><a href="./index.html" aria-current="page"><span data-l="en">Home</span><span data-l="vi" lang="vi">Trang chủ</span></a></li><li><a href="./content/news/index.html"><span data-l="en">News</span><span data-l="vi" lang="vi">Tin tức</span></a></li><li><a href="./content/research/index.html"><span data-l="en">Research</span><span data-l="vi" lang="vi">Nghiên cứu</span></a></li><li><a href="./content/people/index.html"><span data-l="en">People</span><span data-l="vi" lang="vi">Thành viên</span></a></li><li><a href="./content/openings/index.html"><span data-l="en">Openings</span><span data-l="vi" lang="vi">Tuyển dụng</span></a></li><li><a href="https://github.com/IROD-Lab">GitHub</a></li></ul></nav>
+  <div class="bar__tools">
+    <div class="seg" role="group" aria-label="Language" data-aria-vi="Ngôn ngữ"><button type="button" class="seg__b" data-set-lang="en" aria-pressed="true">EN</button><button type="button" class="seg__b" data-set-lang="vi" aria-pressed="false">VI</button></div>
+    <button type="button" class="themeb" data-theme-toggle aria-label="Switch to dark mode"><svg class="ic ic--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><svg class="ic ic--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8Z"/></svg></button>
+  </div>
+</header>
+
+<!-- Folio: the margin note of a drawing set. Chapter code and title, updated as chapters pass. -->
+<div class="folio" aria-hidden="true">
+  <a class="folio__mark" href="./index.html" tabindex="-1">IRoD</a>
+  <span class="folio__sheet" aria-live="off"><span class="folio__code">A</span> <span class="folio__title"><span data-l="en">Title page</span><span data-l="vi" lang="vi">Trang bìa</span></span></span>
+</div>
+
+<main id="main" tabindex="-1">
+
+<!-- ============ TITLE PAGE · parallax planes ============ -->
+<section class="tp" data-sc-act="flow" data-chapter="A" data-chapter-title="Title page" data-chapter-title-vi="Trang bìa" data-ground="paper">
+  <div class="tp__grid" data-sc-parallax="1.4" aria-hidden="true"></div>
+
+  <div class="tp__drawing" data-sc-parallax="0.7" aria-hidden="true">
+    <svg viewBox="0 0 800 700" class="draw">
+      <!-- centre lines -->
+      <g class="cl">
+        <line x1="200" y1="610" x2="200" y2="240"/><line x1="430" y1="610" x2="430" y2="200"/>
+        <line x1="120" y1="560" x2="520" y2="560"/>
+      </g>
+      <!-- ground -->
+      <g class="ground">
+        <line x1="150" y1="586" x2="250" y2="586"/><line x1="380" y1="586" x2="480" y2="586"/>
+        <path d="M156 586l-10 14M170 586l-10 14M184 586l-10 14M198 586l-10 14M212 586l-10 14M226 586l-10 14M240 586l-10 14M250 586l-10 14"/>
+        <path d="M386 586l-10 14M400 586l-10 14M414 586l-10 14M428 586l-10 14M442 586l-10 14M456 586l-10 14M470 586l-10 14M480 586l-10 14"/>
+        <path d="M200 560l-22 26h44zM430 560l-22 26h44z" class="fill-paper"/>
+      </g>
+      <!-- links -->
+      <g class="link">
+        <path d="M200 560L170 300"/><path d="M170 300L520 260L680 214"/><path d="M430 560L520 260"/>
+      </g>
+      <!-- spring: ground anchor to crank -->
+      <g class="spring">
+        <line x1="60" y1="470" x2="76" y2="466"/>
+        <polyline points="76,466 86,450 100,478 114,446 128,474 142,442 156,470 166,452"/>
+        <line x1="166" y1="452" x2="184" y2="440"/>
+        <path d="M44 470h16M44 462l-8 8 8 8" class="thin"/>
+      </g>
+      <!-- payload -->
+      <g class="payload"><rect x="660" y="214" width="56" height="56" rx="3"/><line x1="688" y1="214" x2="680" y2="214"/></g>
+      <!-- joints -->
+      <g class="joint">
+        <circle cx="200" cy="560" r="8"/><circle cx="430" cy="560" r="8"/>
+        <circle cx="170" cy="300" r="8"/><circle cx="520" cy="260" r="8"/><circle cx="184" cy="440" r="5"/>
+      </g>
+      <!-- angle and dimensions -->
+      <g class="dim">
+        <path d="M200 500 A60 60 0 0 1 193 500.4" />
+        <path d="M200 470 A90 90 0 0 0 189.6 470.6"/>
+        <line x1="200" y1="640" x2="430" y2="640"/><path d="M200 640l12-5v10zM430 640l-12-5v10z" class="solid"/>
+        <line x1="200" y1="620" x2="200" y2="652"/><line x1="430" y1="620" x2="430" y2="652"/>
+        <line x1="690" y1="300" x2="690" y2="560"/><path d="M690 300l-5 12h10zM690 560l-5-12h10z" class="solid"/>
+        <line x1="440" y1="560" x2="702" y2="560" class="ext"/><line x1="720" y1="300" x2="702" y2="300" class="ext"/>
+      </g>
+      <g class="note">
+        <text x="300" y="664">a₀</text><text x="702" y="434">h</text><text x="206" y="456">θ</text>
+        <text x="72" y="508">k</text><text x="676" y="200">m</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="tp__inner">
+
+    <div class="tp__copy" data-sc-in data-sc-stagger="60">
+      <p class="label"><span data-l="en">College of Engineering and Computer Science · VinUniversity, Hanoi</span><span data-l="vi" lang="vi">Viện Kỹ thuật và Khoa học Máy tính · Trường Đại học VinUni, Hà Nội</span></p>
+      <h1 class="tp__title">Interactive Robot<br>Design Lab</h1>
+      <p class="tp__lede"><span data-l="en">We design mechanisms that let robots <span class="mark">share space with people safely</span>: compliant, reconfigurable, and balanced by their own structure.</span><span data-l="vi" lang="vi">Chúng tôi thiết kế những cơ cấu giúp robot <span class="mark">làm việc an toàn bên cạnh con người</span>: đàn hồi, tái cấu hình được, và tự cân bằng nhờ chính kết cấu của mình.</span></p>
+      <p class="tp__cta"><a class="cta" href="./content/research/index.html"><span data-l="en">Explore the research</span><span data-l="vi" lang="vi">Xem các nghiên cứu</span> <span class="cta__arr" aria-hidden="true">→</span></a><a class="cta cta--ghost" href="./content/openings/index.html"><span data-l="en">Join the lab</span><span data-l="vi" lang="vi">Tham gia lab</span></a></p>
+    </div>
+  </div>
+
+  <!-- foreground plane: a detail bubble that crosses the drawing -->
+  <div class="tp__detail" data-sc-parallax="-0.5" aria-hidden="true">
+    <svg viewBox="0 0 220 220" class="draw">
+      <circle cx="110" cy="110" r="104" class="bubble"/>
+      <g class="spring spring--big">
+        <line x1="10" y1="140" x2="40" y2="132"/>
+        <polyline points="40,132 54,104 76,150 98,98 120,144 142,92 160,128"/>
+        <line x1="160" y1="128" x2="196" y2="104"/>
+      </g>
+      <g class="joint"><circle cx="196" cy="104" r="9"/></g>
+      <text x="64" y="196" class="note">DETAIL B</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ============ 1 · BELIEF · kinetic ============ -->
+<section id="belief" class="ch ch--belief" data-sc-act="flow" data-chapter="1" data-chapter-title="Belief" data-chapter-title-vi="Niềm tin" data-ground="paper">
+  <div class="ch__wrap">
+    <div class="belief">
+      <h2 class="display display--lg" data-l="en" data-sc-cue="0.1" data-sc-kinetic="lines">A robot is safest when its own structure does the work.</h2>
+      <h2 class="display display--lg" data-l="vi" lang="vi" data-sc-cue="0.1" data-sc-kinetic="lines">Robot an toàn nhất khi chính kết cấu của nó gánh phần việc.</h2>
+      <div class="belief__body" data-sc-in data-sc-stagger="60">
+        <p class="body"><span data-l="en"><strong>Interactive Robot Design (IRoD) Group</strong> is led by <strong>Dr. Nguyen Vu Linh</strong> at the College of Engineering and Computer Science, VinUniversity.</span><span data-l="vi" lang="vi">Nhóm <strong>Interactive Robot Design (IRoD)</strong> do <strong>TS. Nguyễn Vũ Linh</strong> dẫn dắt, thuộc Viện Kỹ thuật và Khoa học Máy tính, Trường Đại học VinUni.</span></p>
+        <p class="body"><span data-l="en">We study advanced mechanism design: how reconfigurable and compliant systems can make physical interaction safer. Springs, gears and linkages that cancel gravity or hold a constant force mean smaller motors, less energy, and machines that are gentler around people.</span><span data-l="vi" lang="vi">Chúng tôi nghiên cứu thiết kế cơ cấu tiên tiến: làm sao để các hệ tái cấu hình và hệ đàn hồi giúp tương tác vật lý an toàn hơn. Lò xo, bánh răng và cơ cấu thanh triệt tiêu trọng lực hoặc giữ lực không đổi đồng nghĩa với động cơ nhỏ hơn, ít năng lượng hơn, và máy móc nhẹ nhàng hơn khi ở gần con người.</span></p>
+      </div>
+      <div class="applies"><p id="applies-k" class="applies__k"><span data-l="en">Applied to</span><span data-l="vi" lang="vi">Ứng dụng vào</span></p>
+      <ul data-sc-in data-sc-stagger="70" aria-labelledby="applies-k">
+        <li><span class="applies__v"><span data-l="en">Industrial grippers</span><span data-l="vi" lang="vi">Bộ kẹp công nghiệp</span></span></li>
+        <li><span class="applies__v"><span data-l="en">Surgical robots</span><span data-l="vi" lang="vi">Robot phẫu thuật</span></span></li>
+        <li><span class="applies__v"><span data-l="en">Energy-harvesting systems</span><span data-l="vi" lang="vi">Hệ thống thu hoạch năng lượng</span></span></li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 · THE BALANCING ARM · pin + pointer (PEAK) ============ -->
+<section id="arm" class="ch ch--arm" data-sc-act="pin" data-sc-span="3.2" data-chapter="2" data-chapter-title="The balancing arm" data-chapter-title-vi="Cánh tay cân bằng" data-ground="dark">
+  <div data-sc-stage class="arm">
+    <div class="arm__text">
+      <h2 class="display display--lg arm__title"><span data-l="en">Let go.<br>It stays.</span><span data-l="vi" lang="vi">Buông tay.<br>Vẫn đứng yên.</span></h2>
+      <ol class="arm__notes">
+        <li data-note="0"><span data-l="en">Every robot arm fights gravity. Usually a motor pays for it, every second the arm holds still.</span><span data-l="vi" lang="vi">Mọi cánh tay robot đều phải chống lại trọng lực. Thông thường, động cơ phải gánh việc đó trong từng giây cánh tay đứng yên.</span></li>
+        <li data-note="1"><span data-l="en">Put one spring in the right place and gravity is cancelled at every angle. The arm holds wherever it stops.</span><span data-l="vi" lang="vi">Đặt một lò xo vào đúng chỗ, trọng lực bị triệt tiêu ở mọi góc. Cánh tay dừng ở đâu thì đứng yên ở đó.</span></li>
+        <li data-note="2"><span data-l="en">Your turn. Drag the arm, or focus it and use the arrow keys, then let go.</span><span data-l="vi" lang="vi">Đến lượt bạn. Kéo cánh tay, hoặc chọn nó rồi dùng phím mũi tên, sau đó buông tay.</span></li>
+      </ol>
+      <div class="arm__controls">
+        <button type="button" class="btn" id="arm-spring">Remove the spring</button>
+        <button type="button" class="btn btn--quiet" id="arm-reset"><span data-l="en">Reset</span><span data-l="vi" lang="vi">Đặt lại</span></button>
+      </div>
+      <p class="arm__src"><span data-l="en">The textbook spring balancer: an ideal zero-free-length spring with <i>k·a·b = m·g·l</i>. The lab's four-bar and gear-spring compensators are its own designs that pursue the same balance with practical springs.</span><span data-l="vi" lang="vi">Bộ cân bằng lò xo kinh điển: một lò xo lý tưởng có chiều dài tự do bằng không, với <i>k·a·b = m·g·l</i>. Các bộ cân bằng trọng lực bốn khâu và bánh răng - lò xo của lab là thiết kế riêng, hướng tới cùng sự cân bằng đó bằng lò xo thực tế.</span></p>
+    </div>
+
+    <div class="arm__fig">
+      <svg viewBox="0 50 600 540" class="draw draw--dark arm__svg" id="arm-svg" focusable="false">
+        <g aria-hidden="true" class="cl"><line x1="200" y1="430" x2="200" y2="60"/><line x1="60" y1="330" x2="560" y2="330"/></g>
+        <g aria-hidden="true" id="ghosts" class="ghosts"></g>
+        <g aria-hidden="true" class="ground">
+          <line x1="140" y1="372" x2="260" y2="372"/>
+          <path d="M146 372l-12 16M162 372l-12 16M178 372l-12 16M194 372l-12 16M210 372l-12 16M226 372l-12 16M242 372l-12 16M258 372l-12 16"/>
+          <path d="M200 330l-30 42h60z" class="fill-ground"/>
+          <rect x="194" y="200" width="12" height="130" class="fill-ground"/>
+        </g>
+        <polyline aria-hidden="true" id="arm-spring-path" class="spring spring--live" points=""/>
+        <g aria-hidden="true" id="arm-link">
+          <line id="arm-bar" x1="200" y1="330" x2="460" y2="330" class="link link--live"/>
+          <circle id="arm-b" cx="350" cy="330" r="6" class="joint-dot"/>
+          <rect id="arm-mass" x="436" y="306" width="48" height="48" rx="4" class="mass"/>
+        </g>
+        <circle aria-hidden="true" cx="200" cy="210" r="7" class="joint-dot"/>
+        <circle aria-hidden="true" cx="200" cy="330" r="10" class="joint-dot"/>
+        <path aria-hidden="true" id="arm-arc" class="dim" d=""/>
+        <g aria-hidden="true" class="note note--dark">
+          <text x="214" y="204">A</text><text x="170" y="350">O</text>
+          <text id="arm-theta" x="0" y="0">θ</text><text id="arm-m" x="0" y="0">m</text>
+          <text x="176" y="275">a</text>
+        </g>
+        <!-- big transparent hit target around the mass -->
+        <circle id="arm-handle" class="handle" cx="460" cy="330" r="40" tabindex="0" role="slider"
+                aria-label="Arm angle" data-aria-vi="Góc cánh tay" aria-valuemin="-55" aria-valuemax="70" aria-valuenow="0" aria-valuetext="0 degrees"/>
+      </svg>
+
+      <figure class="plot">
+        <svg viewBox="0 0 600 200" class="draw draw--dark" id="plot-svg" aria-hidden="true">
+          <line x1="40" y1="100" x2="580" y2="100" class="axis"/>
+          <line x1="40" y1="16" x2="40" y2="184" class="axis"/>
+          <path id="plot-g" class="curve curve--g" d=""/>
+          <path id="plot-s" class="curve curve--s" d=""/>
+          <path id="plot-n" class="curve curve--n" d=""/>
+          <line id="plot-x" x1="0" y1="16" x2="0" y2="184" class="cursor"/>
+          <circle id="plot-dn" r="5" class="dot dot--n"/>
+          <text x="46" y="28" class="note note--dark"><tspan data-l="en">torque at O</tspan><tspan data-l="vi">mômen tại O</tspan></text>
+          <text x="520" y="118" class="note note--dark">θ</text>
+        </svg>
+        <figcaption class="plot__cap">
+          <span class="key key--g"><span data-l="en">gravity</span><span data-l="vi" lang="vi">trọng lực</span></span>
+          <span class="key key--s"><span data-l="en">spring</span><span data-l="vi" lang="vi">lò xo</span></span>
+          <span class="key key--n"><span data-l="en">net</span><span data-l="vi" lang="vi">tổng</span></span>
+          <output id="arm-readout" class="readout" aria-live="off">Net torque: 0 · balanced</output>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 · REGISTER · reveal ============ -->
+<section id="register" class="ch ch--register" data-sc-act="flow" data-chapter="3" data-chapter-title="Register of work" data-chapter-title-vi="Danh mục công trình" data-ground="paper">
+  <div class="ch__wrap">
+    <header class="reg__head" data-sc-in data-sc-stagger="60">
+      <h2 class="display display--md"><span data-l="en">The work so far.</span><span data-l="vi" lang="vi">Những gì đã làm.</span></h2>
+      <p class="body"><span data-l="en">Selected research, newest first. Each row opens the full project page.</span><span data-l="vi" lang="vi">Các nghiên cứu tiêu biểu, mới nhất trước. Mỗi dòng mở trang chi tiết của dự án.</span></p>
+    </header>
+
+    <div class="reg">
+      <ol class="reg__list">
+        <li class="reg__row is-active" data-fig="content/research/featured/constant-force-2023/large-stroke.avif">
+          <a href="./content/research/featured/constant-force-2023/index.html">
+            <span class="reg__year">2023</span>
+            <span class="reg__t"><span data-l="en">A novel large-stroke constant force mechanism</span><span data-l="vi" lang="vi">Cơ cấu lực không đổi hành trình lớn kiểu mới</span></span>
+            <span class="reg__tags"><span data-l="en">mechanism design · robotics · control</span><span data-l="vi" lang="vi">thiết kế cơ cấu · robot học · điều khiển</span></span>
+            <img class="reg__img" loading="lazy" src="content/research/featured/constant-force-2023/large-stroke.avif" width="840" height="369" alt="">
+          </a>
+        </li>
+        <li class="reg__row" data-fig="content/research/featured/gravity-compensator-2022/four-bar_robot.avif">
+          <a href="./content/research/featured/gravity-compensator-2022/index.html">
+            <span class="reg__year">2022</span>
+            <span class="reg__t"><span data-l="en">A design approach for gravity compensators using planar four-bar mechanisms and a linear spring</span><span data-l="vi" lang="vi">Phương pháp thiết kế bộ cân bằng trọng lực dùng cơ cấu bốn khâu phẳng và một lò xo tuyến tính</span></span>
+            <span class="reg__tags"><span data-l="en">mechanism design · robotics · control</span><span data-l="vi" lang="vi">thiết kế cơ cấu · robot học · điều khiển</span></span>
+            <img class="reg__img" loading="lazy" src="content/research/featured/gravity-compensator-2022/four-bar_robot.avif" width="1655" height="1003" alt="">
+          </a>
+        </li>
+        <li class="reg__row" data-fig="content/research/featured/mobile-manipulator-2024/robot-manufacturing.avif">
+          <a href="./content/research/featured/mobile-manipulator-2024/index.html">
+            <span class="reg__year">2022</span>
+            <span class="reg__t"><span data-l="en">An autonomous mobile robotic manipulator with performance augmentation for large-scale industrial manufacturing</span><span data-l="vi" lang="vi">Tay máy robot di động tự hành tăng cường hiệu năng cho sản xuất công nghiệp quy mô lớn</span></span>
+            <span class="reg__tags"><span data-l="en">robotics · manufacturing · mechanism design</span><span data-l="vi" lang="vi">robot học · sản xuất · thiết kế cơ cấu</span></span>
+            <img class="reg__img" loading="lazy" src="content/research/featured/mobile-manipulator-2024/robot-manufacturing.avif" width="1960" height="876" alt="">
+          </a>
+        </li>
+        <li class="reg__row" data-fig="content/research/featured/error-compensation-2022/Robotic_machining.avif">
+          <a href="./content/research/featured/error-compensation-2022/index.html">
+            <span class="reg__year">2022</span>
+            <span class="reg__t"><span data-l="en">Compliance error compensation of a robot end-effector with joint stiffness uncertainties for milling</span><span data-l="vi" lang="vi">Bù sai số do độ mềm của khâu tác động cuối robot có độ cứng khớp bất định cho gia công phay</span></span>
+            <span class="reg__tags"><span data-l="en">robotics · control · manufacturing</span><span data-l="vi" lang="vi">robot học · điều khiển · sản xuất</span></span>
+            <img class="reg__img" loading="lazy" src="content/research/featured/error-compensation-2022/Robotic_machining.avif" width="1793" height="975" alt="">
+          </a>
+        </li>
+        <li class="reg__row" data-fig="content/research/featured/agv-2021/agv.avif">
+          <a href="./content/research/featured/agv-2021/index.html">
+            <span class="reg__year">2021</span>
+            <span class="reg__t"><span data-l="en">An intelligent automatic guided vehicle (AGV)</span><span data-l="vi" lang="vi">Xe tự hành thông minh (AGV)</span></span>
+            <span class="reg__tags"><span data-l="en">robotics · manufacturing · control</span><span data-l="vi" lang="vi">robot học · sản xuất · điều khiển</span></span>
+            <img class="reg__img" loading="lazy" src="content/research/featured/agv-2021/agv.avif" width="1852" height="816" alt="">
+          </a>
+        </li>
+        <li class="reg__row" data-fig="content/research/featured/delta-robot-2020/delta_robot_trans.avif">
+          <a href="./content/research/featured/delta-robot-2020/index.html">
+            <span class="reg__year">2020</span>
+            <span class="reg__t"><span data-l="en">Gravity compensation design of Delta parallel robots</span><span data-l="vi" lang="vi">Thiết kế cân bằng trọng lực cho robot song song Delta</span></span>
+            <span class="reg__tags"><span data-l="en">robotics · mechanism design · control</span><span data-l="vi" lang="vi">robot học · thiết kế cơ cấu · điều khiển</span></span>
+            <img class="reg__img" loading="lazy" src="content/research/featured/delta-robot-2020/delta_robot_trans.avif" width="1751" height="1177" alt="">
+          </a>
+        </li>
+        <li class="reg__row" data-fig="content/research/featured/lower-limb-rehab-2019/rehab.avif">
+          <a href="./content/research/featured/lower-limb-rehab-2019/index.html">
+            <span class="reg__year">2019</span>
+            <span class="reg__t"><span data-l="en">A gravity-balanced reconfigurable mechanism for lower-limb rehabilitation</span><span data-l="vi" lang="vi">Cơ cấu tái cấu hình cân bằng trọng lực cho phục hồi chức năng chi dưới</span></span>
+            <span class="reg__tags"><span data-l="en">mechanism design · rehabilitation</span><span data-l="vi" lang="vi">thiết kế cơ cấu · phục hồi chức năng</span></span>
+            <img class="reg__img" loading="lazy" src="content/research/featured/lower-limb-rehab-2019/rehab.avif" width="1219" height="560" alt="">
+          </a>
+        </li>
+        <li class="reg__row" data-fig="content/research/featured/serial-manipulator-2019/serial.avif">
+          <a href="./content/research/featured/serial-manipulator-2019/index.html">
+            <span class="reg__year">2019</span>
+            <span class="reg__t"><span data-l="en">Gravity compensation for serial robotic manipulators</span><span data-l="vi" lang="vi">Cân bằng trọng lực cho tay máy robot nối tiếp</span></span>
+            <span class="reg__tags"><span data-l="en">robotics · mechanism design · control</span><span data-l="vi" lang="vi">robot học · thiết kế cơ cấu · điều khiển</span></span>
+            <img class="reg__img" loading="lazy" src="content/research/featured/serial-manipulator-2019/serial.avif" width="840" height="325" alt="">
+          </a>
+        </li>
+        <li class="reg__row" data-fig="content/research/featured/spherical-manipulator-2017/spherical.avif">
+          <a href="./content/research/featured/spherical-manipulator-2017/index.html">
+            <span class="reg__year">2017</span>
+            <span class="reg__t"><span data-l="en">A spherical decoupled robotic manipulator for neuroendoscopy</span><span data-l="vi" lang="vi">Tay máy robot cầu tách rời dùng cho nội soi thần kinh</span></span>
+            <span class="reg__tags"><span data-l="en">medical robotics · mechanism design</span><span data-l="vi" lang="vi">robot y tế · thiết kế cơ cấu</span></span>
+            <img class="reg__img" loading="lazy" src="content/research/featured/spherical-manipulator-2017/spherical.avif" width="720" height="321" alt="">
+          </a>
+        </li>
+      </ol>
+
+      <figure class="reg__fig" data-sc-reveal="up" data-sc-reveal-at="0.1 0.3" aria-hidden="true">
+        <div class="reg__frame"><img id="reg-fig" src="content/research/featured/constant-force-2023/large-stroke.avif" alt=""></div>
+        <figcaption class="reg__cap"><span class="reg__capk"><span data-l="en">Fig.</span><span data-l="vi" lang="vi">Hình</span></span> <span id="reg-cap"><span data-l="en">A novel large-stroke constant force mechanism, 2023</span><span data-l="vi" lang="vi">Cơ cấu lực không đổi hành trình lớn kiểu mới, 2023</span></span></figcaption>
+      </figure>
+    </div>
+
+    <p class="reg__more"><a href="./content/research/index.html"><span data-l="en">All research</span><span data-l="vi" lang="vi">Tất cả nghiên cứu</span></a><a href="./content/news/index.html"><span data-l="en">News</span><span data-l="vi" lang="vi">Tin tức</span></a></p>
+  </div>
+</section>
+
+<!-- ============ 4 · PEOPLE · flow + count, parallax in the media column ============ -->
+<section id="people" class="ch ch--people" data-sc-act="flow" data-chapter="4" data-chapter-title="People" data-chapter-title-vi="Con người" data-ground="paper2">
+  <div class="ch__wrap people">
+    <figure class="people__fig">
+      <div class="people__frame"><div class="people__plane" data-sc-parallax="0.9">
+        <img src="images/robot.jpg" width="700" height="525" alt="Three people reviewing robotic workstations at VinUniversity" data-alt-vi="Ba người đang xem các trạm làm việc robot tại Trường Đại học VinUni">
+      </div></div>
+      <figcaption class="cap"><span data-l="en">At VinUniversity.</span><span data-l="vi" lang="vi">Tại Trường Đại học VinUni.</span></figcaption>
+    </figure>
+
+    <div class="people__text" data-sc-in data-sc-stagger="60">
+      <h2 class="display display--md"><span data-l="en">Led by Dr. Nguyen Vu Linh</span><span data-l="vi" lang="vi">Do TS. Nguyễn Vũ Linh dẫn dắt</span></h2>
+      <p class="body"><span data-l="en">Assistant Professor and Associate Program Director of Mechanical Engineering at VinUniversity since 2023. Before that, Assistant Professor of Mechanical Engineering at National Chin-Yi University of Technology, Taiwan. PhD in Mechanical Engineering, National Taiwan University of Science and Technology, 2020. General Chair of the 9th IFToMM International Symposium on Robotics and Mechatronics (ISRM 2026).</span><span data-l="vi" lang="vi">Giảng viên (Assistant Professor) kiêm Phó Giám đốc Chương trình Kỹ thuật Cơ khí tại Trường Đại học VinUni từ năm 2023. Trước đó là Giảng viên (Assistant Professor) ngành Kỹ thuật Cơ khí tại National Chin-Yi University of Technology, Đài Loan. Tiến sĩ Kỹ thuật Cơ khí, National Taiwan University of Science and Technology, năm 2020. Chủ tịch (General Chair) Hội nghị quốc tế IFToMM lần thứ 9 về Robot và Cơ điện tử (ISRM 2026).</span></p>
+      <dl class="figs">
+        <div><dt><span data-l="en">journal articles</span><span data-l="vi" lang="vi">bài báo tạp chí</span></dt><dd><span data-sc-count="0 35">35</span></dd></div>
+        <div><dt><span data-l="en">awards and honours</span><span data-l="vi" lang="vi">giải thưởng và vinh danh</span></dt><dd><span data-sc-count="0 15">15</span></dd></div>
+      </dl>
+      <ul class="honours">
+        <li><span data-l="en">Reviewer of the Year 2025, ASME Journal of Mechanical Design</span><span data-l="vi" lang="vi">Reviewer of the Year 2025, tạp chí ASME Journal of Mechanical Design</span></li>
+        <li><span data-l="en">Faculty of the Year 2025, VinUniversity</span><span data-l="vi" lang="vi">Giải thưởng Faculty of the Year 2025, Trường Đại học VinUni</span></li>
+        <li><span data-l="en">2023 Best Paper Honorable Mention, ASME Journal of Mechanisms and Robotics (awarded 2024)</span><span data-l="vi" lang="vi">Giải khuyến khích Bài báo xuất sắc nhất (Best Paper Honorable Mention) năm 2023, ASME Journal of Mechanisms and Robotics (trao năm 2024)</span></li>
+      </ul>
+      <p class="links"><a href="./content/people/index.html"><span data-l="en">People</span><span data-l="vi" lang="vi">Thành viên</span></a><a href="https://scholar.google.com/citations?user=d1J4vbsAAAAJ&amp;hl=en">Google Scholar</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSE · title block ============ -->
+<section id="colophon" class="ch ch--close" data-sc-act="flow" data-chapter="5" data-chapter-title="Title block" data-chapter-title-vi="Khung tên" data-ground="paper">
+  <div class="ch__wrap">
+    <p class="close__line" data-sc-in><span data-l="en">Want to build mechanisms like these? Read the <a href="./content/openings/index.html">Openings</a>, then write to <a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a>.</span><span data-l="vi" lang="vi">Muốn cùng chế tạo những cơ cấu như thế này? Hãy xem mục <a href="./content/openings/index.html">Tuyển dụng</a>, rồi viết thư tới <a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a>.</span></p>
+
+    <footer class="tblock" aria-label="Lab details" data-aria-vi="Thông tin phòng lab">
+      <div class="tblock__cell tblock__cell--name">
+        <span class="tblock__k"><span data-l="en">Drawn by</span><span data-l="vi" lang="vi">Thực hiện</span></span>
+        <span class="tblock__brand"><img src="images/logo.png" alt="" width="698" height="427"> Interactive Robot Design Lab</span>
+      </div>
+      <div class="tblock__cell"><span class="tblock__k"><span data-l="en">Location</span><span data-l="vi" lang="vi">Địa chỉ</span></span><span><span data-l="en">H114, VinUniversity, Hanoi, Vietnam</span><span data-l="vi" lang="vi">Phòng H114, Trường Đại học VinUni, Hà Nội, Việt Nam</span></span></div>
+      <div class="tblock__cell"><span class="tblock__k"><span data-l="en">Contact</span><span data-l="vi" lang="vi">Liên hệ</span></span><a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a></div>
+      <div class="tblock__cell"><span class="tblock__k"><span data-l="en">Elsewhere</span><span data-l="vi" lang="vi">Trang khác</span></span><span><a href="https://scholar.google.com/citations?user=d1J4vbsAAAAJ&amp;hl=en">Google Scholar</a> · <a href="https://github.com/IROD-Lab">GitHub</a></span></div>
+      <div class="tblock__cell tblock__cell--pages"><span class="tblock__k"><span data-l="en">Sheets</span><span data-l="vi" lang="vi">Các trang</span></span>
+        <span><a href="./index.html" aria-current="page"><span data-l="en">Home</span><span data-l="vi" lang="vi">Trang chủ</span></a> · <a href="./content/news/index.html"><span data-l="en">News</span><span data-l="vi" lang="vi">Tin tức</span></a> · <a href="./content/research/index.html"><span data-l="en">Research</span><span data-l="vi" lang="vi">Nghiên cứu</span></a> · <a href="./content/people/index.html"><span data-l="en">People</span><span data-l="vi" lang="vi">Thành viên</span></a> · <a href="./content/openings/index.html"><span data-l="en">Openings</span><span data-l="vi" lang="vi">Tuyển dụng</span></a></span></div>
+      <div class="tblock__cell"><span class="tblock__k">Rev.</span><span>© 2026 Interactive Robot Design Lab</span></div>
+    </footer>
+  </div>
+</section>
+
+</main>
+
+<script src="ui.js"></script>
+<script src="scrollcraft.js"></script>
+<script>
+  // Reduced motion: real numbers show as final values, no count-up.
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('[data-sc-count]').forEach(function (n) { n.removeAttribute('data-sc-count'); });
+  }
+  ScrollCraft.mount(document.body);
+</script>
+<script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+node_modules/
+lab/**/*.png
+lab/**/*.json
+lab/**/*.bak
+lab/*.bak
+lab/shots/
+lab/mobile/
+lab/reduced/
+lab/modes/
+lab/pages/
+tools/*.bak
+tools/vi_todo.json
+__pycache__/
+lab/**/*.html
+lab/*.html
+lab/*.txt
