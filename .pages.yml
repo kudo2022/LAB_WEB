@@ -1,0 +1,115 @@
+# Pages CMS configuration (https://pagescms.org). Open https://app.pagescms.org, sign in with GitHub,
+# install the app on this repository, then edit "Dự án nghiên cứu / Research projects".
+# Every save is a commit; .github/workflows/build.yml regenerates and publishes the site.
+
+media:
+  - name: research
+    label: Ảnh nghiên cứu / Research images
+    input: images/research
+    output: /images/research
+    categories: [image]
+    rename: safe
+
+content:
+  - name: projects
+    label: Dự án nghiên cứu / Research projects
+    type: collection
+    path: data/projects
+    format: json
+    filename: "{fields.slug}.json"
+    subfolders: false
+    exclude: [README.md]
+    view:
+      primary: title_en
+    fields:
+      - name: slug
+        label: Mã dự án / Slug
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Chỉ chữ thường không dấu, số và dấu gạch ngang, ví dụ: soft-gripper-2026"
+        description: "Dùng làm tên file và đường dẫn trang. Không đổi sau khi đã đăng."
+      - name: title_en
+        label: Tiêu đề (English)
+        type: string
+        required: true
+      - name: title_vi
+        label: Tiêu đề (Tiếng Việt)
+        type: string
+        description: "Để trống sẽ hiện tiêu đề tiếng Anh."
+      - name: year
+        label: Năm / Year
+        type: number
+        required: true
+        options:
+          min: 2000
+          max: 2100
+      - name: date
+        label: Ngày đăng / Published
+        type: date
+        options:
+          format: yyyy-MM-dd
+      - name: tags
+        label: Chủ đề / Categories
+        type: select
+        options:
+          multiple: true
+          values:
+            - name: robotics
+              label: Robotics · Robot học
+            - name: mechanism design
+              label: Mechanism design · Thiết kế cơ cấu
+            - name: control
+              label: Control · Điều khiển
+            - name: manufacturing
+              label: Manufacturing · Sản xuất
+            - name: rehabilitation
+              label: Rehabilitation · Phục hồi chức năng
+            - name: medical robotics
+              label: Medical robotics · Robot y tế
+      - name: image
+        label: Ảnh minh họa / Image
+        type: image
+        required: true
+        options:
+          media: research
+          categories: [image]
+      - name: alt_en
+        label: Mô tả ảnh (English)
+        type: string
+        description: "Một câu mô tả nội dung ảnh cho người dùng trình đọc màn hình."
+      - name: alt_vi
+        label: Mô tả ảnh (Tiếng Việt)
+        type: string
+      - name: summary_en
+        label: Tóm tắt (English)
+        type: text
+        required: true
+      - name: summary_vi
+        label: Tóm tắt (Tiếng Việt)
+        type: text
+        description: "Để trống sẽ hiện bản tiếng Anh."
+      - name: refs
+        label: Bài báo liên quan / Publications
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.text}"
+        fields:
+          - name: text
+            label: Trích dẫn / Citation
+            type: text
+          - name: url
+            label: Link (DOI hoặc URL)
+            type: string
+      - name: hidden
+        label: Ẩn khỏi trang web / Hide
+        type: boolean
+        default: false
+        description: "Bật để tạm ẩn dự án mà không xóa."
+      - name: order
+        label: Thứ tự (tùy chọn) / Order
+        type: number
+        description: "Số nhỏ hiện trước. Để trống thì sắp theo năm, mới nhất trước."

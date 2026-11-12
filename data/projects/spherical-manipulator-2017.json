@@ -1,0 +1,22 @@
+{
+  "slug": "spherical-manipulator-2017",
+  "title_en": "A spherical decoupled robotic manipulator for neuroendoscopy",
+  "title_vi": "Tay máy robot cầu tách rời dùng cho nội soi thần kinh",
+  "year": 2017,
+  "date": "2017-12-20",
+  "tags": [
+    "robotics",
+    "medical robotics",
+    "mechanism design"
+  ],
+  "image": "content/research/featured/spherical-manipulator-2017/spherical.avif",
+  "image_w": 720,
+  "image_h": 321,
+  "alt_en": "Five-bar spherical decoupled mechanism positioned over a patient model",
+  "alt_vi": "Cơ cấu cầu năm khâu tách rời đặt phía trên mô hình bệnh nhân",
+  "summary_en": "This project aims to develop a robotic manipulator for neuroendoscopy. The manipulator is constructed based on a novel five-bar spherical decoupled mechanism that can provide a remote center of motion of two decoupled degrees of freedom. In this work, the design concept, kinematics, and statics of the proposed mechanism are first studied and then used for demonstrating its superior performance compared with conventional five-bar spherical mechanisms. A multi-objective optimization was taken to find an optimal dimension for the spherical decoupled robotic manipulator with high performance. The optimization is modeled from a Genetic algorithm and Pareto Frontier considering the real operational workspace in neuroendoscopy. Finally, a prototype of the manipulator was manufactured and tested by a surgeon during neuroendoscopy.",
+  "summary_vi": "Dự án này nhằm phát triển một tay máy robot dùng trong nội soi thần kinh. Tay máy được xây dựng dựa trên một cơ cấu cầu năm khâu tách rời mới, có khả năng tạo ra tâm chuyển động từ xa với hai bậc tự do tách rời. Trong nghiên cứu này, ý tưởng thiết kế, động học và tĩnh học của cơ cấu đề xuất được nghiên cứu trước, sau đó được dùng để chứng minh hiệu năng vượt trội so với các cơ cấu cầu năm khâu thông thường. Bài toán tối ưu hóa đa mục tiêu được thực hiện để tìm kích thước tối ưu cho tay máy robot cầu tách rời có hiệu năng cao. Bài toán tối ưu được mô hình hóa dựa trên thuật toán di truyền và biên Pareto, có xét đến không gian làm việc vận hành thực tế trong nội soi thần kinh. Cuối cùng, một mẫu thử nghiệm của tay máy đã được chế tạo và được một bác sĩ phẫu thuật thử nghiệm trong quá trình nội soi thần kinh.",
+  "refs": [],
+  "hidden": false,
+  "order": ""
+}

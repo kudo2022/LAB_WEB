@@ -51,3 +51,14 @@ What was taken from the reference (as direction, not copied): serif display head
 - Fonts: Fraunces (display), Be Vietnam Pro (text), IBM Plex Mono (labels); all three ship Vietnamese glyphs.
 - Phone: top bar keeps logo + switches; nav moves to a fixed bottom strip.
 - Translations: tools/vi.json (long content, keyed by escaped English), inline t(en, vi) for UI strings. gen.py writes tools/vi_todo.json for anything missing.
+
+## Revision 2026-11-12 (b): editable research, slim Home, self-moving arm
+
+User request (verbatim): "vì là lab của tôi thường thay đổi hướng nghiên cứu nên tôi muốn một tính năng là có thể upload hướng nghiên cứu lên và tự động cập nhật hướng nghiên cứu [ảnh: chương cánh tay] phần home dữ lại phần này thôi và làm cho hình ảnh có thể tự chuyển động được không"
+Answers: Home = arm + research list; upload via web admin (Pages CMS); unit = research projects; motion = the arm moves by itself.
+
+- Data: data/projects/*.json (one file per project), data/site/{cv,openings}.json. gen.py needs no outside files.
+- Admin: .pages.yml (Pages CMS). Publish: .github/workflows/build.yml regenerates, commits back, deploys to GitHub Pages.
+- Home: title page, belief and people chapters removed. Arm is chapter 1 (flow, one screen; h1 lives here now), research list chapter 2 (generated), title block close.
+- Arm: time-driven sweep 10° ± 45°, period 8 s; notes cycle every 4 s; a hand takes over, auto resumes 4 s after the last input (phase-matched); spring removal still falls; reduced motion = still pose at 20° with all notes shown.
+- Feeling curve now: curiosity (the arm is already moving when the page opens) -> agency (drag, let go, it stays) -> confidence (the work list) -> resolved (title block). Peak unchanged: "the arm stays where you let go".

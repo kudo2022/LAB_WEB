@@ -1,0 +1,39 @@
+{
+  "slug": "mobile-manipulator-2024",
+  "title_en": "Development of an Autonomous Mobile Robotic Manipulator with Performance Augmentation for Large-Scale Industrial Manufacturing",
+  "title_vi": "Phát triển tay máy robot di động tự hành với hiệu năng được tăng cường cho sản xuất công nghiệp quy mô lớn",
+  "year": 2022,
+  "date": "2022-12-13",
+  "tags": [
+    "robotics",
+    "manufacturing",
+    "mechanism design"
+  ],
+  "image": "content/research/featured/mobile-manipulator-2024/robot-manufacturing.avif",
+  "image_w": 1960,
+  "image_h": 876,
+  "alt_en": "Mobile robotic manipulator concept working on a fuselage section, with the lab prototype",
+  "alt_vi": "Ý tưởng tay máy robot di động làm việc trên một phần thân máy bay, cùng mẫu thử nghiệm của phòng thí nghiệm",
+  "summary_en": "The proposed research project is directly in line with advanced manufacturing by developing a novel autonomous mobile robotic manipulator with performance augmentation for large-scale manufacturing. The designed robotic manipulator consists of a mobile vehicle and a robotic platform, and they will be integrated with an industrial robot to perform manufacturing processes. The performance augmentation of the robotic manipulator will be realized through the design concepts, methods, and technologies presented in this research. For details, a new parallel mechanism will be introduced to construct the robotic platform with high stiffness, load capability, dexterity, and manipulability. A gravity balancing (or gravity compensation) method will be applied to constitute a zero-gravity behavior (the effect of gravity is theoretically zero) for the robotic platform. The balancing design will help the robotic platform to operate with very small input torques and consumed energy while improving the safety, accuracy, and performance reliability of the robot. The joining of a robotic platform and an industrial robot (the combined manipulator is known as the hybrid parallel-serial robotic manipulator) will ensure high flexibility, functionality, and versatility to fulfill the manufacturing requirements. Implementing the mobile vehicle to the hybrid robotic manipulator will increase the mobility of the robot, making it adaptable for multiple operation tasks in a large volume, e.g., a whole manufacturing factory. The use of a real-time navigation system will guide and coordinate the robot autonomously to desired locations. Last, the developed mobile robotic manipulator will be taken to pursue experiments with actual manufacturing tasks to demonstrate the high value-added and promising research direction in advanced robotic manufacturing.",
+  "summary_vi": "Dự án nghiên cứu đề xuất gắn liền trực tiếp với lĩnh vực sản xuất tiên tiến thông qua việc phát triển một tay máy robot di động tự hành mới với hiệu năng được tăng cường cho sản xuất quy mô lớn. Tay máy robot được thiết kế gồm một phương tiện di động và một nền tảng robot, được tích hợp với một robot công nghiệp để thực hiện các quy trình sản xuất. Việc tăng cường hiệu năng của tay máy robot sẽ được hiện thực hóa thông qua các ý tưởng thiết kế, phương pháp và công nghệ được trình bày trong nghiên cứu này. Cụ thể, một cơ cấu song song mới sẽ được giới thiệu để xây dựng nền tảng robot có độ cứng vững, khả năng chịu tải, độ khéo léo và khả năng thao tác cao. Một phương pháp cân bằng trọng lực (hay bù trọng lực) sẽ được áp dụng để tạo nên trạng thái phi trọng lực (về lý thuyết, ảnh hưởng của trọng lực bằng không) cho nền tảng robot. Thiết kế cân bằng sẽ giúp nền tảng robot vận hành với mômen đầu vào và năng lượng tiêu thụ rất nhỏ, đồng thời nâng cao độ an toàn, độ chính xác và độ tin cậy về hiệu năng của robot. Việc kết hợp nền tảng robot với robot công nghiệp (tay máy kết hợp này được gọi là tay máy robot lai song song - nối tiếp) sẽ bảo đảm tính linh hoạt, tính năng và tính đa dụng cao để đáp ứng các yêu cầu sản xuất. Việc trang bị phương tiện di động cho tay máy robot lai sẽ tăng khả năng di chuyển của robot, giúp robot thích ứng với nhiều nhiệm vụ vận hành trong một không gian lớn, ví dụ như toàn bộ một nhà máy sản xuất. Hệ thống dẫn đường thời gian thực sẽ dẫn hướng và điều phối robot một cách tự động đến các vị trí mong muốn. Cuối cùng, tay máy robot di động được phát triển sẽ được đưa vào thực nghiệm với các nhiệm vụ sản xuất thực tế nhằm chứng minh giá trị gia tăng cao và hướng nghiên cứu đầy triển vọng trong lĩnh vực sản xuất bằng robot tiên tiến.",
+  "refs": [
+    {
+      "text": "V. L. Nguyen, “Gravity balancing of a two-degree-of-freedom parallel robotic platform with variable payloads,” Journal of Mechanical Design, vol. 145, no. 2, Dec. 2022.",
+      "url": "https://doi.org/10.1115/1.4056258"
+    },
+    {
+      "text": "V. L. Nguyen, “Realization of a gear-spring balancer with variable payloads and its application to serial robots,” Journal of Mechanisms and Robotics, vol. 15, no. 4, Nov. 2022.",
+      "url": "https://doi.org/10.1115/1.4055739"
+    },
+    {
+      "text": "V. L. Nguyen, “Design of a compact gear-spring mechanism for static balancing of variable payloads,” Journal of Mechanical Design, vol. 144, no. 12, Aug. 2022.",
+      "url": "https://doi.org/10.1115/1.4055121"
+    },
+    {
+      "text": "V. L. Nguyen, “Gravity balancing design of a 3-DOF hybrid robotic manipulator with variable payloads,” Nov. 2021.",
+      "url": "https://doi.org/10.1115/imece2021-69857"
+    }
+  ],
+  "hidden": false,
+  "order": ""
+}

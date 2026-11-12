@@ -108,7 +108,7 @@ html { scroll-padding-top: calc(var(--barh) + 1rem); }
 .ic--moon { fill: currentColor; stroke: none; }
 :root[data-theme="dark"] .ic--moon, :root:not([data-theme="dark"]) .ic--sun { display: none; }
 /* over the blueprint chapter the bar takes the chapter's ground */
-body[data-ground="dark"] .bar { background: color-mix(in oklab, var(--bp) 80%, transparent); color: var(--bp-ink); border-color: var(--bp-hair); }
+body[data-ground="dark"] .bar { background: color-mix(in oklab, var(--bp) 96%, transparent); color: var(--bp-ink); border-color: var(--bp-hair); }
 body[data-ground="dark"] .bar .navlist a[aria-current="page"] { background: var(--bp-acc); color: var(--bp); }
 body[data-ground="dark"] .seg__b[aria-pressed="true"] { background: var(--bp-ink); color: var(--bp); }
 
@@ -176,83 +176,10 @@ body[data-ground="dark"] .folio__code { color: var(--bp-acc); }
 .draw .dim .ext { stroke-dasharray: 3 3; }
 .draw .note, .draw .note text, .note text { font-family: var(--sc-font-mono); font-size: 15px; fill: var(--sc-ink-soft); }
 
-/* ---------- TITLE PAGE ---------- */
-.tp {
-  position: relative; min-height: 100vh; min-height: 100svh; overflow: clip;
-  background: var(--sc-canvas);
-  display: grid;
-}
-.tp__grid {
-  position: absolute; inset: -12% -2%;
-  background-image:
-    linear-gradient(var(--hair) 1px, transparent 1px),
-    linear-gradient(90deg, var(--hair) 1px, transparent 1px),
-    linear-gradient(color-mix(in oklab, var(--sc-ink) 5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklab, var(--sc-ink) 5%, transparent) 1px, transparent 1px);
-  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
-  mask-image: radial-gradient(120% 90% at 70% 40%, #000 40%, transparent 92%);
-}
-.tp__drawing {
-  position: absolute; right: max(2vw, 1rem); top: 9vh;
-  width: min(58vw, 860px); max-width: none;
-  opacity: .92;
-}
-.tp__detail {
-  position: absolute; right: clamp(1rem, 20vw, 400px); bottom: 7vh; width: clamp(130px, 13vw, 200px); z-index: 3;
-}
-.tp__detail .bubble { fill: var(--sc-surface); stroke: var(--sc-ink); stroke-width: 1.4; }
-.tp__detail { filter: drop-shadow(0 10px 18px color-mix(in oklab, var(--sc-ink) 14%, transparent)); }
-.draw .spring--big polyline, .draw .spring--big line { stroke-width: 2.2; }
-.tp__detail .note { font-size: 12px; letter-spacing: .12em; }
-
-.tp__inner {
-  position: relative; z-index: 2;
-  display: grid; grid-template-rows: 1fr;
-  padding: clamp(1.2rem, 3vh, 2rem) var(--sc-gutter) clamp(3rem, 11vh, 8rem) calc(var(--sc-gutter) + 1rem);
-  min-height: calc(100svh - var(--barh));
-}
-.tp__head { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-.tp__logo img { height: 46px; width: auto; filter: brightness(0) saturate(100%); opacity: .9; }
+/* ---------- shared lists (bar nav, link rows) ---------- */
 .navlist { list-style: none; display: flex; gap: clamp(.9rem, 2vw, 2rem); margin: 0; padding: 0; flex-wrap: wrap; }
-.navlist a { font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); text-decoration: none; padding: .55rem 0; display: inline-block; color: var(--sc-ink); }
-.navlist a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--sc-accent); text-underline-offset: .45em; }
-.tp__copy { align-self: end; max-width: 46rem; display: grid; gap: clamp(1rem, 2.4vh, 1.6rem); }
-.tp__title {
-  font-family: var(--sc-font-display);
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-size: clamp(3rem, 1.1rem + 6.4vw, 7.6rem);
-  line-height: .98; letter-spacing: -0.035em; margin: 0;
-}
-.tp__cta { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: .4rem; }
-.cta {
-  display: inline-flex; align-items: center; gap: .55rem; min-height: 48px; padding: .7rem 1.25rem; border-radius: 10px;
-  font-weight: 600; font-size: var(--sc-t-base); text-decoration: none; border: 1px solid var(--sc-accent);
-  background: var(--sc-accent); color: var(--sc-accent-ink);
-  transition: transform 140ms var(--sc-ease-out), background-color 150ms var(--sc-ease-out), color 150ms var(--sc-ease-out), box-shadow 150ms var(--sc-ease-out);
-  box-shadow: 0 10px 24px -14px var(--sc-accent);
-}
-.cta:hover { color: var(--sc-accent-ink); transform: translateY(-1px); }
-.cta:active { transform: translateY(1px); }
-.cta--ghost { background: transparent; color: var(--sc-ink); border-color: var(--border); box-shadow: none; }
-.cta--ghost:hover { color: var(--sc-ink); background: color-mix(in oklab, var(--sc-ink) 6%, transparent); }
-.cta__arr { transition: transform 160ms var(--sc-ease-out); }
-.cta:hover .cta__arr { transform: translateX(3px); }
-:root[data-theme="dark"] .tp__drawing { opacity: .8; }
-:root[data-theme="dark"] .tp__detail { filter: drop-shadow(0 14px 26px rgba(0,0,0,.55)); }
-.tp__lede { font-size: var(--sc-t-lg); line-height: 1.5; max-width: 40ch; color: var(--sc-ink); margin: 0; text-wrap: pretty; }
-
-/* ---------- 1 BELIEF ---------- */
-.ch--belief { background: var(--sc-canvas); padding-block: clamp(6rem, 14vw, 13rem) clamp(5rem, 10vw, 9rem); border-top: 1px solid var(--hair); }
-.belief { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: clamp(2rem, 6vw, 7rem); row-gap: clamp(2.5rem, 5vw, 4.5rem); }
-.belief h2 { grid-column: 1 / -1; max-width: 17ch; }
-.belief__body { display: grid; gap: 1.2rem; grid-column: 1; }
-.applies { grid-column: 2; align-self: end; }
-.applies > p { margin: 0 0 .7rem; }
-.applies ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-.applies li { padding: 1rem 0; border-bottom: 1px solid var(--line-soft); }
-.applies__k { font-size: var(--sc-t-xs); color: var(--sc-ink-soft); text-transform: uppercase; }
-.applies__v { font-family: var(--sc-font-display); font-size: var(--sc-t-xl); font-weight: 500; letter-spacing: -0.01em; }
+.navlist a { text-decoration: none; display: inline-block; color: var(--sc-ink); }
+.links { display: flex; gap: 2rem; flex-wrap: wrap; margin: 0; font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); }
 
 /* ---------- 2 THE BALANCING ARM (peak) ---------- */
 .ch--arm { background: var(--bp); color: var(--bp-ink); --sc-ink: var(--bp-ink); --sc-ink-soft: var(--bp-soft); --sc-accent: var(--bp-acc); --sc-accent-ink: var(--bp); }
@@ -367,24 +294,6 @@ body[data-ground="dark"] .folio__code { color: var(--bp-acc); }
 .reg__more { display: flex; gap: 2rem; flex-wrap: wrap; margin: clamp(2rem, 4vw, 3rem) 0 0; font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); }
 .reg__more a, .links a { text-decoration: underline; text-decoration-color: var(--sc-accent); text-underline-offset: .35em; padding-block: .5rem; display: inline-block; }
 
-/* ---------- 4 PEOPLE ---------- */
-.ch--people { background: var(--paper2); padding-block: clamp(5rem, 9vw, 9rem); }
-.people { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; }
-.people__fig { margin: 0; }
-.people__frame { overflow: hidden; aspect-ratio: 4 / 5; border-radius: var(--radius); box-shadow: 0 22px 50px -26px color-mix(in oklab, var(--sc-ink) 55%, transparent); }
-.people__plane { height: 118%; margin-top: -9%; }
-.people__plane img { width: 100%; height: 100%; object-fit: cover; object-position: 38% 50%; max-width: none; }
-.cap { margin-top: .8rem; font-size: var(--sc-t-xs); color: var(--sc-ink-soft); }
-.people__text { position: relative; display: grid; gap: 1.4rem; }
-.figs { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin: .5rem 0; }
-.figs div { display: flex; flex-direction: column-reverse; gap: .35rem; padding: 1.1rem 1.25rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
-.figs dd { margin: 0; font-family: var(--sc-font-display); font-weight: 600; color: var(--sc-accent); font-size: var(--sc-t-3xl); line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-.figs dt { font-size: var(--sc-t-xs); color: var(--sc-ink-soft); text-transform: uppercase; }
-.honours { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; font-size: var(--sc-t-base); }
-.honours li { padding-left: 1.3rem; position: relative; }
-.honours li::before { content: ""; position: absolute; left: 0; top: .72em; width: .7rem; border-top: 1px solid var(--sc-accent); }
-.links { display: flex; gap: 2rem; flex-wrap: wrap; margin: 0; font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); }
-
 /* ---------- CLOSE: title block ---------- */
 .ch--close { background: var(--sc-canvas); padding-block: clamp(5rem, 9vw, 8rem) clamp(2rem, 5vw, 3.5rem); border-top: 1px solid var(--hair); }
 .ch--close .ch__wrap { display: grid; gap: clamp(3rem, 8vw, 7rem); }
@@ -464,12 +373,6 @@ body[data-ground="dark"] .folio__code { color: var(--bp-acc); }
   .arm__notes li, .reg__frame img, .btn { transition: none; }
 }
 
-/* hero copy sits over the drawing: a soft scrim only where the text is */
-.tp__copy { position: relative; }
-.tp__copy::before {
-  content: ""; position: absolute; z-index: -1; inset: -12% -18% -10% -8%; pointer-events: none;
-  background: radial-gradient(ellipse 60% 62% at 42% 55%, color-mix(in oklab, var(--sc-canvas) 92%, transparent) 40%, transparent 100%);
-}
 
 /* ---------- QA pass 2026-11-12 ---------- */
 :root[data-theme="dark"] { --imgbg: #C9D2DC; --paper2: #0E1E31; }
@@ -496,4 +399,14 @@ body[data-ground="dark"] .folio__code { color: var(--bp-acc); }
   .plot svg { max-height: 15svh; }
   .tp__drawing { top: 12vh; }
   .tp__detail { top: 38vh; width: 96px; }
+}
+
+/* ---------- slim Home (2026-11-12): the arm is the first screen and moves on its own ---------- */
+.arm { height: auto; min-height: calc(100svh - var(--barh)); padding-top: clamp(1.5rem, 5vh, 3.5rem); }
+.arm__lab { color: var(--bp-soft); }
+.arm__title { margin: 0; }
+@media (max-width: 899px) {
+  .arm { padding-top: 1.2rem; padding-bottom: 2rem; }
+  .arm__notes li { display: grid; }
+  .arm__notes li:not(.is-on) { display: none; }
 }

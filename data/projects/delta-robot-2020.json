@@ -1,0 +1,22 @@
+{
+  "slug": "delta-robot-2020",
+  "title_en": "Gravity compensation design of delta parallel robots",
+  "title_vi": "Thiết kế cân bằng trọng lực cho robot song song Delta",
+  "year": 2020,
+  "date": "2020-12-20",
+  "tags": [
+    "robotics",
+    "mechanism design",
+    "control"
+  ],
+  "image": "content/research/featured/delta-robot-2020/delta_robot_trans.avif",
+  "image_w": 1751,
+  "image_h": 1177,
+  "alt_en": "Delta parallel robot with gear-spring modules and torque comparison plots",
+  "alt_vi": "Robot song song Delta với các mô-đun bánh răng - lò xo và đồ thị so sánh mômen",
+  "summary_en": "This research applied the gear-spring module (GSM) for gravity compensation of the renowned Delta parallel robots. Design examples are implemented through a theoretical model and a real industrial Delta robot, the FANUC M-3iA/12H. A comparative study between the uses of the gear-spring modules, torsion springs, and tension springs for gravity compensation is provided. As a result, the proposed GSM design suggests a compact mechanical solution for gravity compensation of the Delta robots without a compromise of the compensation performance and robot workspace.",
+  "summary_vi": "Nghiên cứu này ứng dụng mô-đun bánh răng - lò xo (GSM) để cân bằng trọng lực cho các robot song song Delta nổi tiếng. Các ví dụ thiết kế được thực hiện thông qua một mô hình lý thuyết và một robot Delta công nghiệp thực tế, FANUC M-3iA/12H. Nghiên cứu cũng đưa ra so sánh giữa việc sử dụng mô-đun bánh răng - lò xo, lò xo xoắn và lò xo kéo để cân bằng trọng lực. Kết quả là thiết kế GSM đề xuất mang lại một giải pháp cơ khí nhỏ gọn để cân bằng trọng lực cho robot Delta mà không làm suy giảm hiệu quả cân bằng và không gian làm việc của robot.",
+  "refs": [],
+  "hidden": false,
+  "order": ""
+}

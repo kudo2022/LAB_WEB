@@ -1,0 +1,31 @@
+{
+  "slug": "constant-force-2023",
+  "title_en": "A Novel Large-Stroke Constant Force Mechanism",
+  "title_vi": "Cơ cấu lực không đổi hành trình lớn kiểu mới",
+  "year": 2023,
+  "date": "2023-05-26",
+  "tags": [
+    "mechanism design",
+    "robotics",
+    "control"
+  ],
+  "image": "content/research/featured/constant-force-2023/large-stroke.avif",
+  "image_w": 840,
+  "image_h": 369,
+  "alt_en": "Geared Sarrus linkage with spring forming an adjustable constant-force mechanism, with its prototype",
+  "alt_vi": "Cơ cấu Sarrus có bánh răng kết hợp lò xo tạo thành cơ cấu lực không đổi có thể điều chỉnh, cùng mẫu thử nghiệm",
+  "summary_en": "This work presents the design of a novel adjustable constant-force mechanism (CFM) using a geared Sarrus linkage and a linear spring. The uniqueness of this design is that it provides a constant force over a wide range of displacement and the constant-force level can be adjusted energy-freely by varying the spring position without a preload. In this work, the construction, geometric constraints, and constant-force design of the CFM are expressed. The desired parameters of the mechanism, with consideration of gear friction, are also determined. A numerical example is then given to illustrate the constant-force performance and the effect of gear friction. This paper also shows a prototype of a CFM and experimental studies on it. It was found that the CFM delivered a constant force of up to 20 N within a stroke of 140 mm, and the force error was less than 6%. Moreover, the CFM compensated for masses of 1 and 2 kg with a torque reduction of more than 90%.",
+  "summary_vi": "Nghiên cứu này trình bày thiết kế một cơ cấu lực không đổi (CFM) có thể điều chỉnh mới, sử dụng cơ cấu Sarrus có bánh răng và một lò xo tuyến tính. Điểm độc đáo của thiết kế này là cơ cấu tạo ra lực không đổi trên một dải dịch chuyển rộng, và mức lực không đổi có thể được điều chỉnh mà không tiêu tốn năng lượng bằng cách thay đổi vị trí lò xo, không cần tải trước. Trong nghiên cứu này, cấu tạo, các ràng buộc hình học và thiết kế lực không đổi của CFM được trình bày. Các thông số mong muốn của cơ cấu, có xét đến ma sát bánh răng, cũng được xác định. Tiếp đó, một ví dụ số được đưa ra để minh họa hiệu năng lực không đổi và ảnh hưởng của ma sát bánh răng. Bài báo cũng giới thiệu một mẫu thử nghiệm của CFM và các nghiên cứu thực nghiệm trên mẫu này. Kết quả cho thấy CFM tạo ra lực không đổi lên đến 20 N trong hành trình 140 mm, với sai số lực nhỏ hơn 6%. Hơn nữa, CFM đã cân bằng các khối lượng 1 kg và 2 kg với mức giảm mômen hơn 90%.",
+  "refs": [
+    {
+      "text": "V. L. Nguyen, “A novel adjustable constant-force mechanism based on spring and gear transmission,” in New advances in mechanisms, transmissions and applications, 2023, pp. 382–391.",
+      "url": ""
+    },
+    {
+      "text": "V. L. Nguyen, “Design of an adjustable constant-force mechanism using a geared sarrus linkage and spring,” Mechanism and Machine Theory, vol. 189, p. 105417, 2023.",
+      "url": "https://doi.org/10.1016/j.mechmachtheory.2023.105417"
+    }
+  ],
+  "hidden": false,
+  "order": ""
+}

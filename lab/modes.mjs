@@ -20,8 +20,8 @@ for (const theme of ['light', 'dark']) for (const lang of ['en', 'vi']) {
     await p.screenshot({ path: name + '.png' });
     if (path === 'index.html') {
       // second frame: scroll into the register and the arm
-      for (const id of ['arm', 'register', 'people', 'colophon']) {
-        await p.evaluate(id => { const el = document.getElementById(id); scrollTo(0, el.getBoundingClientRect().top + scrollY + (id === 'arm' ? innerHeight * 1.6 : 0)); }, id);
+      for (const id of ['arm', 'register', 'colophon']) {
+        await p.evaluate(id => { const el = document.getElementById(id); scrollTo(0, el.getBoundingClientRect().top + scrollY + 0); }, id);
         await p.waitForTimeout(700);
         await p.screenshot({ path: `${name}-${id}.png` });
       }

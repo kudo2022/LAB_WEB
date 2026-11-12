@@ -1,0 +1,22 @@
+{
+  "slug": "lower-limb-rehab-2019",
+  "title_en": "A gravity-balanced reconfigurable mechanism for lower-limb rehabilitation",
+  "title_vi": "Cơ cấu tái cấu hình cân bằng trọng lực cho phục hồi chức năng chi dưới",
+  "year": 2019,
+  "date": "2019-12-20",
+  "tags": [
+    "robotics",
+    "mechanism design",
+    "rehabilitation"
+  ],
+  "image": "content/research/featured/lower-limb-rehab-2019/rehab.avif",
+  "image_w": 1219,
+  "image_h": 560,
+  "alt_en": "Seated person using the lower-limb rehabilitation mechanism",
+  "alt_vi": "Người ngồi sử dụng cơ cấu phục hồi chức năng chi dưới",
+  "summary_en": "This research introduced a gravity-balanced reconfigurable mechanism for lower-limb rehabilitation. The unique feature of this design is that it uses a single counterweight to realize a perfect gravity balancing in two working configurations that are relevant to the hip and knee motions during rehabilitation training. The use of counterweight could eliminate the gravitational effect on the patient’s legs, thereby reducing their efforts for movements, and improving the training efficiency.",
+  "summary_vi": "Nghiên cứu này giới thiệu một cơ cấu tái cấu hình được cân bằng trọng lực dùng cho phục hồi chức năng chi dưới. Điểm đặc biệt của thiết kế là sử dụng một đối trọng duy nhất để đạt được cân bằng trọng lực hoàn toàn ở hai cấu hình làm việc tương ứng với chuyển động của khớp háng và khớp gối trong quá trình tập phục hồi chức năng. Việc sử dụng đối trọng có thể loại bỏ ảnh hưởng của trọng lực lên chân người bệnh, nhờ đó giảm sức lực cần thiết cho chuyển động và nâng cao hiệu quả tập luyện.",
+  "refs": [],
+  "hidden": false,
+  "order": ""
+}

@@ -1,12 +1,16 @@
 """Generate every IRoD subpage from data, in the same drawing-set design as the homepage.
 
-Sources: the old irodlab.com pages (downloaded to the scratchpad) and the PI's CV text.
-Run: python -I tools/gen.py <scratchpad>/old <scratchpad>/cv.txt
+Sources (all inside the repo):
+  data/projects/*.json   research projects, edited through Pages CMS (.pages.yml)
+  data/site/cv.json      publications, grants, awards, service of the PI
+  data/site/openings.json  text of the open-position pages
+  tools/vi.json          Vietnamese for long fixed text (key = escaped English)
+Run: python tools/gen.py      (also run by .github/workflows/build.yml on every push)
 """
 import html, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OLD, CV = sys.argv[1], sys.argv[2]
+DATA = os.path.join(ROOT, 'data')
 E = html.escape
 BS = chr(92)
 
@@ -44,35 +48,58 @@ def date_vi(d):
 def tags_t(tags): return t(E(' · '.join(tags)), E(' · '.join(TAG_VI.get(x, x) for x in tags)))
 
 # ---------------------------------------------------------------- data ----
-PROJECTS = [
-    dict(slug='constant-force-2023', title='A Novel Large-Stroke Constant Force Mechanism', date='May 26, 2023', year=2023,
-         tags=['mechanism design', 'robotics', 'control'], img='large-stroke.avif', w=840, h=369,
-         alt='Geared Sarrus linkage with spring forming an adjustable constant-force mechanism, with its prototype'),
-    dict(slug='gravity-compensator-2022', title='A Design Approach for Gravity Compensators Using Planar Four-Bar Mechanisms and a Linear Spring', date='June 10, 2024', year=2022,
-         tags=['robotics', 'mechanism design', 'control'], img='four-bar_robot.avif', w=1655, h=1003,
-         alt='Four-bar gravity compensator types, balanced workspace plots and prototype photos'),
-    dict(slug='mobile-manipulator-2024', title='Development of an Autonomous Mobile Robotic Manipulator with Performance Augmentation for Large-Scale Industrial Manufacturing', date='December 13, 2022', year=2022,
-         tags=['robotics', 'manufacturing', 'mechanism design'], img='robot-manufacturing.avif', w=1960, h=876,
-         alt='Mobile robotic manipulator concept working on a fuselage section, with the lab prototype'),
-    dict(slug='error-compensation-2022', title='Compliance error compensation of a robot end-effector with joint stiffness uncertainties for milling', date='April 15, 2022', year=2022,
-         tags=['robotics', 'control', 'manufacturing'], img='Robotic_machining.avif', w=1793, h=975,
-         alt='Articulated robot with a Delta parallel end-effector machining workpieces'),
-    dict(slug='agv-2021', title='Development of an Intelligent Automatic Guided Vehicle (AGV)', date='December 20, 2021', year=2021,
-         tags=['robotics', 'manufacturing', 'control'], img='agv.avif', w=1852, h=816,
-         alt='Automatic guided vehicle carrying a parallel platform and a gravity-compensated serial arm'),
-    dict(slug='delta-robot-2020', title='Gravity compensation design of delta parallel robots', date='December 20, 2020', year=2020,
-         tags=['robotics', 'mechanism design', 'control'], img='delta_robot_trans.avif', w=1751, h=1177,
-         alt='Delta parallel robot with gear-spring modules and torque comparison plots'),
-    dict(slug='lower-limb-rehab-2019', title='A gravity-balanced reconfigurable mechanism for lower-limb rehabilitation', date='December 20, 2019', year=2019,
-         tags=['robotics', 'mechanism design', 'rehabilitation'], img='rehab.avif', w=1219, h=560,
-         alt='Seated person using the lower-limb rehabilitation mechanism'),
-    dict(slug='serial-manipulator-2019', title='Gravity compensation for serial robotic manipulators', date='December 15, 2019', year=2019,
-         tags=['robotics', 'mechanism design', 'control'], img='serial.avif', w=840, h=325,
-         alt='Serial manipulator with gear-spring modules and its test bench'),
-    dict(slug='spherical-manipulator-2017', title='A spherical decoupled robotic manipulator for neuroendoscopy', date='December 20, 2017', year=2017,
-         tags=['robotics', 'medical robotics', 'mechanism design'], img='spherical.avif', w=720, h=321,
-         alt='Five-bar spherical decoupled mechanism positioned over a patient model'),
-]
+def _load_json(*parts):
+    return json.load(open(os.path.join(DATA, *parts), encoding='utf8'))
+
+def _tags(v):
+    if isinstance(v, str): v = [x.strip() for x in v.split(',')]
+    return [str(x).strip() for x in (v or []) if str(x).strip()]
+
+def _img(v):
+    if isinstance(v, list): v = v[0] if v else ''
+    return str(v or '').strip().lstrip('/')
+
+def _date(v, year):
+    m = re.match(r'^(\d{4})-(\d{2})-(\d{2})', str(v or ''))
+    if not m: return str(year or '')
+    return '%s %d, %s' % (MONTHS[int(m.group(2)) - 1], int(m.group(3)), m.group(1))
+
+def load_projects():
+    out = []
+    folder = os.path.join(DATA, 'projects')
+    for fn in sorted(os.listdir(folder)):
+        if not fn.endswith('.json'): continue
+        d = json.load(open(os.path.join(folder, fn), encoding='utf8'))
+        if d.get('hidden'): continue
+        slug = re.sub(r'[^a-z0-9-]+', '-', str(d.get('slug') or fn[:-5]).lower()).strip('-')
+        title = str(d.get('title_en') or '').strip()
+        if not slug or not title: continue
+        year = d.get('year') or (str(d.get('date') or '')[:4])
+        try: year = int(year)
+        except (TypeError, ValueError): year = ''
+        en_text = str(d.get('summary_en') or '').strip()
+        out.append(dict(
+            slug=slug, title=title, title_vi=str(d.get('title_vi') or '').strip() or title,
+            year=year, iso=str(d.get('date') or ''), date=_date(d.get('date'), year), tags=_tags(d.get('tags')),
+            img=_img(d.get('image')), w=d.get('image_w'), h=d.get('image_h'),
+            alt=str(d.get('alt_en') or title), alt_vi=str(d.get('alt_vi') or d.get('alt_en') or d.get('title_vi') or title),
+            text=en_text, text_vi=str(d.get('summary_vi') or '').strip() or en_text,
+            refs=[(str(r.get('text') or '').strip(), str(r.get('url') or '').strip() or None) for r in (d.get('refs') or []) if isinstance(r, dict) and r.get('text')],
+            order=d.get('order'),
+        ))
+    # explicit order first (smallest first), then newest
+    out.sort(key=lambda p: p['iso'], reverse=True)                      # newest date first
+    out.sort(key=lambda p: p['year'] or 0, reverse=True)                # then by year of work
+    def _ord(p):
+        try: return (0, float(p['order']))
+        except (TypeError, ValueError): return (1, 0)
+    out.sort(key=_ord)                                                   # an explicit order wins
+    return out
+
+def wh(p):
+    return (' width="%s" height="%s"' % (p['w'], p['h'])) if p.get('w') and p.get('h') else ''
+
+PROJECTS = []
 
 PEOPLE = [
     dict(id='linh.nv', en='Nguyen Vu Linh', vi='Nguyễn Vũ Linh', role='Principal Investigator', img='linh.avif',
@@ -109,55 +136,12 @@ NEWS = [
     ('Feb 2023', 'Lab', 'Dr. Nguyen Vu Linh joins VinUniversity as Assistant Professor of Mechanical Engineering. The Interactive Robot Design Lab starts at the College of Engineering and Computer Science.', None),
 ]
 
-PROJECT_TEXT = {}   # filled from the old pages
-PROJECT_REFS = {}
-
 # ------------------------------------------------------------- helpers ----
 def read(p): return open(p, encoding='utf8').read()
-
-def old_main(path):
-    h = read(os.path.join(OLD, path))
-    s = h.find('id="title-block-header"'); e = h.find('</main>')
-    return h[s:e]
 
 def strip(t):
     t = re.sub(r'<[^>]+>', '', t)
     return re.sub(r'\s+', ' ', html.unescape(t)).strip()
-
-def load_projects():
-    for p in PROJECTS:
-        m = old_main('content/research/featured/%s/index.html' % p['slug'])
-        desc = re.search(r'<div class="description">(.*?)</div>', m, re.S)
-        body = strip(desc.group(1)) if desc else ''
-        if not body:
-            paras = re.findall(r'<p>(.*?)</p>', m, re.S)
-            body = max((strip(x) for x in paras), key=len, default='')
-        PROJECT_TEXT[p['slug']] = body
-        refs = []
-        for r in re.findall(r'<div id="ref-[^"]+" class="csl-entry"[^>]*>(.*?)</div>\s*</div>|<div id="ref-[^"]+" class="csl-entry"[^>]*>(.*?)</div>', m, re.S):
-            raw = r[0] or r[1]
-            link = re.search(r'href="(https?://[^"]+)"', raw)
-            txt = strip(re.sub(r'<div class="csl-left-margin">.*?</div>', '', raw, flags=re.S))
-            txt = re.sub(r',?\s*doi:\s*\S+$', '', txt).rstrip('.') + '.'
-            refs.append((txt, link.group(1) if link else None))
-        PROJECT_REFS[p['slug']] = refs
-
-def cv_section(start, stop):
-    lines = read(CV).splitlines()
-    out, on = [], False
-    for ln in lines:
-        if ln.startswith(start): on = True; continue
-        if on and stop(ln): break
-        if on and ln.strip(): out.append(ln.strip())
-    return out
-
-def old_pub_links():
-    m = old_main('content/people/members/linh.nv/index.html')
-    links = []
-    for li in re.findall(r'<li>(.*?)</li>', m, re.S):
-        a = re.search(r'href="(https?://[^"]+)"', li)
-        if a: links.append((norm(strip(li)), a.group(1)))
-    return links
 
 def norm(t): return re.sub(r'[^a-z0-9]+', ' ', t.lower())
 
@@ -306,18 +290,17 @@ GLYPH = '''<svg class="phead__glyph draw" viewBox="0 0 240 200" aria-hidden="tru
 # --------------------------------------------------------------- pages ----
 def project_row(p, pre, full=False):
     href = '%scontent/research/featured/%s/index.html' % (pre, p['slug'])
-    img = '%scontent/research/featured/%s/%s' % (pre, p['slug'], p['img'])
+    img = pre + p['img']
     def cut(s): return s[:230].rsplit(' ', 1)[0] + '…' if len(s) > 240 else s
-    en = PROJECT_TEXT[p['slug']]
-    vi = html.unescape(V(E(en)))
+    en, vi = p['text'], p['text_vi']
     summ = t(E(cut(en)), E(cut(vi)))
     cats = ' '.join(x.replace(' ', '-') for x in p['tags'])
     return f'''<li class="prow" data-cats="{cats}">
   <a class="prow__a" href="{href}">
-    <span class="prow__fig"><img loading="lazy" src="{img}" width="{p['w']}" height="{p['h']}" alt=""></span>
+    <span class="prow__fig"><img loading="lazy" src="{img}"{wh(p)} alt=""></span>
     <span class="prow__body">
       <span class="prow__meta"><span class="prow__year">{p['year']}</span><span class="prow__tags">{tags_t(p['tags'])}</span></span>
-      <span class="prow__t">{t(E(p['title']))}</span>
+      <span class="prow__t">{t(E(p['title']), E(p['title_vi']))}</span>
       <span class="prow__s">{summ}</span>
     </span>
   </a>
@@ -377,7 +360,7 @@ def project_pages():
     for i, p in enumerate(PROJECTS):
         pre = '../../../../'
         path = 'content/research/featured/%s/index.html' % p['slug']
-        refs = PROJECT_REFS[p['slug']]
+        refs = p['refs']
         refhtml = ''
         if refs:
             refhtml = '<section class="psec psec--refs"><div class="ch__wrap narrow"><h2 class="display display--sm">%s</h2><ol class="refs" lang="en">' % t('Publications', 'Công bố') + ''.join(
@@ -387,29 +370,28 @@ def project_pages():
         def pn(q, k):
             if not q: return '<span></span>'
             return '<a class="pn pn--%s" href="%scontent/research/featured/%s/index.html"><span class="pn__k">%s</span><span class="pn__t">%s</span></a>' % (
-                k, pre, q['slug'], t('Newer', 'Mới hơn') if k == 'prev' else t('Older', 'Cũ hơn'), t(E(q['title'])))
-        meta = [(t('Published', 'Ngày đăng'), t(E(p['date']), date_vi(p['date']))), (t('Year of work', 'Năm thực hiện'), str(p['year'])),
+                k, pre, q['slug'], t('Newer', 'Mới hơn') if k == 'prev' else t('Older', 'Cũ hơn'), t(E(q['title']), E(q['title_vi'])))
+        meta = [(t('Published', 'Ngày đăng'), t(E(p['date']), date_vi(p['date']))), (t('Year of work', 'Năm thực hiện'), E(str(p['year']))),
                 (t('Categories', 'Chủ đề'), tags_t(p['tags'])), (t('Sheet', 'Tờ'), t('%d of %d' % (i + 1, n), '%d / %d' % (i + 1, n)))]
-        body = head_block(t('Research project', 'Dự án nghiên cứu'), t(E(p['title'])), None, meta, glyph=False)
-        text = E(PROJECT_TEXT[p['slug']])
+        body = head_block(t('Research project', 'Dự án nghiên cứu'), t(E(p['title']), E(p['title_vi'])), None, meta, glyph=False)
         body += f'''
 <section class="psec psec--fig">
   <div class="ch__wrap">
     <figure class="pfig" data-sc-in>
-      <div class="pfig__frame"><img src="{p['img']}" width="{p['w']}" height="{p['h']}" alt="{E(p['alt'])}" data-alt-vi="{E(plain_vi(E(p['alt'])))}"></div>
-      <figcaption class="reg__cap"><span class="reg__capk">{t('Fig.', 'Hình')}</span> {t(E(p['title']))}</figcaption>
+      <div class="pfig__frame"><img src="{pre}{p['img']}"{wh(p)} alt="{E(p['alt'])}" data-alt-vi="{E(p['alt_vi'])}"></div>
+      <figcaption class="reg__cap"><span class="reg__capk">{t('Fig.', 'Hình')}</span> {t(E(p['title']), E(p['title_vi']))}</figcaption>
     </figure>
   </div>
 </section>
 <section class="psec">
   <div class="ch__wrap narrow">
     <h2 class="display display--sm">{t('Summary', 'Tóm tắt')}</h2>
-    <p class="body prose">{t(text)}</p>
+    <p class="body prose">{t(E(p['text']), E(p['text_vi']))}</p>
   </div>
 </section>
 {refhtml}
 <nav class="psec pnav" aria-label="More projects" data-aria-vi="Dự án khác"><div class="ch__wrap pnav__wrap">{pn(prev, 'prev')}<a class="pn pn--all" href="{pre}content/research/index.html"><span class="pn__k">{t('Index', 'Danh mục')}</span><span class="pn__t">{t('All research', 'Tất cả nghiên cứu')}</span></a>{pn(nxt, 'next')}</div></nav>'''
-        page(path, p['title'], PROJECT_TEXT[p['slug']][:155], 'Research', 'R%d' % (i + 1), 'Project', body, sheet_vi='Dự án')
+        page(path, p['title'], p['text'][:155], 'Research', 'R%d' % (i + 1), 'Project', body, title_vi=p['title_vi'], sheet_vi='Dự án')
 
 def news_page():
     pre = '../../'
@@ -469,9 +451,8 @@ def member_page(p):
 
 def pi_page(journals, confs, links):
     pre = '../../../../'
-    grants = cv_pairs('RESEARCH GRANTS', 'TEACHING COURSES')
-    awards = cv_pairs('AWARDS', 'ASSOCIATION')
-    service = cv_section('ASSOCIATION & SERVICES', lambda l: l.startswith('REFERENCES'))
+    cv = _load_json('site', 'cv.json')
+    grants, awards, service = cv['grants'], cv['awards'], cv['service']
     def strip_amt(x): return re.sub(r'\s*\((PI|co-PI|member)[^)]*\)', lambda m: ' (' + m.group(1) + ')', x).rstrip('.') + '.'
     def clean(x):
         x = re.sub(r'(\d|Now)\s*[–-]\s*(\d|Now)', r'\1 to \2', x)          # date ranges
@@ -545,7 +526,7 @@ def pi_page(journals, confs, links):
     page('content/people/members/linh.nv/index.html', 'Nguyen Vu Linh', 'Dr. Nguyen Vu Linh, Assistant Professor and Associate Program Director of Mechanical Engineering, VinUniversity.',
          'People', 'P1', 'Nguyen Vu Linh', body, title_vi='Nguyễn Vũ Linh', sheet_vi='Nguyễn Vũ Linh')
 
-def cv_pairs(start, stop):
+def _unused_cv_pairs(start, stop):
     ls = cv_section(start, lambda l: l.startswith(stop))
     out = []
     i = 0
@@ -605,14 +586,10 @@ def openings_pages():
 
     MAIL = '<a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a>'
     for slug, kind, kind_vi in [('vishc_phd_2025', 'PhD', 'Tiến sĩ'), ('vishc_postdocs_2025', 'Postdoc', 'Sau tiến sĩ')]:
-        m = old_main('content/openings/positions/%s/index.html' % slug)
-        title = strip(re.search(r'<h1[^>]*>(.*?)</h1>', m, re.S).group(1))
-        content = m[m.find('</header>'):] if '</header>' in m else m
-        # Keep headings, paragraphs and list items, drop everything else.
-        blocks = re.findall(r'<(h[1-3]|p|li)[^>]*>(.*?)</\1>', content, re.S)
+        od = _load_json('site', 'openings.json')[slug]
+        title = od['title']
         out, in_list = '', False
-        for tag, inner in blocks:
-            txt = strip(inner)
+        for tag, txt in od['blocks']:
             if not txt or txt in ('Back to top',): continue
             tx = t(E(txt)).replace('linh.nv2@vinuni.edu.vn', MAIL)
             if tag == 'li':
@@ -631,17 +608,64 @@ def openings_pages():
         page('content/openings/positions/%s/index.html' % slug, title, title, 'Openings', 'O', kind + ' position', body,
              title_vi=plain_vi(h1), sheet_vi='Vị trí ' + kind_vi)
 
+def home_register():
+    """Rewrite the research list on the homepage between the research markers."""
+    path = os.path.join(ROOT, 'index.html')
+    h = open(path, encoding='utf8').read()
+    a, b = '<!-- research:start -->', '<!-- research:end -->'
+    if a not in h or b not in h: return
+    rows = []
+    for i, p in enumerate(PROJECTS):
+        img = E(p['img'])
+        rows.append(f'''
+        <li class="reg__row{' is-active' if i == 0 else ''}" data-fig="{img}">
+          <a href="./content/research/featured/{p['slug']}/index.html">
+            <span class="reg__year">{E(str(p['year']))}</span>
+            <span class="reg__t">{t(E(p['title']), E(p['title_vi']))}</span>
+            <span class="reg__tags">{tags_t(p['tags'])}</span>
+            <img class="reg__img" loading="lazy" src="{img}"{wh(p)} alt="">
+          </a>
+        </li>''')
+    fig = ''
+    if PROJECTS:
+        f = PROJECTS[0]
+        y = E(str(f['year']))
+        fig = f'''
+      <figure class="reg__fig" data-sc-reveal="up" data-sc-reveal-at="0.1 0.3" aria-hidden="true">
+        <div class="reg__frame"><img id="reg-fig" src="{E(f['img'])}" alt=""></div>
+        <figcaption class="reg__cap"><span class="reg__capk">{t('Fig.', 'Hình')}</span> <span id="reg-cap">{t(E(f['title']) + ', ' + y, E(f['title_vi']) + ', ' + y)}</span></figcaption>
+      </figure>'''
+    block = f'''{a}
+    <div class="reg">
+      <ol class="reg__list">{''.join(rows)}
+      </ol>{fig}
+    </div>
+    {b}'''
+    i = h.index(a); j = h.index(b) + len(b)
+    h = h[:i] + block + h[j:]
+    open(path, 'w', encoding='utf8').write(h)
+
 def main():
-    load_projects()
-    journals = cv_section('JOURNAL PAPERS', lambda l: l.startswith('* Corresponding'))
-    confs = [l for l in cv_section('CONFERENCE PAPERS', lambda l: l.startswith('INVITED TALKS')) if not re.match(r'^(20\d\d|Before 2020)$', l)]
-    links = old_pub_links()
+    PROJECTS[:] = load_projects()
+    cv = _load_json('site', 'cv.json')
+    journals, confs = cv['journals'], cv['conferences']
+    links = [tuple(x) for x in cv['pub_links']]
     research_index(journals, confs, links)
     project_pages()
     news_page()
     people_pages()
     pi_page(journals, confs, links)
     openings_pages()
+    home_register()
+    # projects removed or hidden in the CMS: drop their old page (images stay where they are)
+    feat = os.path.join(ROOT, 'content', 'research', 'featured')
+    live = set(p['slug'] for p in PROJECTS)
+    for d in os.listdir(feat):
+        f = os.path.join(feat, d, 'index.html')
+        if d not in live and os.path.exists(f):
+            os.remove(f)
+            print('removed stale page', d)
+            if not os.listdir(os.path.join(feat, d)): os.rmdir(os.path.join(feat, d))
     todo = os.path.join(ROOT, 'tools', 'vi_todo.json')
     json.dump(TODO, open(todo, 'w', encoding='utf8'), ensure_ascii=False, indent=1)
     print('journals', len(journals), 'conferences', len(confs), 'links', len(links), 'untranslated', len(TODO))

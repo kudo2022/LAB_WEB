@@ -1,0 +1,62 @@
+name: Build and publish site
+
+# Runs on every push to main (including saves from Pages CMS): regenerates the pages from data/,
+# commits the regenerated HTML back, and publishes the site to GitHub Pages.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate pages from data/
+        run: python -I tools/gen.py
+
+      - name: Commit regenerated pages
+        run: |
+          if [ -n "$(git status --porcelain -- index.html content)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html content
+            git commit -m "Rebuild pages from data [skip ci]"
+            git push
+          fi
+
+      - name: Stage the public site
+        run: |
+          mkdir _site
+          cp -r index.html ui.js site.js site.css pages.js pages.css scrollcraft.js scrollcraft.css images content _site/
+          touch _site/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

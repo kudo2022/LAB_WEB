@@ -1,0 +1,22 @@
+{
+  "slug": "serial-manipulator-2019",
+  "title_en": "Gravity compensation for serial robotic manipulators",
+  "title_vi": "Cân bằng trọng lực cho tay máy robot nối tiếp",
+  "year": 2019,
+  "date": "2019-12-15",
+  "tags": [
+    "robotics",
+    "mechanism design",
+    "control"
+  ],
+  "image": "content/research/featured/serial-manipulator-2019/serial.avif",
+  "image_w": 840,
+  "image_h": 325,
+  "alt_en": "Serial manipulator with gear-spring modules and its test bench",
+  "alt_vi": "Tay máy nối tiếp với các mô-đun bánh răng - lò xo và bàn thử nghiệm",
+  "summary_en": "Gravity compensation using mechanical springs allows eliminating the gravitational effect on robotic manipulators, thereby reducing the actuation energy and improving accuracy, safety, and robot performance. In this research, a novel gravity compensation design, called the “gear-spring module (GSM)”, is proposed and installed on serial robotic manipulators for gravity compensation. The proposed GSM-based design is characterized by structure compactness, less assemblage effort, ease of modularization, and high performance of gravity compensation.",
+  "summary_vi": "Cân bằng trọng lực bằng lò xo cơ khí cho phép loại bỏ ảnh hưởng của trọng lực lên tay máy robot, từ đó giảm năng lượng dẫn động và nâng cao độ chính xác, độ an toàn cũng như hiệu năng của robot. Trong nghiên cứu này, một thiết kế cân bằng trọng lực mới, gọi là “mô-đun bánh răng - lò xo (GSM)”, được đề xuất và lắp đặt trên các tay máy robot nối tiếp để cân bằng trọng lực. Thiết kế dựa trên GSM đề xuất có đặc điểm kết cấu nhỏ gọn, ít công lắp ráp, dễ mô-đun hóa và hiệu quả cân bằng trọng lực cao.",
+  "refs": [],
+  "hidden": false,
+  "order": ""
+}

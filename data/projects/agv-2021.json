@@ -1,0 +1,22 @@
+{
+  "slug": "agv-2021",
+  "title_en": "Development of an Intelligent Automatic Guided Vehicle (AGV)",
+  "title_vi": "Phát triển xe tự hành thông minh (AGV)",
+  "year": 2021,
+  "date": "2021-12-20",
+  "tags": [
+    "robotics",
+    "manufacturing",
+    "control"
+  ],
+  "image": "content/research/featured/agv-2021/agv.avif",
+  "image_w": 1852,
+  "image_h": 816,
+  "alt_en": "Automatic guided vehicle carrying a parallel platform and a gravity-compensated serial arm",
+  "alt_vi": "Xe tự hành mang nền tảng song song và cánh tay nối tiếp được cân bằng trọng lực",
+  "summary_en": "This research aims to develop a robotic manipulator with performance augmentation for an intelligent automatic guided vehicle (AGV). The robot augmentation is realized through the principle of gravity compensation for reducing the actuation torques and energy consumption. The robot’s dexterity and flexibility are improved by adding a parallel platform under its base, thereby creating a hybrid serial-parallel robotic manipulator. The proposed hybrid robotic manipulator is mounted on the AGV, which is used for coordination and navigation in industrial environments. The AGV could suggest several services, such as multi-sensor data fusion, mission assignment, time synchronization, visual data representation, global navigation, and local path planning. Besides, an intelligent gripper equipped with sensors and instruments is also implemented to the proposed hybrid manipulator to provide high-level system decision-making in the grip and release of objects. This gripper could offer gripping-force accuracy and sampling rate at a minimal cost through data acquisition and processing, layout design, and embedded electronic circuit design.",
+  "summary_vi": "Nghiên cứu này nhằm phát triển một tay máy robot có hiệu năng được tăng cường cho xe tự hành thông minh (AGV). Việc tăng cường hiệu năng robot được hiện thực hóa dựa trên nguyên lý cân bằng trọng lực nhằm giảm mômen dẫn động và năng lượng tiêu thụ. Độ khéo léo và tính linh hoạt của robot được cải thiện bằng cách bổ sung một nền tảng song song bên dưới đế robot, từ đó tạo thành một tay máy robot lai nối tiếp - song song. Tay máy robot lai đề xuất được lắp trên AGV, vốn được sử dụng để điều phối và dẫn đường trong môi trường công nghiệp. AGV có thể cung cấp một số dịch vụ như hợp nhất dữ liệu đa cảm biến, phân công nhiệm vụ, đồng bộ thời gian, biểu diễn dữ liệu trực quan, dẫn đường toàn cục và hoạch định đường đi cục bộ. Bên cạnh đó, một bộ kẹp thông minh được trang bị cảm biến và thiết bị đo cũng được tích hợp vào tay máy lai đề xuất nhằm hỗ trợ ra quyết định ở cấp hệ thống khi kẹp và nhả vật. Bộ kẹp này có thể mang lại độ chính xác lực kẹp và tốc độ lấy mẫu với chi phí tối thiểu thông qua thu thập và xử lý dữ liệu, thiết kế bố trí và thiết kế mạch điện tử nhúng.",
+  "refs": [],
+  "hidden": false,
+  "order": ""
+}

@@ -35,7 +35,12 @@
     var MIN = -55, MAX = 70, G_EFF = 9, DAMP = 1.2;
     var GHOST_AT = [-40, -20, 0, 20, 40, 60];
 
-    var S = { deg: -45, omega: 0, mode: 'scroll', attached: true, dragging: false, resting: false };
+    // Auto demo: the arm sweeps by itself (deg = MID + AMP·sin φ). A hand takes over; after IDLE ms
+    // without input (spring attached) it eases back into the sweep. Reduced motion: a still pose.
+    var MID = 10, AMP = 45, PERIOD = 8, IDLE = 4000, NOTE_EVERY = 4;
+    var HOME = reduce ? 'still' : 'auto';
+    var S = { deg: reduce ? 20 : MID, omega: 0, mode: HOME, attached: true, dragging: false, resting: false,
+              phase: 0, blend: 0, clock: 0, lastInput: 0 };
     var ghostDone = {}, prevScrollDeg = null;
     var last = { deg: NaN, attached: null, note: -1, hand: null, readout: '' };
     var near = false, rafId = 0, lastT = 0;
@@ -95,19 +100,17 @@
     function render(pv) {
       var deg = S.deg, r = deg * D2R, c = Math.cos(r), s = Math.sin(r);
       var hand = S.mode === 'hand';
-      var note = hand || pv >= 0.72 ? 2 : pv >= 0.30 ? 1 : 0;
+      var note = hand ? 2 : S.mode === 'still' ? -1 : Math.floor(S.clock / NOTE_EVERY) % 3;
       if (note !== last.note) {
-        for (var i = 0; i < notes.length; i++) notes[i].classList.toggle('is-on', +notes[i].getAttribute('data-note') === note);
+        for (var i = 0; i < notes.length; i++) notes[i].classList.toggle('is-on', note === -1 || +notes[i].getAttribute('data-note') === note);
         last.note = note;
       }
       if (hand !== last.hand) { sec.classList.toggle('is-hand', hand); last.hand = hand; }
       // Publish bespoke state for the verification harness (shoot.mjs): the arm's
       // motion is SVG, which the engine-level signature cannot see. The last ~14%
-      // of the pin is an authored hold: the sweep is done and the arm waits for a hand.
-      var vstate = Math.round(deg) + '|' + note + '|' + (S.attached ? 1 : 0);
+      // arm now moves on its own (time-driven), so there is no scroll-driven hold any more.
+      var vstate = Math.round(deg) + '|' + note + '|' + (S.attached ? 1 : 0) + '|' + S.mode;
       if (vstate !== last.vstate) { sec.setAttribute('data-sc-verify-state', vstate); last.vstate = vstate; }
-      var vhold = S.mode === 'scroll' && pv > 0.86 ? 'true' : 'false';
-      if (vhold !== last.vhold) { sec.setAttribute('data-sc-verify-hold', vhold); last.vhold = vhold; }
       if (deg === last.deg && S.attached === last.attached) return;
 
       var P = pt(L, deg), Bp = pt(B, deg);
@@ -164,20 +167,32 @@
       var dt = lastT ? Math.min((t - lastT) / 1000, 1 / 30) : 1 / 60;
       lastT = t;
       var pv = p();
-      if (S.mode === 'scroll') {
-        S.deg = -45 + 105 * smooth(clamp((pv - 0.05) / 0.8, 0, 1));
+      if (S.mode === 'auto') {
+        S.clock += dt;
+        S.phase += dt * 2 * Math.PI / PERIOD;
+        var target = MID + AMP * Math.sin(S.phase);
+        if (S.blend > 0) {                       // ease in from wherever the hand left it
+          S.blend = Math.max(0, S.blend - dt / 1.2);
+          S.deg += (target - S.deg) * Math.min(1, dt * 4);
+        } else S.deg = target;
         addGhosts(prevScrollDeg, S.deg);
         prevScrollDeg = S.deg;
       } else if (!S.attached && !S.dragging) {
         stepFall(dt);
+      } else if (S.mode === 'hand' && !S.dragging && HOME === 'auto' && performance.now() - S.lastInput > IDLE) {
+        resumeAuto();
       }
       render(pv);
       if (near) rafId = requestAnimationFrame(frame);
     }
     function start() { if (!rafId) { lastT = 0; rafId = requestAnimationFrame(frame); } }
 
-    function toHand() { S.mode = 'hand'; prevScrollDeg = null; }
-    function setDeg(d) { S.deg = clamp(d, MIN, MAX); S.omega = 0; S.resting = false; start(); }
+    function toHand() { S.mode = 'hand'; prevScrollDeg = null; S.lastInput = performance.now(); }
+    function resumeAuto() {
+      S.mode = 'auto'; S.blend = 1; S.clock = 0;
+      S.phase = Math.asin(clamp((S.deg - MID) / AMP, -1, 1));   // continue from the current pose
+    }
+    function setDeg(d) { S.deg = clamp(d, MIN, MAX); S.omega = 0; S.resting = false; S.lastInput = performance.now(); start(); }
 
     // Pointer dragging on the handle.
     function pointerDeg(e) {
@@ -195,7 +210,7 @@
         setDeg(pointerDeg(e)); e.preventDefault();
       });
       el.handle.addEventListener('pointermove', function (e) { if (S.dragging) setDeg(pointerDeg(e)); });
-      var release = function () { if (S.dragging) { S.dragging = false; S.omega = 0; start(); } };
+      var release = function () { if (S.dragging) { S.dragging = false; S.omega = 0; S.lastInput = performance.now(); start(); } };
       el.handle.addEventListener('pointerup', release);
       el.handle.addEventListener('pointercancel', release);
       el.handle.addEventListener('lostpointercapture', release);
@@ -216,12 +231,14 @@
     }
     if (el.btnSpring) el.btnSpring.addEventListener('click', function () {
       S.attached = !S.attached;
-      if (!S.attached && S.mode === 'scroll') toHand();
+      if (!S.attached && S.mode !== 'hand') toHand();
+      S.lastInput = performance.now();
       S.omega = 0; S.resting = false;
       syncButton(); buildPlot(); start();
     });
     if (el.btnReset) el.btnReset.addEventListener('click', function () {
-      S.attached = true; S.mode = 'scroll'; S.dragging = false; S.omega = 0; S.resting = false;
+      S.attached = true; S.dragging = false; S.omega = 0; S.resting = false;
+      if (HOME === 'auto') resumeAuto(); else { S.mode = 'still'; S.deg = 20; }
       clearGhosts(); syncButton(); buildPlot(); start();
     });
 
