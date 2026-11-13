@@ -69,6 +69,21 @@
     }
   });
 
+  // Menu button (below 992px the sections fold away, as on the old irodlab.com navbar).
+  var bar = document.querySelector('.bar'), menu = bar && bar.querySelector('.bar__menu');
+  function setMenu(open) {
+    if (!menu) return;
+    bar.classList.toggle('is-open', open);
+    menu.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  if (menu) {
+    menu.addEventListener('click', function () { setMenu(menu.getAttribute('aria-expanded') !== 'true'); });
+    bar.querySelector('.bar__nav').addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && bar.classList.contains('is-open')) { setMenu(false); menu.focus(); } });
+    document.addEventListener('click', function (e) { if (!bar.contains(e.target)) setMenu(false); });
+    window.addEventListener('resize', function () { if (window.innerWidth > 991) setMenu(false); });
+  }
+
   // Follow the system setting live, until the visitor picks a theme themselves.
   try {
     var mq = matchMedia('(prefers-color-scheme: dark)');

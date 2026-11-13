@@ -67,28 +67,37 @@ html { scroll-padding-top: calc(var(--barh) + 1rem); }
 .skip:focus { top: 1rem; }
 :focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; border-radius: 4px; }
 
-/* ---------- top bar (every page) ---------- */
+/* ---------- top bar (every page), after the navbar of irodlab.com ----------
+   Solid slate bar (#2c3e50, #375a7f in dark mode), logo and full lab name on the left,
+   sections on the right in soft grey, the current one in white. Below 992px the sections fold into a menu. */
+:root { --nav-bg: #2C3E50; --nav-ink: #CCD1D5; --nav-on: #FFFFFF; --nav-font: "Google Sans", var(--sc-font-text); }
+:root[data-theme="dark"] { --nav-bg: #375A7F; --nav-ink: #DEE2E6; }
 .bar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 45; height: var(--barh);
-  display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2.4rem);
-  padding: 0 var(--sc-gutter) 0 calc(var(--sc-gutter) + 1rem);
-  background: color-mix(in oklab, var(--sc-canvas) 82%, transparent);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2);
-  border-bottom: 1px solid var(--hair);
-  color: var(--sc-ink);
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0 1.5rem;
+  background: var(--nav-bg); color: var(--nav-ink); font-family: var(--nav-font);
 }
-.bar__logo { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: inherit; font-weight: 700; letter-spacing: -0.01em; margin-right: auto; white-space: nowrap; }
-.bar__logo img { height: 30px; width: auto; filter: brightness(0); }
-:root[data-theme="dark"] .bar__logo img, body[data-ground="dark"] .bar__logo img { filter: brightness(0) invert(1); }
-.bar .navlist { gap: clamp(.2rem, 1vw, .6rem); flex-wrap: nowrap; }
+.bar__logo { display: flex; align-items: center; text-decoration: none; color: inherit; margin-right: auto; white-space: nowrap; min-width: 0;
+  font-size: 1.25rem; line-height: 1.1; font-weight: 400; transition: color 150ms var(--sc-ease-out); }
+.bar__logo:hover { color: var(--nav-on); }
+.bar__logo img { height: 40px; width: auto; margin-right: 1rem; }
+.bar__name { overflow: hidden; text-overflow: ellipsis; }
+.bar__short { display: none; }
+.bar .navlist { gap: 0; flex-wrap: nowrap; }
 .bar .navlist a {
-  font-family: var(--sc-font-text); font-size: var(--sc-t-sm); font-weight: 500; color: inherit; text-decoration: none;
-  padding: .45rem .7rem; border-radius: 8px; white-space: nowrap;
-  transition: background-color 150ms var(--sc-ease-out), color 150ms var(--sc-ease-out);
+  font-family: var(--nav-font); font-size: .95rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--nav-ink); text-decoration: none; padding: .5em; white-space: nowrap;
+  transition: color 150ms var(--sc-ease-out);
 }
-.bar .navlist a:hover { background: color-mix(in oklab, currentColor 9%, transparent); color: inherit; }
-.bar .navlist a[aria-current="page"] { background: var(--sc-accent); color: var(--sc-accent-ink); text-decoration: none; }
-.bar__tools { display: flex; align-items: center; gap: .5rem; }
+.bar .navlist a:hover { color: rgba(255, 255, 255, .8); }
+.bar .navlist a[aria-current="page"] { color: var(--nav-on); }
+.bar__tools { display: flex; align-items: center; gap: .35rem; }
+.bar__gh { display: grid; place-items: center; width: 36px; height: 36px; color: inherit; border-radius: 50%; transition: color 150ms var(--sc-ease-out); }
+.bar__gh:hover { color: var(--nav-on); }
+.ic--fill { fill: currentColor; stroke: none; }
+.bar__menu { display: none; width: 40px; height: 40px; place-items: center; background: transparent; border: 0; color: inherit; cursor: pointer; border-radius: 6px; }
+.bar__menu .ic { width: 22px; height: 22px; }
 .seg { display: inline-flex; padding: 3px; border-radius: 999px; border: 1px solid color-mix(in oklab, currentColor 18%, transparent); }
 .seg__b {
   font: 500 var(--sc-t-xs)/1 var(--sc-font-mono); letter-spacing: .04em; color: inherit; background: transparent; border: 0;
@@ -107,10 +116,30 @@ html { scroll-padding-top: calc(var(--barh) + 1rem); }
 .ic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; grid-area: 1 / 1; }
 .ic--moon { fill: currentColor; stroke: none; }
 :root[data-theme="dark"] .ic--moon, :root:not([data-theme="dark"]) .ic--sun { display: none; }
-/* over the blueprint chapter the bar takes the chapter's ground */
-body[data-ground="dark"] .bar { background: color-mix(in oklab, var(--bp) 96%, transparent); color: var(--bp-ink); border-color: var(--bp-hair); }
-body[data-ground="dark"] .bar .navlist a[aria-current="page"] { background: var(--bp-acc); color: var(--bp); }
-body[data-ground="dark"] .seg__b[aria-pressed="true"] { background: var(--bp-ink); color: var(--bp); }
+/* language and theme controls sit on the slate bar in every theme */
+.bar .seg, .bar .themeb { border-color: color-mix(in oklab, var(--nav-ink) 40%, transparent); }
+.bar .seg__b { font-family: var(--nav-font); }
+.bar .seg__b[aria-pressed="true"] { background: var(--nav-ink); color: var(--nav-bg); }
+.bar .themeb { border-color: transparent; width: 36px; height: 36px; }
+.bar .themeb:hover, .bar__menu:hover { color: var(--nav-on); background: rgba(255, 255, 255, .08); }
+
+@media (max-width: 991px) {
+  .bar { padding: 0 .75rem 0 1rem; gap: .25rem; }
+  .bar__menu { display: grid; order: 3; }
+  .bar__tools { order: 2; }
+  .bar__nav { display: none; position: fixed; top: var(--barh); left: 0; right: 0; z-index: 44;
+    background: var(--nav-bg); padding: .25rem 1rem .9rem; border-top: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 0 12px 24px -12px rgba(0, 0, 0, .35); }
+  .bar.is-open .bar__nav { display: block; }
+  .bar .navlist { flex-direction: column; }
+  .bar .navlist a { display: block; padding: .7rem .25rem; font-size: 1rem; }
+}
+@media (max-width: 640px) {
+  .bar__name { display: none; }
+  .bar__short { display: inline; }
+  .bar__logo img { height: 32px; margin-right: .6rem; }
+  .bar__gh { display: none; }
+}
 
 
 /* ---------- shared type ---------- */
@@ -318,17 +347,6 @@ body[data-ground="dark"] .folio__code { color: var(--bp-acc); }
 @media (max-width: 899px) {
   :root { --barh: 56px; }
   .folio { display: none; }
-  /* no backdrop-filter here: it would make the bar the containing block of the fixed bottom nav */
-  .bar { padding: 0 .75rem 0 1rem; gap: .5rem; -webkit-backdrop-filter: none; backdrop-filter: none; background: color-mix(in oklab, var(--sc-canvas) 97%, transparent); }
-  body[data-ground="dark"] .bar { background: color-mix(in oklab, var(--bp) 97%, transparent); }
-  .bar__logo span { display: none; }
-  .bar__nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; padding: .35rem .5rem calc(.35rem + env(safe-area-inset-bottom));
-    background: color-mix(in oklab, var(--sc-canvas) 88%, transparent); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-    border-top: 1px solid var(--hair); overflow-x: auto; color: var(--sc-ink); }
-  body[data-ground="dark"] .bar__nav { background: color-mix(in oklab, var(--bp) 88%, transparent); border-color: var(--bp-hair); color: var(--bp-ink); }
-  .bar .navlist { justify-content: space-between; min-width: max-content; gap: .15rem; }
-  .bar .navlist a { padding: .6rem .6rem; font-size: var(--sc-t-xs); }
-  body { padding-bottom: calc(3.4rem + env(safe-area-inset-bottom)); }
   .ch__code { display: none; }
   .ch__wrap { padding-inline: 1.15rem; }
 
@@ -343,7 +361,6 @@ body[data-ground="dark"] .folio__code { color: var(--bp-acc); }
   .display--lg { font-size: var(--sc-t-2xl); }
 
   .arm { grid-template-columns: 1fr; grid-template-rows: auto auto; align-content: start; gap: .6rem; padding: calc(var(--barh) + .8rem) 1.15rem 3.6rem; }
-  .bar__nav { color: var(--sc-ink); }
   .arm__text { gap: .7rem; }
   .arm__title { font-size: clamp(2.2rem, 10vw, 3rem); }
   .arm__notes { gap: .4rem; }
@@ -390,9 +407,6 @@ body[data-ground="dark"] .folio__code { color: var(--bp-acc); }
 .tblock__cell a:not([href^="mailto"]) { white-space: nowrap; overflow-wrap: normal; }
 .close__line + .body { margin-top: 1.25rem; }
 @media (max-width: 899px) {
-  .bar .navlist li:last-child { display: none; }
-  .bar .navlist a { padding: .55rem .45rem; }
-  .bar__nav { -webkit-mask-image: linear-gradient(90deg, #000 90%, transparent); mask-image: linear-gradient(90deg, #000 90%, transparent); }
   .close__line a[href^="mailto"] { font-size: .74em; overflow-wrap: normal; white-space: nowrap; }
   .arm__svg text, .plot text { font-size: 24px; }
   .arm__svg { max-height: 34svh; }

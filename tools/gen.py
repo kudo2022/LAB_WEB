@@ -167,10 +167,15 @@ def pub_html(entry, links):
     return year, body
 
 # -------------------------------------------------------------- chrome ----
-NAV = [('Home', 'Trang chủ', 'index.html'), ('News', 'Tin tức', 'content/news/index.html'), ('Research', 'Nghiên cứu', 'content/research/index.html'),
-       ('People', 'Thành viên', 'content/people/index.html'), ('Openings', 'Tuyển dụng', 'content/openings/index.html')]
+# Top bar, same five items as requested: HOME, RESEARCH, PUBLICATIONS, PEOPLE, JOIN.
+# The third field is the section key a page passes to page(); it marks the current item.
+NAV = [('Home', 'Trang chủ', 'index.html', 'Home'), ('Research', 'Nghiên cứu', 'content/research/index.html', 'Research'),
+       ('Publications', 'Công bố', 'content/publications/index.html', 'Publications'),
+       ('People', 'Thành viên', 'content/people/index.html', 'People'), ('Join', 'Tham gia', 'content/openings/index.html', 'Openings')]
+# The footer also lists News, which is no longer in the bar.
+FOOT = NAV[:2] + [('News', 'Tin tức', 'content/news/index.html', 'News')] + NAV[2:]
 
-FONTS = 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500..700&family=IBM+Plex+Mono:wght@400;500&display=swap'
+FONTS = 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500..700&family=Google+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap'
 
 # Runs before first paint: stored choice, else the system setting / browser language.
 BOOT = '''<script>(function(){var d=document.documentElement,s=null;try{s=window.localStorage}catch(e){}
@@ -182,12 +187,19 @@ d.setAttribute('data-theme',th);d.setAttribute('data-lang',la);d.lang=la;})();</
 SUN = '<svg class="ic ic--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>'
 MOON = '<svg class="ic ic--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8Z"/></svg>'
 
+GH = '<svg class="ic ic--fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>'
+MENU = '<svg class="ic" viewBox="0 0 30 30" aria-hidden="true" focusable="false"><path d="M4 7h22M4 15h22M4 23h22" stroke-width="2"/></svg>'
+
 def bar(pre, section):
-    nav = ''.join('<li><a href="%s%s"%s>%s</a></li>' % (pre, href, ' aria-current="page"' if en == section else '', t(en, vi)) for en, vi, href in NAV)
+    """Top bar after the navbar of irodlab.com: logo and lab name on the left, the five sections on the right,
+    then GitHub, language and theme. Below 992px the sections fold into a menu button, as on the old site."""
+    nav = ''.join('<li><a href="%s%s"%s>%s</a></li>' % (pre, href, ' aria-current="page"' if key == section else '', t(en, vi)) for en, vi, href, key in NAV)
     return f'''<header class="bar">
-  <a class="bar__logo" href="{pre}index.html" aria-label="Interactive Robot Design Lab, home" data-aria-vi="Interactive Robot Design Lab, trang chủ"><img src="{pre}images/logo.png" alt="" width="698" height="427"><span>IRoD Lab</span></a>
-  <nav class="bar__nav" aria-label="Site" data-aria-vi="Điều hướng"><ul class="navlist">{nav}<li><a href="https://github.com/IROD-Lab">GitHub</a></li></ul></nav>
+  <a class="bar__logo" href="{pre}index.html" aria-label="Interactive Robot Design Lab, home" data-aria-vi="Interactive Robot Design Lab, trang chủ"><img src="{pre}images/logo.png" alt="" width="698" height="427"><span class="bar__name">Interactive Robot Design Lab</span><span class="bar__short">IRoD Lab</span></a>
+  <button type="button" class="bar__menu" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-aria-vi="Mở menu">{MENU}</button>
+  <nav class="bar__nav" id="site-nav" aria-label="Site" data-aria-vi="Điều hướng"><ul class="navlist">{nav}</ul></nav>
   <div class="bar__tools">
+    <a class="bar__gh" href="https://github.com/IROD-Lab" aria-label="IRoD Lab on GitHub" data-aria-vi="IRoD Lab trên GitHub">{GH}</a>
     <div class="seg" role="group" aria-label="Language" data-aria-vi="Ngôn ngữ"><button type="button" class="seg__b" data-set-lang="en" aria-pressed="true">EN</button><button type="button" class="seg__b" data-set-lang="vi" aria-pressed="false">VI</button></div>
     <button type="button" class="themeb" data-theme-toggle aria-label="Switch to dark mode">{SUN}{MOON}</button>
   </div>
@@ -244,7 +256,7 @@ def page(path, title, desc, section, code, sheet_title, body, title_vi=None, she
     return dest
 
 def footer(pre):
-    links = ' · '.join('<a href="%s%s">%s</a>' % (pre, h, t(en, vi)) for en, vi, h in NAV)
+    links = ' · '.join('<a href="%s%s">%s</a>' % (pre, h, t(en, vi)) for en, vi, h, _ in FOOT)
     return f'''<footer class="ch ch--close ch--close-sub">
   <div class="ch__wrap">
     <div class="tblock" aria-label="Lab details" data-aria-vi="Thông tin phòng lab">
@@ -314,30 +326,41 @@ def research_index(journals, confs, links):
     chips = '<button type="button" class="chip" aria-pressed="true" data-cat="all">%s <span>%d</span></button>' % (t('All', 'Tất cả'), len(PROJECTS))
     chips += ''.join('<button type="button" class="chip" aria-pressed="false" data-cat="%s">%s <span>%d</span></button>' % (c.replace(' ', '-'), t(E(c), E(TAG_VI.get(c, c))), n) for c, n in sorted(cats.items()))
     rows = ''.join(project_row(p, pre) for p in PROJECTS)
-    pubs = pub_list(journals, links)
-    body = head_block(t('Research &amp; publications', 'Nghiên cứu &amp; công bố'), t('Mechanisms that carry the load.', 'Cơ cấu gánh phần việc nặng.'),
-                      t('Our projects, newest first, and the papers behind them. Most of the work asks one question: how much of the job can the mechanism do, so the motor does not have to?',
-                        'Các dự án của lab, mới nhất trước, cùng các bài báo liên quan. Phần lớn công việc xoay quanh một câu hỏi: cơ cấu có thể tự đảm nhận bao nhiêu phần việc, để động cơ không phải làm?'))
+    body = head_block(t('Research', 'Nghiên cứu'), t('Mechanisms that carry the load.', 'Cơ cấu gánh phần việc nặng.'),
+                      t('Our projects, newest first. Most of the work asks one question: how much of the job can the mechanism do, so the motor does not have to?',
+                        'Các dự án của lab, mới nhất trước. Phần lớn công việc xoay quanh một câu hỏi: cơ cấu có thể tự đảm nhận bao nhiêu phần việc, để động cơ không phải làm?'))
     body += f'''
 <section class="psec">
   <div class="ch__wrap">
     <div class="filter" role="group" aria-label="Filter projects by category" data-aria-vi="Lọc dự án theo chủ đề">{chips}</div>
     <p class="filter__count" aria-live="polite"><span id="proj-count">{len(PROJECTS)}</span> {t('projects', 'dự án')}</p>
     <ol class="plist" id="plist">{rows}</ol>
-  </div>
-</section>
-<section class="psec psec--alt" id="publications">
-  <div class="ch__wrap">
-    <div class="psec__head">
-      <h2 class="display display--md">{t('Journal articles', 'Bài báo tạp chí')}</h2>
-      <p class="body">{t(f'{len(journals)} journal articles, newest first. Conference papers, book chapters and the full record are on <a href="{pre}content/people/members/linh.nv/index.html#publications">Dr. Nguyen Vu Linh&#x27;s page</a> and <a href="https://scholar.google.com/citations?user=d1J4vbsAAAAJ&amp;hl=en">Google Scholar</a>.',
-                          f'{len(journals)} bài báo tạp chí, mới nhất trước. Bài hội nghị, chương sách và danh mục đầy đủ có tại <a href="{pre}content/people/members/linh.nv/index.html#publications">trang của TS. Nguyễn Vũ Linh</a> và <a href="https://scholar.google.com/citations?user=d1J4vbsAAAAJ&amp;hl=en">Google Scholar</a>.')}</p>
-    </div>
-    {pubs}
+    <p class="body">{t(f'The papers behind these projects are listed under <a href="{pre}content/publications/index.html">Publications</a>.',
+                       f'Các bài báo của những dự án này nằm ở trang <a href="{pre}content/publications/index.html">Công bố</a>.')}</p>
   </div>
 </section>'''
-    page('content/research/index.html', 'Research & Publications', 'Research projects and journal publications of the Interactive Robot Design Lab at VinUniversity.',
-         'Research', 'R', 'Research', body, title_vi='Nghiên cứu & Công bố', sheet_vi='Nghiên cứu')
+    page('content/research/index.html', 'Research', 'Research projects of the Interactive Robot Design Lab at VinUniversity.',
+         'Research', 'R', 'Research', body, title_vi='Nghiên cứu', sheet_vi='Nghiên cứu')
+
+def publications_page(journals, confs, links):
+    pre = '../../'
+    body = head_block(t('Publications', 'Công bố'), t('What we have published.', 'Những gì lab đã công bố.'),
+                      t(f'{len(journals)} journal articles and {len(confs)} conference papers, newest first. The live record is on <a href="https://scholar.google.com/citations?user=d1J4vbsAAAAJ&amp;hl=en">Google Scholar</a>.',
+                        f'{len(journals)} bài báo tạp chí và {len(confs)} bài hội nghị, mới nhất trước. Danh mục cập nhật nhất có trên <a href="https://scholar.google.com/citations?user=d1J4vbsAAAAJ&amp;hl=en">Google Scholar</a>.'))
+    body += f'''
+<section class="psec" id="journals"><div class="ch__wrap">
+  <h2 class="display display--sm">{t('Journal articles', 'Bài báo tạp chí')}</h2><p class="body small">{t('<sup>*</sup> Corresponding author.', '<sup>*</sup> Tác giả liên hệ.')}</p>{pub_list(journals, links)}
+</div></section>
+<section class="psec psec--alt" id="conferences"><div class="ch__wrap">
+  <h2 class="display display--sm">{t('Conference papers', 'Bài báo hội nghị')}</h2>{pub_list(confs, links)}
+</div></section>
+<section class="psec" id="books"><div class="ch__wrap">
+  <h2 class="display display--sm">{t('Books and chapters', 'Sách và chương sách')}</h2>
+  <ol class="pubs__list" lang="en"><li><b>V. L. Nguyen</b>, P. D. Nguyen, N. Q. Hoang, G. Carbone. Robotics and Mechatronics: Proceedings of ISRM 2026. Mechanisms and Machine Science, 213, 2026.</li>
+  <li><b>V.L. Nguyen</b> and C.-H. Kuo. A modularization approach for gravity compensation of planar articulated robotic manipulators. In <i>Gravity Compensation in Robotics</i>, ed. V. Arakelian, Springer Nature, Cham, Switzerland.</li></ol>
+</div></section>'''
+    page('content/publications/index.html', 'Publications', 'Journal articles, conference papers and book chapters of the Interactive Robot Design Lab at VinUniversity.',
+         'Publications', 'B', 'Publications', body, title_vi='Công bố', sheet_vi='Công bố')
 
 def pub_list(entries, links, cls='pubs'):
     by = {}
@@ -643,6 +666,10 @@ def home_register():
     {b}'''
     i = h.index(a); j = h.index(b) + len(b)
     h = h[:i] + block + h[j:]
+    # the homepage is hand-written, but its bar and fonts come from the same source as every subpage
+    h = re.sub(r'<header class="bar">.*?</header>', lambda m: bar('./', 'Home'), h, count=1, flags=re.S)
+    h = re.sub(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2[^"]*">',
+               lambda m: '<link rel="stylesheet" href="%s">' % FONTS.replace('&', '&amp;'), h, count=1)
     open(path, 'w', encoding='utf8').write(h)
 
 def main():
@@ -651,6 +678,7 @@ def main():
     journals, confs = cv['journals'], cv['conferences']
     links = [tuple(x) for x in cv['pub_links']]
     research_index(journals, confs, links)
+    publications_page(journals, confs, links)
     project_pages()
     news_page()
     people_pages()
