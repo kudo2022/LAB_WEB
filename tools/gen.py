@@ -364,9 +364,13 @@ def area_of(p):
 
 def area_project(p, pre):
     href = '%scontent/research/featured/%s/index.html' % (pre, p['slug'])
-    return f'''<li class="aproj"><a href="{href}">
-  <span class="aproj__fig"><img loading="lazy" src="{pre}{p['img']}"{wh(p)} alt=""></span>
-  <span class="aproj__body"><span class="aproj__year">{p['year']}</span><span class="aproj__t">{t(E(p['title']), E(p['title_vi']))}</span></span>
+    def cut(x): return x[:170].rsplit(' ', 1)[0] + '…' if len(x) > 180 else x
+    return f'''<li class="rwork"><a href="{href}">
+  <span class="rwork__meta"><span class="rwork__year">{p['year']}</span></span>
+  <span class="rwork__t">{t(E(p['title']), E(p['title_vi']))}</span>
+  <span class="rwork__fig"><img loading="lazy" src="{pre}{p['img']}"{wh(p)} alt="{E(p['alt'])}" data-alt-vi="{E(p['alt_vi'])}"></span>
+  <span class="rwork__s">{t(E(cut(p['text'])), E(cut(p['text_vi'])))}</span>
+  <span class="rwork__more">{t('Read more', 'Xem chi tiết')} <span aria-hidden="true">→</span></span>
 </a></li>'''
 
 def research_index(journals, confs, links):
@@ -375,35 +379,41 @@ def research_index(journals, confs, links):
     rest = [p for p in PROJECTS if not area_of(p)]
     if rest:
         groups.append((dict(slug='other', en='Other projects', vi='Dự án khác', d_en='', d_vi=''), rest))
-    index = ''.join('<li><a href="#%s"><span class="aidx__n">%02d</span><span class="aidx__t">%s</span><span class="aidx__c">%d</span></a></li>'
-                    % (a['slug'], k + 1, t(E(a['en']), E(a['vi'])), len(ps)) for k, (a, ps) in enumerate(groups))
+    topics = ''.join('<li><a href="#%s"><span class="rintro__n">%02d</span><span class="rintro__t">%s</span></a><span class="rintro__d">%s</span></li>'
+                     % (a['slug'], k + 1, t(E(a['en']), E(a['vi'])), t(E(a['d_en']), E(a['d_vi'])))
+                     for k, (a, ps) in enumerate(groups) if a['slug'] != 'other')
     blocks = ''
     for k, (a, ps) in enumerate(groups):
-        items = ''.join(area_project(p, pre) for p in ps) if ps else '<li class="aproj aproj--empty">%s</li>' % t(
-            'New projects in this area will appear here.', 'Các dự án mới thuộc hướng này sẽ hiện ở đây.')
-        desc = '<p class="area__d">%s</p>' % t(E(a['d_en']), E(a['d_vi'])) if a['d_en'] else ''
-        count = t('%d project%s' % (len(ps), '' if len(ps) == 1 else 's'), '%d dự án' % len(ps))
+        if ps:
+            items = '<ul class="rgrid">%s</ul>' % ''.join(area_project(p, pre) for p in ps)
+        else:
+            items = '<p class="rarea__empty">%s</p>' % t('Projects in this area are under way and will be published here.',
+                                                         'Các dự án thuộc hướng này đang được triển khai và sẽ được đăng tại đây.')
+        desc = '<p class="rarea__d">%s</p>' % t(E(a['d_en']), E(a['d_vi'])) if a['d_en'] else ''
+        num = '<span class="rarea__n">%s %02d</span>' % (t('Area', 'Hướng'), k + 1) if a['slug'] != 'other' else ''
         blocks += f'''
-<section class="psec area{' psec--alt' if k % 2 == 0 else ''}{'' if ps else ' area--empty'}" id="{a['slug']}">
-  <div class="ch__wrap area__wrap">
-    <header class="area__head">
-      <span class="area__num">{k + 1:02d}</span>
-      <h2 class="area__t">{t(E(a['en']), E(a['vi']))}</h2>
-      {desc}
-      <p class="area__c">{count}</p>
-    </header>
-    <ul class="area__list">{items}</ul>
+<section class="rarea{' rarea--alt' if k % 2 else ''}{'' if ps else ' rarea--empty'}" id="{a['slug']}" aria-labelledby="{a['slug']}-h">
+  <div class="ch__wrap">
+    <header class="rarea__head">{num}<h2 class="rarea__t" id="{a['slug']}-h">{t(E(a['en']), E(a['vi']))}</h2>{desc}</header>
+    {items}
   </div>
 </section>'''
-    body = head_block(t('Research', 'Nghiên cứu'), t('Mechanisms that carry the load.', 'Cơ cấu gánh phần việc nặng.'),
-                      t('Our research spans %d core areas, combining mechanically intelligent robot design with safe physical human–robot interaction and physics-informed AI.' % len(AREAS),
-                        'Nghiên cứu của lab tập trung vào %d hướng trọng tâm, kết hợp thiết kế robot thông minh cơ học với tương tác vật lý người–robot an toàn và AI tích hợp vật lý.' % len(AREAS)))
-    body += f'''
-<nav class="psec aidx-wrap" aria-label="Research areas" data-aria-vi="Các hướng nghiên cứu"><div class="ch__wrap"><ol class="aidx">{index}</ol></div></nav>{blocks}
-<section class="psec"><div class="ch__wrap">
-  <p class="body">{t(f'The papers behind these projects are listed under <a href="{pre}content/publications/index.html">Publications</a>.',
-                     f'Các bài báo của những dự án này nằm ở trang <a href="{pre}content/publications/index.html">Công bố</a>.')}</p>
-</div></section>'''
+    body = f'''<section class="rbanner">
+  <img class="rbanner__img" src="{pre}images/robot.jpg" alt="Lab members working with robotic equipment at VinUniversity" data-alt-vi="Thành viên lab làm việc với thiết bị robot tại Trường Đại học VinUni" width="700" height="525">
+  <div class="rbanner__in ch__wrap">
+    <p class="rbanner__k">Interactive Robot Design Lab · VinUniversity</p>
+    <h1 class="rbanner__t">{t('Research', 'Nghiên cứu')}</h1>
+  </div>
+</section>
+<section class="rintro">
+  <div class="ch__wrap rintro__wrap">
+    <p class="rintro__lede">{t('The <em>Interactive Robot Design Lab</em> at VinUniversity conducts research in %d core areas, combining mechanically intelligent robot design with safe physical human–robot interaction and physics-informed AI:' % len(AREAS),
+                               '<em>Interactive Robot Design Lab</em> tại Trường Đại học VinUni nghiên cứu %d hướng trọng tâm, kết hợp thiết kế robot thông minh cơ học với tương tác vật lý người–robot an toàn và AI tích hợp vật lý:' % len(AREAS))}</p>
+    <ol class="rintro__list">{topics}</ol>
+    <p class="rintro__note">{t(f'Below are our projects in each area. For papers, see the <a href="{pre}content/publications/index.html">Publications</a> page.',
+                               f'Dưới đây là các dự án theo từng hướng. Danh sách bài báo xem tại trang <a href="{pre}content/publications/index.html">Công bố</a>.')}</p>
+  </div>
+</section>{blocks}'''
     page('content/research/index.html', 'Research', 'Core research areas and projects of the Interactive Robot Design Lab at VinUniversity.',
          'Research', 'R', 'Research', body, title_vi='Nghiên cứu', sheet_vi='Nghiên cứu')
 
