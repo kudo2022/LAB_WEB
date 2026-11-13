@@ -85,7 +85,7 @@ def load_projects():
             alt=str(d.get('alt_en') or title), alt_vi=str(d.get('alt_vi') or d.get('alt_en') or d.get('title_vi') or title),
             text=en_text, text_vi=str(d.get('summary_vi') or '').strip() or en_text,
             refs=[(str(r.get('text') or '').strip(), str(r.get('url') or '').strip() or None) for r in (d.get('refs') or []) if isinstance(r, dict) and r.get('text')],
-            order=d.get('order'),
+            order=d.get('order'), area=str(d.get('area') or '').strip(),
         ))
     # explicit order first (smallest first), then newest
     out.sort(key=lambda p: p['iso'], reverse=True)                      # newest date first
@@ -341,38 +341,69 @@ CORE_AREAS = [
      'Tay máy robot, robot di động và sản xuất cộng tác người–robot.'),
 ]
 
+AREAS = []
+
+def load_areas():
+    """data/site/areas.json (editable in Pages CMS); falls back to CORE_AREAS."""
+    try: raw = _load_json('site', 'areas.json').get('areas') or []
+    except (OSError, ValueError, AttributeError): raw = []
+    out = []
+    for a in raw:
+        if not isinstance(a, dict) or a.get('hidden'): continue
+        en = str(a.get('title_en') or '').strip()
+        slug = re.sub(r'[^a-z0-9-]+', '-', str(a.get('slug') or en).lower()).strip('-')
+        if not en or not slug: continue
+        out.append(dict(slug=slug, en=en, vi=str(a.get('title_vi') or '').strip() or en,
+                        d_en=str(a.get('desc_en') or '').strip(), d_vi=str(a.get('desc_vi') or '').strip() or str(a.get('desc_en') or '').strip()))
+    if not out:
+        out = [dict(slug='area-%d' % (i + 1), en=a[0].rstrip('.'), vi=a[1].rstrip('.'), d_en=a[2], d_vi=a[3]) for i, a in enumerate(CORE_AREAS)]
+    return out
+
+def area_of(p):
+    return next((a for a in AREAS if a['slug'] == p.get('area')), None)
+
+def area_project(p, pre):
+    href = '%scontent/research/featured/%s/index.html' % (pre, p['slug'])
+    return f'''<li class="aproj"><a href="{href}">
+  <span class="aproj__fig"><img loading="lazy" src="{pre}{p['img']}"{wh(p)} alt=""></span>
+  <span class="aproj__body"><span class="aproj__year">{p['year']}</span><span class="aproj__t">{t(E(p['title']), E(p['title_vi']))}</span></span>
+</a></li>'''
+
 def research_index(journals, confs, links):
     pre = '../../'
-    cats = {}
-    for p in PROJECTS:
-        for x in p['tags']: cats[x] = cats.get(x, 0) + 1
-    chips = '<button type="button" class="chip" aria-pressed="true" data-cat="all">%s <span>%d</span></button>' % (t('All', 'Tất cả'), len(PROJECTS))
-    chips += ''.join('<button type="button" class="chip" aria-pressed="false" data-cat="%s">%s <span>%d</span></button>' % (c.replace(' ', '-'), t(E(c), E(TAG_VI.get(c, c))), n) for c, n in sorted(cats.items()))
-    rows = ''.join(project_row(p, pre) for p in PROJECTS)
-    area_items = ''.join(
-        f'<li class="area-card"><span class="area-card__num">0{i + 1}</span><div class="area-card__body"><h3 class="area-card__t">{t(E(en_t), E(vi_t))}</h3><p class="area-card__d">{t(E(en_d), E(vi_d))}</p></div></li>'
-        for i, (en_t, vi_t, en_d, vi_d) in enumerate(CORE_AREAS)
-    )
-    body = head_block(t('Research', 'Nghiên cứu'), t('Mechanisms that carry the load.', 'Cơ cấu gánh phần việc nặng.'),
-                      t('Our research spans five core areas, combining mechanically intelligent robot design with safe physical human–robot interaction and physics-informed AI.',
-                        'Nghiên cứu của lab tập trung vào năm hướng trọng tâm, kết hợp thiết kế robot thông minh cơ học với tương tác vật lý người–robot an toàn và AI tích hợp vật lý.'))
-    body += f'''
-<section class="psec psec--alt">
-  <div class="ch__wrap">
-    <h2 class="display display--sm">{t('Five Core Research Areas', 'Năm hướng nghiên cứu trọng tâm')}</h2>
-    <ol class="areas">{area_items}</ol>
-  </div>
-</section>
-<section class="psec">
-  <div class="ch__wrap">
-    <h2 class="display display--sm">{t('Research Projects', 'Dự án nghiên cứu')}</h2>
-    <div class="filter" role="group" aria-label="Filter projects by category" data-aria-vi="Lọc dự án theo chủ đề">{chips}</div>
-    <p class="filter__count" aria-live="polite"><span id="proj-count">{len(PROJECTS)}</span> {t('projects', 'dự án')}</p>
-    <ol class="plist" id="plist">{rows}</ol>
-    <p class="body">{t(f'The papers behind these projects are listed under <a href="{pre}content/publications/index.html">Publications</a>.',
-                       f'Các bài báo của những dự án này nằm ở trang <a href="{pre}content/publications/index.html">Công bố</a>.')}</p>
+    groups = [(a, [p for p in PROJECTS if p['area'] == a['slug']]) for a in AREAS]
+    rest = [p for p in PROJECTS if not area_of(p)]
+    if rest:
+        groups.append((dict(slug='other', en='Other projects', vi='Dự án khác', d_en='', d_vi=''), rest))
+    index = ''.join('<li><a href="#%s"><span class="aidx__n">%02d</span><span class="aidx__t">%s</span><span class="aidx__c">%d</span></a></li>'
+                    % (a['slug'], k + 1, t(E(a['en']), E(a['vi'])), len(ps)) for k, (a, ps) in enumerate(groups))
+    blocks = ''
+    for k, (a, ps) in enumerate(groups):
+        items = ''.join(area_project(p, pre) for p in ps) if ps else '<li class="aproj aproj--empty">%s</li>' % t(
+            'New projects in this area will appear here.', 'Các dự án mới thuộc hướng này sẽ hiện ở đây.')
+        desc = '<p class="area__d">%s</p>' % t(E(a['d_en']), E(a['d_vi'])) if a['d_en'] else ''
+        count = t('%d project%s' % (len(ps), '' if len(ps) == 1 else 's'), '%d dự án' % len(ps))
+        blocks += f'''
+<section class="psec area{' psec--alt' if k % 2 == 0 else ''}{'' if ps else ' area--empty'}" id="{a['slug']}">
+  <div class="ch__wrap area__wrap">
+    <header class="area__head">
+      <span class="area__num">{k + 1:02d}</span>
+      <h2 class="area__t">{t(E(a['en']), E(a['vi']))}</h2>
+      {desc}
+      <p class="area__c">{count}</p>
+    </header>
+    <ul class="area__list">{items}</ul>
   </div>
 </section>'''
+    body = head_block(t('Research', 'Nghiên cứu'), t('Mechanisms that carry the load.', 'Cơ cấu gánh phần việc nặng.'),
+                      t('Our research spans %d core areas, combining mechanically intelligent robot design with safe physical human–robot interaction and physics-informed AI.' % len(AREAS),
+                        'Nghiên cứu của lab tập trung vào %d hướng trọng tâm, kết hợp thiết kế robot thông minh cơ học với tương tác vật lý người–robot an toàn và AI tích hợp vật lý.' % len(AREAS)))
+    body += f'''
+<nav class="psec aidx-wrap" aria-label="Research areas" data-aria-vi="Các hướng nghiên cứu"><div class="ch__wrap"><ol class="aidx">{index}</ol></div></nav>{blocks}
+<section class="psec"><div class="ch__wrap">
+  <p class="body">{t(f'The papers behind these projects are listed under <a href="{pre}content/publications/index.html">Publications</a>.',
+                     f'Các bài báo của những dự án này nằm ở trang <a href="{pre}content/publications/index.html">Công bố</a>.')}</p>
+</div></section>'''
     page('content/research/index.html', 'Research', 'Core research areas and projects of the Interactive Robot Design Lab at VinUniversity.',
          'Research', 'R', 'Research', body, title_vi='Nghiên cứu', sheet_vi='Nghiên cứu')
 
@@ -429,7 +460,7 @@ def project_pages():
             return '<a class="pn pn--%s" href="%scontent/research/featured/%s/index.html"><span class="pn__k">%s</span><span class="pn__t">%s</span></a>' % (
                 k, pre, q['slug'], t('Newer', 'Mới hơn') if k == 'prev' else t('Older', 'Cũ hơn'), t(E(q['title']), E(q['title_vi'])))
         meta = [(t('Published', 'Ngày đăng'), t(E(p['date']), date_vi(p['date']))), (t('Year of work', 'Năm thực hiện'), E(str(p['year']))),
-                (t('Categories', 'Chủ đề'), tags_t(p['tags'])), (t('Sheet', 'Tờ'), t('%d of %d' % (i + 1, n), '%d / %d' % (i + 1, n)))]
+                (t('Research area', 'Hướng nghiên cứu'), ('<a href="%scontent/research/index.html#%s">%s</a>' % (pre, area_of(p)['slug'], t(E(area_of(p)['en']), E(area_of(p)['vi'])))) if area_of(p) else tags_t(p['tags'])), (t('Sheet', 'Tờ'), t('%d of %d' % (i + 1, n), '%d / %d' % (i + 1, n)))]
         body = head_block(t('Research project', 'Dự án nghiên cứu'), t(E(p['title']), E(p['title_vi'])), None, meta, glyph=False)
         body += f'''
 <section class="psec psec--fig">
@@ -714,6 +745,7 @@ def home_register():
 
 def main():
     PROJECTS[:] = load_projects()
+    AREAS[:] = load_areas()
     cv = _load_json('site', 'cv.json')
     journals, confs = cv['journals'], cv['conferences']
     links = [tuple(x) for x in cv['pub_links']]

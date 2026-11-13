@@ -50,6 +50,23 @@ content:
         type: date
         options:
           format: yyyy-MM-dd
+      - name: area
+        label: Hướng nghiên cứu / Research area
+        type: select
+        required: true
+        description: "Dự án sẽ hiện trong hướng này trên trang Research."
+        options:
+          values:
+            - name: mechanism-design
+              label: 01 Mechanically Intelligent Robot Design · Thiết kế robot thông minh cơ học
+            - name: physical-hri
+              label: 02 Compliant Actuation and Physical HRI · Truyền động đàn hồi và tương tác người–robot
+            - name: physics-informed-ai
+              label: 03 Physics-Informed AI and Embodied Intelligence · AI tích hợp vật lý
+            - name: rehabilitation
+              label: 04 Rehabilitation and Assistive Robotics · Robot phục hồi chức năng
+            - name: manipulation-manufacturing
+              label: 05 Robotic Manipulation and Collaborative Manufacturing · Thao tác robot và sản xuất cộng tác
       - name: tags
         label: Chủ đề / Categories
         type: select
@@ -113,3 +130,36 @@ content:
         label: Thứ tự (tùy chọn) / Order
         type: number
         description: "Số nhỏ hiện trước. Để trống thì sắp theo năm, mới nhất trước."
+
+  - name: areas
+    label: Hướng nghiên cứu / Research areas
+    type: file
+    path: data/site/areas.json
+    format: json
+    fields:
+      - name: areas
+        label: Các hướng nghiên cứu (theo thứ tự hiển thị)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.title_en}"
+        fields:
+          - name: slug
+            label: Mã / Slug
+            type: string
+            required: true
+            description: "Không đổi mã của hướng đã có dự án. Thêm hướng mới thì cũng cần thêm mã này vào ô Hướng nghiên cứu của dự án trong .pages.yml."
+          - name: title_en
+            label: Tên (English)
+            type: string
+            required: true
+          - name: title_vi
+            label: Tên (Tiếng Việt)
+            type: string
+          - name: desc_en
+            label: Mô tả (English)
+            type: text
+          - name: desc_vi
+            label: Mô tả (Tiếng Việt)
+            type: text

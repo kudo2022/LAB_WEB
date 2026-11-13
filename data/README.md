@@ -16,7 +16,8 @@ Trong khoảng 1 đến 2 phút, GitHub Actions sẽ sinh lại trang chủ, tra
 | `slug` | Mã dự án, dùng làm tên file và đường dẫn. Chỉ gồm chữ thường không dấu, số và `-`. Không đổi sau khi đã đăng. |
 | `title_en` / `title_vi` | Tiêu đề tiếng Anh và tiếng Việt. Nếu để trống bản tiếng Việt, trang sẽ hiện bản tiếng Anh. |
 | `year`, `date` | Năm thực hiện và ngày đăng (`YYYY-MM-DD`). Dự án được sắp theo năm, mới nhất trước. |
-| `tags` | Chủ đề, dùng cho bộ lọc trên trang Research. |
+| `area` | Hướng nghiên cứu (1 trong 5 hướng). Dự án hiện trong hướng này trên trang Research. |
+| `tags` | Chủ đề phụ, hiện khi dự án chưa chọn hướng. |
 | `image` | Ảnh minh họa. Ảnh mới được lưu ở `images/research/`. |
 | `alt_en` / `alt_vi` | Mô tả ảnh cho người dùng trình đọc màn hình. |
 | `summary_en` / `summary_vi` | Đoạn tóm tắt. |
@@ -25,6 +26,12 @@ Trong khoảng 1 đến 2 phút, GitHub Actions sẽ sinh lại trang chủ, tra
 | `order` | Tùy chọn. Số nhỏ hiện trước. Để trống thì dự án được sắp theo năm. |
 
 Thêm chủ đề mới: thêm giá trị vào `tags` trong `.pages.yml`, rồi thêm bản tiếng Việt vào `TAG_VI` trong `tools/gen.py`.
+
+## Hướng nghiên cứu: `data/site/areas.json`
+
+Trong Pages CMS, mở **Hướng nghiên cứu / Research areas** để sửa tên, mô tả và thứ tự các hướng. Mỗi hướng hiện thành một khối trên trang Research, và mỗi khối liệt kê các dự án đã chọn hướng đó. Dự án chưa chọn hướng sẽ hiện ở khối "Dự án khác".
+
+Thêm hướng mới: thêm vào danh sách này, rồi thêm mã (`slug`) của hướng đó vào ô `area` trong `.pages.yml` để chọn được cho dự án.
 
 ## Khác
 

@@ -4,6 +4,7 @@
   "title_vi": "Bù sai số do độ mềm của khâu tác động cuối robot có độ cứng khớp bất định cho gia công phay",
   "year": 2022,
   "date": "2022-04-15",
+  "area": "manipulation-manufacturing",
   "tags": [
     "robotics",
     "control",

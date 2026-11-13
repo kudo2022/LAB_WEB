@@ -1,0 +1,39 @@
+{
+  "areas": [
+    {
+      "slug": "mechanism-design",
+      "title_en": "Mechanically Intelligent Robot Design",
+      "title_vi": "Thiết kế robot thông minh cơ học",
+      "desc_en": "Compliant mechanisms, variable-stiffness structures, gravity compensation, and advanced robotic mechanisms.",
+      "desc_vi": "Cơ cấu đàn hồi, kết cấu độ cứng biến thiên, cân bằng trọng lực và các cơ cấu robot tiên tiến."
+    },
+    {
+      "slug": "physical-hri",
+      "title_en": "Compliant Actuation and Physical Human–Robot Interaction",
+      "title_vi": "Truyền động đàn hồi và Tương tác vật lý người–robot",
+      "desc_en": "Compliant actuation, adaptive control, and safe physical interaction.",
+      "desc_vi": "Truyền động đàn hồi, điều khiển thích nghi và tương tác vật lý an toàn."
+    },
+    {
+      "slug": "physics-informed-ai",
+      "title_en": "Physics-Informed AI and Embodied Robotic Intelligence",
+      "title_vi": "AI tích hợp vật lý và Trí tuệ robot hiện thân",
+      "desc_en": "Physics-guided learning, intelligent control, and multimodal robot reasoning.",
+      "desc_vi": "Học máy định hướng vật lý, điều khiển thông minh và suy luận robot đa phương thức."
+    },
+    {
+      "slug": "rehabilitation",
+      "title_en": "Rehabilitation and Assistive Robotics",
+      "title_vi": "Robot phục hồi chức năng và hỗ trợ",
+      "desc_en": "Robotic exoskeletons, body-weight support systems, and intelligent rehabilitation.",
+      "desc_vi": "Robot khung xương ngoài, hệ thống nâng đỡ trọng lượng cơ thể và phục hồi chức năng thông minh."
+    },
+    {
+      "slug": "manipulation-manufacturing",
+      "title_en": "Intelligent Robotic Manipulation and Collaborative Manufacturing",
+      "title_vi": "Thao tác robot thông minh và Sản xuất cộng tác",
+      "desc_en": "Robot manipulators, mobile robotics, and human–robot collaborative manufacturing.",
+      "desc_vi": "Tay máy robot, robot di động và sản xuất cộng tác người–robot."
+    }
+  ]
+}
