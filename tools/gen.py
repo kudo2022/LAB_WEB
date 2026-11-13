@@ -465,21 +465,22 @@ def person_card(p, pre, big=False):
     href = '%scontent/people/members/%s/index.html' % (pre, p['id'])
     img = ('<img loading="lazy" src="%scontent/people/members/%s/%s" alt="" width="400" height="500">' % (pre, p['id'], p['img'])) if p['img'] else '<span class="pcard__ph" aria-hidden="true"></span>'
     line = '<span class="pcard__line">%s</span>' % t(E(p['line'])) if p.get('line') else ''
-    return f'<li class="pcard{" pcard--pi" if big else ""}"><a href="{href}"><span class="pcard__img">{img}</span><span class="pcard__name">{t(E(p["en"]), E(p["vi"]))}</span><span class="pcard__vi">{t(E(p["vi"]), E(p["en"]))}</span>{line}</a></li>'
+    role = '<span class="pcard__role">%s</span>' % t(E(p['role']), E(ROLE_VI[p['role']])) if p.get('role') in ROLE_VI else ''
+    if big: role = '<span class="pcard__role">%s</span>' % t('Principal investigator', 'Trưởng nhóm nghiên cứu')
+    return f'<li class="pcard{" pcard--pi" if big else ""}"><a href="{href}"><span class="pcard__img">{img}</span>{role}<span class="pcard__name">{t(E(p["en"]), E(p["vi"]))}</span><span class="pcard__vi">{t(E(p["vi"]), E(p["en"]))}</span>{line}</a></li>'
 
 def people_pages():
     pre = '../../'
     pi = PEOPLE[0]
-    groups = ''
-    for role, heading in ROLE_ORDER:
-        ms = [p for p in PEOPLE if p['role'] == role]
-        if not ms: continue
-        groups += '<section class="pgroup"><h2 class="pgroup__h">%s</h2><ul class="pgrid">%s</ul></section>' % (t(E(heading), E(ROLE_VI[role])), ''.join(person_card(m, pre) for m in ms))
+    # One grid for everyone: the PI card spans several columns, every other card carries its role,
+    # so a role with a single member no longer takes a whole row.
+    members = [m for role, _ in ROLE_ORDER for m in PEOPLE if m['role'] == role]
+    cards = person_card(pi, pre, True) + ''.join(person_card(m, pre) for m in members)
     body = head_block(t('People', 'Thành viên'), t('The team.', 'Đội ngũ.'), t('Students and researchers working with Dr. Nguyen Vu Linh at VinUniversity.', 'Sinh viên và nghiên cứu viên làm việc cùng TS. Nguyễn Vũ Linh tại Trường Đại học VinUni.'))
-    body += f'''<section class="psec">
+    body += f'''<section class="psec psec--team">
   <div class="ch__wrap">
-    <section class="pgroup"><h2 class="pgroup__h">{t('Principal investigator', 'Trưởng nhóm nghiên cứu')}</h2><ul class="pgrid pgrid--pi">{person_card(pi, pre, True)}</ul></section>
-    {groups}
+    <h2 class="visually-hidden">{t('Members', 'Thành viên')}</h2>
+    <ul class="pgrid pgrid--all">{cards}</ul>
     <p class="join">{t(f'Want to join? See the <a href="{pre}content/openings/index.html">Openings</a>.', f'Muốn tham gia? Xem mục <a href="{pre}content/openings/index.html">Tuyển dụng</a>.')}</p>
   </div>
 </section>'''

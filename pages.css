@@ -208,3 +208,31 @@ body.sub { background: var(--sc-canvas); }
 .area-card__body { display: grid; gap: .45rem; }
 .area-card__t { font-family: var(--sc-font-display); font-size: var(--sc-t-lg); font-weight: 600; line-height: 1.25; margin: 0; letter-spacing: -0.01em; }
 .area-card__d { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); line-height: 1.55; margin: 0; }
+
+/* ---------- People: one grid for the whole team ----------
+   The PI card spans three columns (photo left, details right) and the members fill the rest of the
+   row, each card labelled with its role, so single-member roles no longer leave empty rows. */
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.psec--team { padding-block: clamp(2rem, 4vw, 3.5rem); }
+.pgrid.pgrid--all { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.6rem); align-items: start; }
+.pcard__role { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); letter-spacing: .05em; text-transform: uppercase; color: var(--sc-accent); }
+.pgrid--all .pcard__name { font-size: var(--sc-t-base); }
+.pgrid--all .pcard__img { margin-bottom: .4rem; }
+.pgrid--all .pcard--pi { grid-column: span 3; }
+.pgrid--all .pcard--pi a { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); column-gap: clamp(1rem, 2vw, 1.6rem); align-items: start; align-content: start; }
+.pgrid--all .pcard--pi .pcard__img { grid-row: span 5; margin: 0; }
+.pgrid--all .pcard--pi .pcard__role { margin-top: .2rem; }
+.pgrid--all .pcard--pi .pcard__name { font-size: var(--sc-t-2xl); }
+.psec--team .join { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+@media (max-width: 1100px) {
+  .pgrid.pgrid--all { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .pgrid--all .pcard--pi { grid-column: span 4; }
+  .pgrid--all .pcard--pi a { grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); }
+}
+@media (max-width: 640px) {
+  .pgrid.pgrid--all { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pgrid--all .pcard--pi { grid-column: span 2; }
+  .pgrid--all .pcard--pi a { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .pgrid--all .pcard--pi .pcard__name { font-size: var(--sc-t-xl); }
+  .pgrid--all .pcard__role { font-size: .68rem; }
+}
