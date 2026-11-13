@@ -200,3 +200,11 @@ body.sub { background: var(--sc-canvas); }
   .pn--all { border-bottom: 1px solid var(--line-soft); }
   .nrow { grid-template-columns: 1fr; }
 }
+
+/* ---------- Core Research Areas ---------- */
+.areas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+.area-card { display: grid; grid-template-columns: auto 1fr; gap: 1rem; padding: 1.35rem 1.4rem; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); align-items: start; }
+.area-card__num { font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); font-weight: 500; color: var(--sc-accent); padding-top: .2rem; }
+.area-card__body { display: grid; gap: .45rem; }
+.area-card__t { font-family: var(--sc-font-display); font-size: var(--sc-t-lg); font-weight: 600; line-height: 1.25; margin: 0; letter-spacing: -0.01em; }
+.area-card__d { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); line-height: 1.55; margin: 0; }

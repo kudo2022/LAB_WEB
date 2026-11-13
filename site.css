@@ -424,3 +424,26 @@ body[data-ground="dark"] .folio__code { color: var(--bp-acc); }
   .arm__notes li { display: grid; }
   .arm__notes li:not(.is-on) { display: none; }
 }
+
+/* ---------- Home: Lab introduction + News ---------- */
+.ch--intro { background: var(--sc-canvas); padding-block: clamp(5rem, 9vw, 8.5rem) clamp(4rem, 7vw, 6.5rem); border-bottom: 1px solid var(--line-soft); }
+.intro { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.intro__body { display: grid; gap: 1.1rem; }
+.intro__fig { margin: 0; position: sticky; top: 12vh; }
+.intro__frame { padding: .6rem; aspect-ratio: 4 / 3; overflow: hidden; }
+.intro__frame img { width: 100%; height: 100%; object-fit: cover; border-radius: calc(var(--radius) - 6px); }
+.ticks { list-style: none; margin: .4rem 0 0; padding: 0; display: grid; gap: .55rem; font-size: var(--sc-t-base); }
+.ticks li { padding-left: 1.6rem; position: relative; line-height: 1.45; }
+.ticks li::before { content: ""; position: absolute; left: 0; top: .62em; width: .9rem; border-top: 1.5px solid var(--sc-accent); }
+.ch--news { background: var(--paper2); padding-block: clamp(4.5rem, 8vw, 7.5rem); }
+.nlist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-soft); }
+.nrow { display: grid; grid-template-columns: 7rem 8.5rem 1fr; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid var(--line-soft); align-items: baseline; }
+.nrow__d { font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); color: var(--sc-accent); }
+.nrow__k { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); text-transform: uppercase; color: var(--sc-ink-soft); justify-self: start; padding: .2rem .55rem; border: 1px solid var(--border); border-radius: 999px; background: var(--card); white-space: nowrap; }
+.nrow__t { margin: 0; font-size: var(--sc-t-lg); line-height: 1.5; max-width: 70ch; }
+.nrow__t a { font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); text-decoration-color: var(--sc-accent); }
+@media (max-width: 899px) {
+  .intro { grid-template-columns: 1fr; }
+  .intro__fig { position: static; }
+  .nrow { grid-template-columns: 1fr; gap: .3rem; }
+}

@@ -318,6 +318,29 @@ def project_row(p, pre, full=False):
   </a>
 </li>'''
 
+CORE_AREAS = [
+    ('Mechanically Intelligent Robot Design.',
+     'Thiết kế robot thông minh cơ học.',
+     'Compliant mechanisms, variable-stiffness structures, gravity compensation, and advanced robotic mechanisms.',
+     'Cơ cấu đàn hồi, kết cấu độ cứng biến thiên, cân bằng trọng lực và các cơ cấu robot tiên tiến.'),
+    ('Compliant Actuation and Physical Human–Robot Interaction.',
+     'Truyền động đàn hồi và Tương tác vật lý người–robot.',
+     'Compliant actuation, adaptive control, and safe physical interaction.',
+     'Truyền động đàn hồi, điều khiển thích nghi và tương tác vật lý an toàn.'),
+    ('Physics-Informed AI and Embodied Robotic Intelligence.',
+     'AI tích hợp vật lý và Trí tuệ robot hiện thân.',
+     'Physics-guided learning, intelligent control, and multimodal robot reasoning.',
+     'Học máy định hướng vật lý, điều khiển thông minh và suy luận robot đa phương thức.'),
+    ('Rehabilitation and Assistive Robotics',
+     'Robot phục hồi chức năng và hỗ trợ',
+     'Robotic exoskeletons, body-weight support systems, and intelligent rehabilitation.',
+     'Robot khung xương ngoài, hệ thống nâng đỡ trọng lượng cơ thể và phục hồi chức năng thông minh.'),
+    ('Intelligent Robotic Manipulation and Collaborative Manufacturing',
+     'Thao tác robot thông minh và Sản xuất cộng tác',
+     'Robot manipulators, mobile robotics, and human–robot collaborative manufacturing.',
+     'Tay máy robot, robot di động và sản xuất cộng tác người–robot.'),
+]
+
 def research_index(journals, confs, links):
     pre = '../../'
     cats = {}
@@ -326,12 +349,23 @@ def research_index(journals, confs, links):
     chips = '<button type="button" class="chip" aria-pressed="true" data-cat="all">%s <span>%d</span></button>' % (t('All', 'Tất cả'), len(PROJECTS))
     chips += ''.join('<button type="button" class="chip" aria-pressed="false" data-cat="%s">%s <span>%d</span></button>' % (c.replace(' ', '-'), t(E(c), E(TAG_VI.get(c, c))), n) for c, n in sorted(cats.items()))
     rows = ''.join(project_row(p, pre) for p in PROJECTS)
+    area_items = ''.join(
+        f'<li class="area-card"><span class="area-card__num">0{i + 1}</span><div class="area-card__body"><h3 class="area-card__t">{t(E(en_t), E(vi_t))}</h3><p class="area-card__d">{t(E(en_d), E(vi_d))}</p></div></li>'
+        for i, (en_t, vi_t, en_d, vi_d) in enumerate(CORE_AREAS)
+    )
     body = head_block(t('Research', 'Nghiên cứu'), t('Mechanisms that carry the load.', 'Cơ cấu gánh phần việc nặng.'),
-                      t('Our projects, newest first. Most of the work asks one question: how much of the job can the mechanism do, so the motor does not have to?',
-                        'Các dự án của lab, mới nhất trước. Phần lớn công việc xoay quanh một câu hỏi: cơ cấu có thể tự đảm nhận bao nhiêu phần việc, để động cơ không phải làm?'))
+                      t('Our research spans five core areas, combining mechanically intelligent robot design with safe physical human–robot interaction and physics-informed AI.',
+                        'Nghiên cứu của lab tập trung vào năm hướng trọng tâm, kết hợp thiết kế robot thông minh cơ học với tương tác vật lý người–robot an toàn và AI tích hợp vật lý.'))
     body += f'''
+<section class="psec psec--alt">
+  <div class="ch__wrap">
+    <h2 class="display display--sm">{t('Five Core Research Areas', 'Năm hướng nghiên cứu trọng tâm')}</h2>
+    <ol class="areas">{area_items}</ol>
+  </div>
+</section>
 <section class="psec">
   <div class="ch__wrap">
+    <h2 class="display display--sm">{t('Research Projects', 'Dự án nghiên cứu')}</h2>
     <div class="filter" role="group" aria-label="Filter projects by category" data-aria-vi="Lọc dự án theo chủ đề">{chips}</div>
     <p class="filter__count" aria-live="polite"><span id="proj-count">{len(PROJECTS)}</span> {t('projects', 'dự án')}</p>
     <ol class="plist" id="plist">{rows}</ol>
@@ -339,7 +373,7 @@ def research_index(journals, confs, links):
                        f'Các bài báo của những dự án này nằm ở trang <a href="{pre}content/publications/index.html">Công bố</a>.')}</p>
   </div>
 </section>'''
-    page('content/research/index.html', 'Research', 'Research projects of the Interactive Robot Design Lab at VinUniversity.',
+    page('content/research/index.html', 'Research', 'Core research areas and projects of the Interactive Robot Design Lab at VinUniversity.',
          'Research', 'R', 'Research', body, title_vi='Nghiên cứu', sheet_vi='Nghiên cứu')
 
 def publications_page(journals, confs, links):
@@ -561,51 +595,44 @@ def _unused_cv_pairs(start, stop):
 
 def openings_pages():
     pre = '../../'
-    body = head_block(t('Openings', 'Tuyển dụng'), t('Join the lab.', 'Tham gia cùng lab.'),
-                      t('Learning and research opportunities in robotics and AI at VinUniversity. We are seeking candidates for Research Assistant (RA), Master’s, PhD and Postdoctoral positions.',
-                        'Cơ hội học tập và nghiên cứu về robot và AI tại Trường Đại học VinUni. Lab đang tìm ứng viên cho các vị trí Trợ lý nghiên cứu (RA), Thạc sĩ, Tiến sĩ và Sau tiến sĩ.'))
-    areas = [('Rehabilitation and assistive robotics', 'Robot phục hồi chức năng và hỗ trợ'), ('Intelligent control and AI integration', 'Điều khiển thông minh và tích hợp AI'),
-             ('Human-robot interaction (HRI)', 'Tương tác người và robot (HRI)'), ('Soft and compliant mechanisms', 'Cơ cấu mềm và đàn hồi'),
-             ('Medical and service robotics', 'Robot y tế và robot dịch vụ'), ('Dynamics and system design', 'Động lực học và thiết kế hệ thống')]
-    support = [('Research Assistant', 'Trợ lý nghiên cứu', 'Up to $10,000 USD per year', 'Lên tới 10.000 USD mỗi năm'),
-               ('Master’s', 'Thạc sĩ', 'Tuition waiver + stipend (about $10,000 USD per year)', 'Miễn học phí + trợ cấp sinh hoạt (khoảng 10.000 USD mỗi năm)'),
-               ('PhD', 'Tiến sĩ', 'Tuition waiver + stipend (about $15,000 USD per year)', 'Miễn học phí + trợ cấp sinh hoạt (khoảng 15.000 USD mỗi năm)'),
-               ('Postdoc', 'Sau tiến sĩ', 'Up to $40,000 USD per year', 'Lên tới 40.000 USD mỗi năm')]
+    body = head_block(t('Openings', 'Tuyển dụng'), t('Join IRoD Lab', 'Tham gia IRoD Lab'),
+                      t('The Interactive Robot Design (IRoD) Lab at VinUniversity, Hanoi, Vietnam, welcomes motivated students and researchers interested in advancing intelligent and interactive robotic systems.',
+                        'Phòng thí nghiệm Thiết kế Robot Tương tác (IRoD Lab) tại Trường Đại học VinUni, Hà Nội, Việt Nam chào đón các sinh viên và nhà nghiên cứu nhiệt huyết quan tâm đến việc phát triển các hệ thống robot thông minh và tương tác.'))
+    areas = [
+        ('<strong>Mechanically Intelligent Robot Design:</strong> Compliant mechanisms, variable-stiffness structures, gravity compensation, and advanced robotic mechanisms.',
+         '<strong>Thiết kế robot thông minh cơ học:</strong> Cơ cấu đàn hồi, kết cấu độ cứng biến thiên, cân bằng trọng lực và các cơ cấu robot tiên tiến.'),
+        ('<strong>Physical Human–Robot Interaction:</strong> Compliant actuation, adaptive control, and safe physical interaction.',
+         '<strong>Tương tác vật lý người–robot:</strong> Truyền động đàn hồi, điều khiển thích nghi và tương tác vật lý an toàn.'),
+        ('<strong>Physics-Informed AI and Embodied Intelligence:</strong> Physics-guided learning, intelligent control, and multimodal robot reasoning.',
+         '<strong>AI tích hợp vật lý và Trí tuệ hiện thân:</strong> Học máy định hướng vật lý, điều khiển thông minh và suy luận robot đa phương thức.'),
+        ('<strong>Rehabilitation and Assistive Robotics:</strong> Robotic exoskeletons, body-weight support systems, and intelligent rehabilitation.',
+         '<strong>Robot phục hồi chức năng và hỗ trợ:</strong> Robot khung xương ngoài, hệ thống nâng đỡ trọng lượng cơ thể và phục hồi chức năng thông minh.'),
+        ('<strong>Intelligent Robotic Manipulation:</strong> Robot manipulators, mobile robotics, and human–robot collaborative manufacturing.',
+         '<strong>Thao tác robot thông minh:</strong> Tay máy robot, robot di động và sản xuất cộng tác người–robot.'),
+    ]
     body += f'''<section class="psec">
-  <div class="ch__wrap cols">
-    <div>
-      <h2 class="display display--sm">{t('Research areas', 'Hướng nghiên cứu')}</h2>
-      <ul class="ticks">{''.join('<li>%s</li>' % t(E(a), E(b)) for a, b in areas)}</ul>
-      <p class="body">{t('We welcome candidates with backgrounds in mechanical engineering, electrical engineering, computer science, or related fields. Successful candidates will work on research projects, collaborate with international partners (UIUC, Cornell, UPenn, Nanyang and others), publish in leading journals, and use the facilities at VinUniversity.',
-                          'Lab chào đón ứng viên có nền tảng cơ khí, điện, khoa học máy tính hoặc các ngành liên quan. Ứng viên được chọn sẽ tham gia các dự án nghiên cứu, hợp tác với đối tác quốc tế (UIUC, Cornell, UPenn, Nanyang và các trường khác), công bố trên các tạp chí hàng đầu và sử dụng cơ sở vật chất của Trường Đại học VinUni.')}</p>
-    </div>
-    <div>
-      <h2 class="display display--sm">{t('Support', 'Hỗ trợ tài chính')}</h2>
-      <table class="spec"><tbody>
-        {''.join('<tr><th scope="row">%s</th><td>%s</td></tr>' % (t(E(a), E(b)), t(E(c), E(d))) for a, b, c, d in support)}
-      </tbody></table>
-      <dl class="meta meta--stack"><div><dt>{t('Location', 'Địa điểm')}</dt><dd>{t('VinUniversity, Hanoi, Vietnam', 'Trường Đại học VinUni, Hà Nội, Việt Nam')}</dd></div><div><dt>{t('Start date', 'Thời gian bắt đầu')}</dt><dd>{t('Flexible, rolling admissions. Early applications are encouraged.', 'Linh hoạt, xét tuyển liên tục. Khuyến khích nộp hồ sơ sớm.')}</dd></div></dl>
-    </div>
-  </div>
-</section>
-<section class="psec psec--alt">
-  <div class="ch__wrap">
-    <h2 class="display display--sm">{t('Open positions', 'Vị trí đang tuyển')}</h2>
-    <ol class="plist plist--pos">
-      <li class="posrow"><a href="positions/vishc_phd_2025/index.html"><span class="nrow__d">{t('Nov 20, 2025', '20/11/2025')}</span><span class="posrow__t">{t('PhD in Rehabilitation Robotics', 'Tiến sĩ ngành Robot phục hồi chức năng')}</span><span class="posrow__s">{t('VinUniversity and University of Illinois at Urbana-Champaign (UIUC)', 'Trường Đại học VinUni và Đại học Illinois Urbana-Champaign (UIUC)')}</span></a></li>
-      <li class="posrow"><a href="positions/vishc_postdocs_2025/index.html"><span class="nrow__d">{t('Nov 20, 2025', '20/11/2025')}</span><span class="posrow__t">{t('Postdoc in Rehabilitation Robotics', 'Sau tiến sĩ ngành Robot phục hồi chức năng')}</span><span class="posrow__s">{t('VinUniversity and University of Illinois at Urbana-Champaign (UIUC)', 'Trường Đại học VinUni và Đại học Illinois Urbana-Champaign (UIUC)')}</span></a></li>
-    </ol>
-  </div>
-</section>
-<section class="psec">
-  <div class="ch__wrap narrow">
-    <h2 class="display display--sm">{t('How to apply', 'Cách ứng tuyển')}</h2>
-    <p class="close__line">{t('Send your CV and cover letter to Dr. Nguyen Vu Linh at <a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a>.', 'Gửi CV và thư ứng tuyển tới TS. Nguyễn Vũ Linh qua <a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a>.')}</p>
-    <p class="body small">{t('Only qualified candidates will be contacted. Contact: Dr. Nguyen Vu Linh, Associate Director, Mechanical Engineering Program, VinUniversity.', 'Lab chỉ liên hệ với ứng viên phù hợp. Liên hệ: TS. Nguyễn Vũ Linh, Phó Giám đốc Chương trình Kỹ thuật Cơ khí, Trường Đại học VinUni.')}</p>
+  <div class="ch__wrap narrow prose-block">
+    <p class="body">{t("We invite applications from Research Assistants, Master&#x27;s students, PhD students, and Postdoctoral Researchers in the following research areas:",
+                       "Chúng tôi mời ứng tuyển cho các vị trí Trợ lý nghiên cứu, Học viên cao học, Nghiên cứu sinh Tiến sĩ và Nghiên cứu viên Sau tiến sĩ trong các hướng nghiên cứu sau:")}</p>
+    <ul class="ticks">{''.join('<li>%s</li>' % t(a, b) for a, b in areas)}</ul>
+    <h2 class="display display--sm">{t('Why Join Us?', 'Tại sao nên tham gia cùng chúng tôi?')}</h2>
+    <p class="body">{t('IRoD Lab offers opportunities to conduct cutting-edge research, develop robotic prototypes, collaborate with international researchers, and publish in leading journals and conferences. Funded positions may be available depending on qualifications and project funding.',
+                       'IRoD Lab mang đến cơ hội thực hiện các nghiên cứu tiên tiến, phát triển nguyên mẫu robot, hợp tác với các nhà nghiên cứu quốc tế và công bố trên các tạp chí, hội nghị hàng đầu. Các vị trí có hỗ trợ kinh phí sẽ được xem xét tùy theo năng lực ứng viên và nguồn kinh phí dự án.')}</p>
+    <h2 class="display display--sm">{t('How to Apply', 'Cách thức ứng tuyển')}</h2>
+    <p class="body">{t('Interested candidates should send their CV, academic transcripts, and a brief statement of research interests to:',
+                       'Ứng viên quan tâm vui lòng gửi CV, bảng điểm học tập và bản trình bày ngắn gọn về định hướng nghiên cứu tới:')}</p>
+    <p class="body">{t('<strong>Dr. Nguyen Vu Linh</strong><br>Director, Interactive Robot Design Lab<br>VinUniversity, Hanoi, Vietnam',
+                       '<strong>TS. Nguyễn Vũ Linh</strong><br>Giám đốc, Interactive Robot Design Lab<br>Trường Đại học VinUni, Hà Nội, Việt Nam')}</p>
+    <p class="body">{t('Email: <a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a>',
+                       'Email: <a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a>')}</p>
+    <p class="body">{t('Subject: Application to IRoD Lab – [Position] – [Your Name]',
+                       'Tiêu đề: Application to IRoD Lab – [Position] – [Your Name]')}</p>
+    <p class="body">{t('We welcome inquiries from talented and enthusiastic researchers throughout the year.',
+                       'Chúng tôi chào đón thư trao đổi từ các nhà nghiên cứu tài năng và nhiệt huyết trong suốt cả năm.')}</p>
   </div>
 </section>'''
-    page('content/openings/index.html', 'Join Our Team', 'Research Assistant, Master, PhD and Postdoc openings at the Interactive Robot Design Lab, VinUniversity.', 'Openings', 'O', 'Openings', body,
-         title_vi='Tuyển dụng', sheet_vi='Tuyển dụng')
+    page('content/openings/index.html', 'Join IRoD Lab', 'Research Assistant, Master, PhD and Postdoc openings at the Interactive Robot Design Lab, VinUniversity.', 'Openings', 'O', 'Openings', body,
+         title_vi='Tham gia IRoD Lab', sheet_vi='Tuyển dụng')
 
     MAIL = '<a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a>'
     for slug, kind, kind_vi in [('vishc_phd_2025', 'PhD', 'Tiến sĩ'), ('vishc_postdocs_2025', 'Postdoc', 'Sau tiến sĩ')]:
@@ -632,15 +659,15 @@ def openings_pages():
              title_vi=plain_vi(h1), sheet_vi='Vị trí ' + kind_vi)
 
 def home_register():
-    """Rewrite the research list on the homepage between the research markers."""
+    """Rewrite the research or news list on the homepage between markers."""
     path = os.path.join(ROOT, 'index.html')
     h = open(path, encoding='utf8').read()
     a, b = '<!-- research:start -->', '<!-- research:end -->'
-    if a not in h or b not in h: return
-    rows = []
-    for i, p in enumerate(PROJECTS):
-        img = E(p['img'])
-        rows.append(f'''
+    if a in h and b in h:
+        rows = []
+        for i, p in enumerate(PROJECTS):
+            img = E(p['img'])
+            rows.append(f'''
         <li class="reg__row{' is-active' if i == 0 else ''}" data-fig="{img}">
           <a href="./content/research/featured/{p['slug']}/index.html">
             <span class="reg__year">{E(str(p['year']))}</span>
@@ -649,23 +676,35 @@ def home_register():
             <img class="reg__img" loading="lazy" src="{img}"{wh(p)} alt="">
           </a>
         </li>''')
-    fig = ''
-    if PROJECTS:
-        f = PROJECTS[0]
-        y = E(str(f['year']))
-        fig = f'''
+        fig = ''
+        if PROJECTS:
+            f = PROJECTS[0]
+            y = E(str(f['year']))
+            fig = f'''
       <figure class="reg__fig" data-sc-reveal="up" data-sc-reveal-at="0.1 0.3" aria-hidden="true">
         <div class="reg__frame"><img id="reg-fig" src="{E(f['img'])}" alt=""></div>
         <figcaption class="reg__cap"><span class="reg__capk">{t('Fig.', 'Hình')}</span> <span id="reg-cap">{t(E(f['title']) + ', ' + y, E(f['title_vi']) + ', ' + y)}</span></figcaption>
       </figure>'''
-    block = f'''{a}
+        block = f'''{a}
     <div class="reg">
       <ol class="reg__list">{''.join(rows)}
       </ol>{fig}
     </div>
     {b}'''
-    i = h.index(a); j = h.index(b) + len(b)
-    h = h[:i] + block + h[j:]
+        i = h.index(a); j = h.index(b) + len(b)
+        h = h[:i] + block + h[j:]
+    na, nb = '<!-- news:start -->', '<!-- news:end -->'
+    if na in h and nb in h:
+        nitems = []
+        for d, kind, text, link in NEWS:
+            more = (' <a href="./%s">%s</a>' % (link, t('Read more', 'Xem thêm'))) if link else ''
+            nitems.append(f'\n        <li class="nrow" data-kind="{kind.lower()}"><span class="nrow__d">{t(E(d), E(date_vi(d)))}</span><span class="nrow__k">{t(kind, KIND_VI[kind])}</span><p class="nrow__t">{t(text)}{more}</p></li>')
+        nblock = f'''{na}
+      <ol class="nlist">{''.join(nitems)}
+      </ol>
+      {nb}'''
+        ni = h.index(na); nj = h.index(nb) + len(nb)
+        h = h[:ni] + nblock + h[nj:]
     # the homepage is hand-written, but its bar and fonts come from the same source as every subpage
     h = re.sub(r'<header class="bar">.*?</header>', lambda m: bar('./', 'Home'), h, count=1, flags=re.S)
     h = re.sub(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2[^"]*">',
