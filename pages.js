@@ -22,3 +22,4 @@
   var m = /#cat=([\w-]+)/.exec(location.hash);
   if (m && document.querySelector('.chip[data-cat="' + m[1] + '"]')) apply(m[1]);
 })();
+

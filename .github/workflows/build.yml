@@ -42,7 +42,7 @@ jobs:
       - name: Stage the public site
         run: |
           mkdir _site
-          cp -r index.html ui.js site.js site.css pages.js pages.css scrollcraft.js scrollcraft.css images content _site/
+          cp -r index.html ui.js site.js site.css pages.js pages.css theme.css art.js scrollcraft.js scrollcraft.css images content _site/
           touch _site/.nojekyll
 
       - uses: actions/configure-pages@v5

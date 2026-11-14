@@ -14,188 +14,170 @@ d.setAttribute('data-theme',th);d.setAttribute('data-lang',la);d.lang=la;})();</
 <link rel="icon" href="images/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,500..700&amp;family=Google+Sans:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="scrollcraft.css">
 <link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="pages.css">
+<link rel="stylesheet" href="theme.css">
 </head>
-<body>
-
+<body class="home">
 <a class="skip" href="#main"><span data-l="en">Skip to content</span><span data-l="vi" lang="vi">Chuyển đến nội dung chính</span></a>
-
-<header class="bar">
-  <a class="bar__logo" href="./index.html" aria-label="Interactive Robot Design Lab, home" data-aria-vi="Interactive Robot Design Lab, trang chủ"><img src="./images/logo.png" alt="" width="698" height="427"><span class="bar__name">Interactive Robot Design Lab</span><span class="bar__short">IRoD Lab</span></a>
-  <button type="button" class="bar__menu" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-aria-vi="Mở menu"><svg class="ic" viewBox="0 0 30 30" aria-hidden="true" focusable="false"><path d="M4 7h22M4 15h22M4 23h22" stroke-width="2"/></svg></button>
-  <nav class="bar__nav" id="site-nav" aria-label="Site" data-aria-vi="Điều hướng"><ul class="navlist"><li><a href="./index.html" aria-current="page"><span data-l="en">Home</span><span data-l="vi" lang="vi">Trang chủ</span></a></li><li><a href="./content/research/index.html"><span data-l="en">Research</span><span data-l="vi" lang="vi">Nghiên cứu</span></a></li><li><a href="./content/publications/index.html"><span data-l="en">Publications</span><span data-l="vi" lang="vi">Công bố</span></a></li><li><a href="./content/people/index.html"><span data-l="en">People</span><span data-l="vi" lang="vi">Thành viên</span></a></li><li><a href="./content/openings/index.html"><span data-l="en">Join</span><span data-l="vi" lang="vi">Tham gia</span></a></li></ul></nav>
-  <div class="bar__tools">
-    <a class="bar__gh" href="https://github.com/IROD-Lab" aria-label="IRoD Lab on GitHub" data-aria-vi="IRoD Lab trên GitHub"><svg class="ic ic--fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
-    <div class="seg" role="group" aria-label="Language" data-aria-vi="Ngôn ngữ"><button type="button" class="seg__b" data-set-lang="en" aria-pressed="true">EN</button><button type="button" class="seg__b" data-set-lang="vi" aria-pressed="false">VI</button></div>
-    <button type="button" class="themeb" data-theme-toggle aria-label="Switch to dark mode"><svg class="ic ic--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><svg class="ic ic--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8Z"/></svg></button>
+<header class="mast">
+  <div class="ch__wrap mast__in">
+    <a class="mast__brand" href="index.html" aria-label="Interactive Robot Design Lab, home" data-aria-vi="Interactive Robot Design Lab, trang chủ">
+      <span class="mast__tile"><img src="images/logo.png" alt="" width="698" height="427"></span>
+      <span class="mast__text"><span class="mast__name">Interactive Robot Design Lab</span><span class="mast__sub"><span data-l="en">College of Engineering and Computer Science · VinUniversity</span><span data-l="vi" lang="vi">Viện Kỹ thuật và Khoa học Máy tính · Trường Đại học VinUni</span></span></span>
+    </a>
+    <div class="bar__tools">
+      <a class="bar__gh" href="https://github.com/IROD-Lab" aria-label="IRoD Lab on GitHub" data-aria-vi="IRoD Lab trên GitHub"><svg class="ic ic--fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      <div class="seg" role="group" aria-label="Language" data-aria-vi="Ngôn ngữ"><button type="button" class="seg__b" data-set-lang="en" aria-pressed="true">EN</button><button type="button" class="seg__b" data-set-lang="vi" aria-pressed="false">VI</button></div>
+      <button type="button" class="themeb" data-theme-toggle aria-label="Switch to dark mode"><svg class="ic ic--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><svg class="ic ic--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8Z"/></svg></button>
+    </div>
   </div>
 </header>
-
-<!-- Folio: the margin note of a drawing set. Chapter code and title, updated as chapters pass. -->
-<div class="folio" aria-hidden="true">
-  <a class="folio__mark" href="./index.html" tabindex="-1">IRoD</a>
-  <span class="folio__sheet" aria-live="off"><span class="folio__code">1</span> <span class="folio__title"><span data-l="en">The balancing arm</span><span data-l="vi" lang="vi">Cánh tay cân bằng</span></span></span>
+<div class="bar">
+  <div class="ch__wrap bar__in">
+    <a class="bar__short" href="index.html">IRoD Lab</a>
+    <nav class="bar__nav" id="site-nav" aria-label="Site" data-aria-vi="Điều hướng"><ul class="navlist"><li><a href="index.html" aria-current="page"><span data-l="en">Home</span><span data-l="vi" lang="vi">Trang chủ</span></a></li><li><a href="content/research/index.html"><span data-l="en">Research</span><span data-l="vi" lang="vi">Nghiên cứu</span></a></li><li><a href="content/publications/index.html"><span data-l="en">Publications</span><span data-l="vi" lang="vi">Công bố</span></a></li><li><a href="content/people/index.html"><span data-l="en">People</span><span data-l="vi" lang="vi">Thành viên</span></a></li><li><a href="content/openings/index.html"><span data-l="en">Join</span><span data-l="vi" lang="vi">Tham gia</span></a></li></ul></nav>
+    <button type="button" class="bar__menu" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-aria-vi="Mở menu"><svg class="ic" viewBox="0 0 30 30" aria-hidden="true" focusable="false"><path d="M4 7h22M4 15h22M4 23h22" stroke-width="2"/></svg></button>
+  </div>
 </div>
-
 <main id="main" tabindex="-1">
-
-<!-- ============ 1 · THE BALANCING ARM · moves on its own, drag to take over (PEAK) ============ -->
-<section id="arm" class="ch ch--arm" data-sc-act="flow" data-chapter="1" data-chapter-title="The balancing arm" data-chapter-title-vi="Cánh tay cân bằng" data-ground="dark">
-  <div data-sc-stage class="arm">
-    <div class="arm__text">
-      <p class="label arm__lab"><span data-l="en">Interactive Robot Design Lab · VinUniversity, Hanoi</span><span data-l="vi" lang="vi">Interactive Robot Design Lab · Trường Đại học VinUni, Hà Nội</span></p>
-      <h1 class="display display--lg arm__title"><span data-l="en">Let go.<br>It stays.</span><span data-l="vi" lang="vi">Buông tay.<br>Vẫn đứng yên.</span></h1>
-      <ol class="arm__notes">
-        <li data-note="0"><span data-l="en">Every robot arm fights gravity. Usually a motor pays for it, every second the arm holds still.</span><span data-l="vi" lang="vi">Mọi cánh tay robot đều phải chống lại trọng lực. Thông thường, động cơ phải gánh việc đó trong từng giây cánh tay đứng yên.</span></li>
-        <li data-note="1"><span data-l="en">Put one spring in the right place and gravity is cancelled at every angle. The arm holds wherever it stops.</span><span data-l="vi" lang="vi">Đặt một lò xo vào đúng chỗ, trọng lực bị triệt tiêu ở mọi góc. Cánh tay dừng ở đâu thì đứng yên ở đó.</span></li>
-        <li data-note="2"><span data-l="en">Your turn. Drag the arm, or focus it and use the arrow keys, then let go. It moves on its own again a few seconds later.</span><span data-l="vi" lang="vi">Đến lượt bạn. Kéo cánh tay, hoặc chọn nó rồi dùng phím mũi tên, sau đó buông tay. Vài giây sau nó sẽ tự chuyển động lại.</span></li>
-      </ol>
-      <div class="arm__controls">
-        <button type="button" class="btn" id="arm-spring">Remove the spring</button>
-        <button type="button" class="btn btn--quiet" id="arm-reset"><span data-l="en">Reset</span><span data-l="vi" lang="vi">Đặt lại</span></button>
-      </div>
-      <p class="arm__src"><span data-l="en">The textbook spring balancer: an ideal zero-free-length spring with <i>k·a·b = m·g·l</i>. The lab's four-bar and gear-spring compensators are its own designs that pursue the same balance with practical springs.</span><span data-l="vi" lang="vi">Bộ cân bằng lò xo kinh điển: một lò xo lý tưởng có chiều dài tự do bằng không, với <i>k·a·b = m·g·l</i>. Các bộ cân bằng trọng lực bốn khâu và bánh răng - lò xo của lab là thiết kế riêng, hướng tới cùng sự cân bằng đó bằng lò xo thực tế.</span></p>
-    </div>
-
-    <div class="arm__fig">
-      <svg viewBox="0 50 600 540" class="draw draw--dark arm__svg" id="arm-svg" focusable="false">
-        <g aria-hidden="true" class="cl"><line x1="200" y1="430" x2="200" y2="60"/><line x1="60" y1="330" x2="560" y2="330"/></g>
-        <g aria-hidden="true" id="ghosts" class="ghosts"></g>
-        <g aria-hidden="true" class="ground">
-          <line x1="140" y1="372" x2="260" y2="372"/>
-          <path d="M146 372l-12 16M162 372l-12 16M178 372l-12 16M194 372l-12 16M210 372l-12 16M226 372l-12 16M242 372l-12 16M258 372l-12 16"/>
-          <path d="M200 330l-30 42h60z" class="fill-ground"/>
-          <rect x="194" y="200" width="12" height="130" class="fill-ground"/>
-        </g>
-        <polyline aria-hidden="true" id="arm-spring-path" class="spring spring--live" points=""/>
-        <g aria-hidden="true" id="arm-link">
-          <line id="arm-bar" x1="200" y1="330" x2="460" y2="330" class="link link--live"/>
-          <circle id="arm-b" cx="350" cy="330" r="6" class="joint-dot"/>
-          <rect id="arm-mass" x="436" y="306" width="48" height="48" rx="4" class="mass"/>
-        </g>
-        <circle aria-hidden="true" cx="200" cy="210" r="7" class="joint-dot"/>
-        <circle aria-hidden="true" cx="200" cy="330" r="10" class="joint-dot"/>
-        <path aria-hidden="true" id="arm-arc" class="dim" d=""/>
-        <g aria-hidden="true" class="note note--dark">
-          <text x="214" y="204">A</text><text x="170" y="350">O</text>
-          <text id="arm-theta" x="0" y="0">θ</text><text id="arm-m" x="0" y="0">m</text>
-          <text x="176" y="275">a</text>
-        </g>
-        <!-- big transparent hit target around the mass -->
-        <circle id="arm-handle" class="handle" cx="460" cy="330" r="40" tabindex="0" role="slider"
-                aria-label="Arm angle" data-aria-vi="Góc cánh tay" aria-valuemin="-55" aria-valuemax="70" aria-valuenow="0" aria-valuetext="0 degrees"/>
-      </svg>
-
-      <figure class="plot">
-        <svg viewBox="0 0 600 200" class="draw draw--dark" id="plot-svg" aria-hidden="true">
-          <line x1="40" y1="100" x2="580" y2="100" class="axis"/>
-          <line x1="40" y1="16" x2="40" y2="184" class="axis"/>
-          <path id="plot-g" class="curve curve--g" d=""/>
-          <path id="plot-s" class="curve curve--s" d=""/>
-          <path id="plot-n" class="curve curve--n" d=""/>
-          <line id="plot-x" x1="0" y1="16" x2="0" y2="184" class="cursor"/>
-          <circle id="plot-dn" r="5" class="dot dot--n"/>
-          <text x="46" y="28" class="note note--dark"><tspan data-l="en">torque at O</tspan><tspan data-l="vi">mômen tại O</tspan></text>
-          <text x="520" y="118" class="note note--dark">θ</text>
-        </svg>
-        <figcaption class="plot__cap">
-          <span class="key key--g"><span data-l="en">gravity</span><span data-l="vi" lang="vi">trọng lực</span></span>
-          <span class="key key--s"><span data-l="en">spring</span><span data-l="vi" lang="vi">lò xo</span></span>
-          <span class="key key--n"><span data-l="en">net</span><span data-l="vi" lang="vi">tổng</span></span>
-          <output id="arm-readout" class="readout" aria-live="off">Net torque: 0 · balanced</output>
-        </figcaption>
-      </figure>
+<section class="hero" aria-labelledby="hero-t">
+  <img class="hero__img" src="images/robot.jpg" alt="" width="700" height="525">
+  <div class="ch__wrap hero__wrap">
+    <div class="hero__card">
+      <p class="eyebrow"><span data-l="en">VinUniversity · Hanoi, Vietnam</span><span data-l="vi" lang="vi">Trường Đại học VinUni · Hà Nội, Việt Nam</span></p>
+      <h1 class="hero__t" id="hero-t"><span data-l="en">The Interactive Robot Design Lab</span><span data-l="vi" lang="vi">Phòng thí nghiệm Thiết kế Robot Tương tác</span></h1>
+      <p class="hero__p"><span data-l="en">IRoD Lab studies advanced mechanism design, compliant actuation, and physics-informed AI to enable safer, more adaptive, and energy-efficient physical interactions between robots and humans. We apply this research to rehabilitation exoskeletons, body-weight support systems, surgical and service robots, and collaborative manufacturing.</span><span data-l="vi" lang="vi">IRoD Lab nghiên cứu thiết kế cơ cấu tiên tiến, truyền động đàn hồi và AI tích hợp vật lý nhằm mang lại sự tương tác vật lý an toàn, thích nghi và tiết kiệm năng lượng hơn giữa robot và con người. Chúng tôi ứng dụng các nghiên cứu này vào robot khung xương ngoài phục hồi chức năng, hệ thống nâng đỡ trọng lượng cơ thể, robot y tế, robot dịch vụ và sản xuất cộng tác.</span></p>
+      <p class="hero__by"><span data-l="en">Led by <a href="content/people/members/linh.nv/index.html">Dr. Nguyen Vu Linh</a>, College of Engineering and Computer Science.</span><span data-l="vi" lang="vi">Trưởng lab: <a href="content/people/members/linh.nv/index.html">TS. Nguyễn Vũ Linh</a>, Viện Kỹ thuật và Khoa học Máy tính.</span></p>
+      <div class="btns"><a class="btn-p" href="content/research/index.html"><span data-l="en">Explore our research</span><span data-l="vi" lang="vi">Xem nghiên cứu</span></a><a class="btn-s" href="content/people/index.html"><span data-l="en">Meet the team</span><span data-l="vi" lang="vi">Đội ngũ thành viên</span></a></div>
     </div>
   </div>
 </section>
-
-<!-- ============ 2 · LAB INTRODUCTION ============ -->
-<section id="intro" class="ch ch--intro" data-sc-act="flow" data-chapter="2" data-chapter-title="Lab introduction" data-chapter-title-vi="Giới thiệu lab" data-ground="paper">
-  <div class="ch__wrap intro">
-    <div class="intro__body" data-sc-in data-sc-stagger="60">
-      <p class="label"><span data-l="en">About the Lab · College of Engineering and Computer Science</span><span data-l="vi" lang="vi">Giới thiệu Lab · Viện Kỹ thuật và Khoa học Máy tính</span></p>
-      <h2 class="display display--md"><span data-l="en">Interactive Robot Design Lab</span><span data-l="vi" lang="vi">Interactive Robot Design Lab</span></h2>
-      <p class="body"><span data-l="en"><strong>Interactive Robot Design (IRoD) Lab</strong> is led by <strong>Dr. Nguyen Vu Linh</strong> at the College of Engineering and Computer Science, <strong>VinUniversity</strong>, Hanoi, Vietnam.</span><span data-l="vi" lang="vi"><strong>Phòng thí nghiệm Thiết kế Robot Tương tác (IRoD Lab)</strong> do <strong>TS. Nguyễn Vũ Linh</strong> dẫn dắt tại Viện Kỹ thuật và Khoa học Máy tính, <strong>Trường Đại học VinUni</strong>, Hà Nội, Việt Nam.</span></p>
-      <p class="body"><span data-l="en">IRoD Lab studies advanced mechanism design, compliant actuation, and physics-informed AI to enable safer, more adaptive, and energy-efficient physical interactions between robots and humans. We apply this research to build the next generation of rehabilitation exoskeletons, body-weight support systems, surgical and service robots, and collaborative manufacturing systems.</span><span data-l="vi" lang="vi">IRoD Lab nghiên cứu thiết kế cơ cấu tiên tiến, truyền động đàn hồi và AI tích hợp vật lý nhằm mang lại sự tương tác vật lý an toàn, thích nghi và tiết kiệm năng lượng hơn giữa robot và con người. Chúng tôi ứng dụng các nghiên cứu này để phát triển thế hệ tiếp theo của robot khung xương ngoài phục hồi chức năng, hệ thống nâng đỡ trọng lượng cơ thể, robot y tế và các hệ thống sản xuất cộng tác.</span></p>
-      <ul class="ticks intro__ticks">
-        <li><span data-l="en">Mechanically Intelligent Robot Design</span><span data-l="vi" lang="vi">Thiết kế robot thông minh cơ học</span></li>
-        <li><span data-l="en">Compliant Actuation and Physical Human–Robot Interaction</span><span data-l="vi" lang="vi">Truyền động đàn hồi và Tương tác vật lý người–robot</span></li>
-        <li><span data-l="en">Physics-Informed AI and Embodied Robotic Intelligence</span><span data-l="vi" lang="vi">AI tích hợp vật lý và Trí tuệ robot hiện thân</span></li>
-        <li><span data-l="en">Rehabilitation and Assistive Robotics</span><span data-l="vi" lang="vi">Robot phục hồi chức năng và hỗ trợ</span></li>
-        <li><span data-l="en">Intelligent Robotic Manipulation and Collaborative Manufacturing</span><span data-l="vi" lang="vi">Thao tác robot thông minh và Sản xuất cộng tác</span></li>
-      </ul>
-      <p class="reg__more"><a href="./content/research/index.html"><span data-l="en">Explore research</span><span data-l="vi" lang="vi">Xem nghiên cứu</span></a><a href="./content/people/index.html"><span data-l="en">Meet the team</span><span data-l="vi" lang="vi">Đội ngũ thành viên</span></a><a href="./content/openings/index.html"><span data-l="en">Join IRoD Lab</span><span data-l="vi" lang="vi">Tham gia lab</span></a></p>
-    </div>
-    <figure class="intro__fig" data-sc-in>
-      <div class="reg__frame intro__frame"><img src="images/robot.jpg" alt="Interactive Robot Design Lab at VinUniversity" loading="lazy"></div>
-      <figcaption class="reg__cap"><span class="reg__capk">IRoD Lab</span> · <span data-l="en">VinUniversity, Hanoi, Vietnam</span><span data-l="vi" lang="vi">Trường Đại học VinUni, Hà Nội, Việt Nam</span></figcaption>
-    </figure>
-  </div>
-</section>
-
-<!-- ============ 3 · NEWS & UPDATES ============ -->
-<section id="news" class="ch ch--news" data-sc-act="flow" data-chapter="3" data-chapter-title="News &amp; updates" data-chapter-title-vi="Tin tức &amp; cập nhật" data-ground="paper">
+<section class="stats" aria-label="Lab at a glance" data-aria-vi="Tổng quan về lab"><div class="ch__wrap"><ul class="stats__list"><li><span class="stat__n">35</span><span class="stat__k"><span data-l="en">Journal articles</span><span data-l="vi" lang="vi">Bài báo tạp chí</span></span></li><li><span class="stat__n">35</span><span class="stat__k"><span data-l="en">Conference papers</span><span data-l="vi" lang="vi">Bài báo hội nghị</span></span></li><li><span class="stat__n">9</span><span class="stat__k"><span data-l="en">Research projects</span><span data-l="vi" lang="vi">Dự án nghiên cứu</span></span></li><li><span class="stat__n">8</span><span class="stat__k"><span data-l="en">Team members</span><span data-l="vi" lang="vi">Thành viên</span></span></li></ul></div></section>
+<section class="hsec" aria-labelledby="areas-h">
   <div class="ch__wrap">
-    <header class="reg__head" data-sc-in data-sc-stagger="60">
-      <p class="label"><span data-l="en">Updates</span><span data-l="vi" lang="vi">Cập nhật</span></p>
-      <h2 class="display display--md"><span data-l="en">News &amp; updates.</span><span data-l="vi" lang="vi">Tin tức &amp; cập nhật.</span></h2>
-      <p class="body"><span data-l="en">Publications, grants, awards, and events from our lab.</span><span data-l="vi" lang="vi">Các công bố, đề tài, giải thưởng và sự kiện từ phòng lab.</span></p>
-    </header>
-    <!-- news:start -->
-      <ol class="nlist">
-        <li class="nrow" data-kind="service"><span class="nrow__d">2026</span><span class="nrow__k"><span data-l="en">Service</span><span data-l="vi" lang="vi">Hoạt động</span></span><p class="nrow__t"><span data-l="en">Dr. Nguyen Vu Linh serves as General Chair of the 9th IFToMM International Symposium on Robotics and Mechatronics (ISRM 2026), Hanoi, and co-edits its proceedings, <i>Robotics and Mechatronics: Proceedings of ISRM 2026</i> (Mechanisms and Machine Science, vol. 213).</span><span data-l="vi" lang="vi">TS. Nguyễn Vũ Linh đảm nhiệm vai trò Chủ tịch (General Chair) của Hội nghị IFToMM International Symposium on Robotics and Mechatronics lần thứ 9 (ISRM 2026) tại Hà Nội, đồng thời là đồng biên tập kỷ yếu hội nghị, <i>Robotics and Mechatronics: Proceedings of ISRM 2026</i> (Mechanisms and Machine Science, tập 213).</span></p></li>
-        <li class="nrow" data-kind="award"><span class="nrow__d">2026</span><span class="nrow__k"><span data-l="en">Award</span><span data-l="vi" lang="vi">Giải thưởng</span></span><p class="nrow__t"><span data-l="en">Reviewer of the Year 2025 Award, ASME Journal of Mechanical Design.</span><span data-l="vi" lang="vi">Giải thưởng Reviewer of the Year 2025, ASME Journal of Mechanical Design.</span></p></li>
-        <li class="nrow" data-kind="award"><span class="nrow__d">2026</span><span class="nrow__k"><span data-l="en">Award</span><span data-l="vi" lang="vi">Giải thưởng</span></span><p class="nrow__t"><span data-l="en">Finalist for Best Research Paper, IFToMM International Symposium on Robotics and Mechatronics (ISRM), Hanoi.</span><span data-l="vi" lang="vi">Lọt vào chung kết Giải Bài báo nghiên cứu xuất sắc nhất, IFToMM International Symposium on Robotics and Mechatronics (ISRM), Hà Nội.</span></p></li>
-        <li class="nrow" data-kind="grant"><span class="nrow__d">2026</span><span class="nrow__k"><span data-l="en">Grant</span><span data-l="vi" lang="vi">Đề tài</span></span><p class="nrow__t"><span data-l="en">New projects led by the lab: smart and adaptive robotic systems for stroke recovery (Vingroup Innovation Foundation), physics-guided scientific machine learning for trustworthy mechanical systems (VinUni–NTU Center for AI Research), and variable-stiffness actuators with reinforcement learning control for rehabilitation (ReVSA-Rehab, CECS Seed Grant).</span><span data-l="vi" lang="vi">Các dự án mới do phòng thí nghiệm chủ trì: hệ thống robot thông minh và thích ứng cho phục hồi sau đột quỵ (Vingroup Innovation Foundation), học máy khoa học định hướng vật lý cho các hệ thống cơ khí đáng tin cậy (VinUni–NTU Center for AI Research), và bộ chấp hành độ cứng biến thiên với điều khiển bằng học tăng cường cho phục hồi chức năng (ReVSA-Rehab, CECS Seed Grant).</span></p></li>
-        <li class="nrow" data-kind="grant"><span class="nrow__d">2026</span><span class="nrow__k"><span data-l="en">Grant</span><span data-l="vi" lang="vi">Đề tài</span></span><p class="nrow__t"><span data-l="en">The lab joins a Marie Skłodowska-Curie Actions project on responsible generative AI in healthcare, an intelligent biomimetic humanoid robot for patient assistance (co-PI), and autonomous multi-robot EV charging (AIREC).</span><span data-l="vi" lang="vi">Phòng thí nghiệm tham gia một dự án thuộc chương trình Marie Skłodowska-Curie Actions về AI tạo sinh có trách nhiệm trong chăm sóc sức khỏe, một dự án robot hình người phỏng sinh học thông minh hỗ trợ bệnh nhân (co-PI), và một dự án sạc xe điện tự động bằng hệ thống đa robot (AIREC).</span></p></li>
-        <li class="nrow" data-kind="opening"><span class="nrow__d"><span data-l="en">Nov 2025</span><span data-l="vi" lang="vi">Tháng 11/2025</span></span><span class="nrow__k"><span data-l="en">Opening</span><span data-l="vi" lang="vi">Tuyển dụng</span></span><p class="nrow__t"><span data-l="en">Calls for PhD and Postdoc applications in rehabilitation robotics with the VinUni-Illinois Smart Health Center.</span><span data-l="vi" lang="vi">Thông báo tuyển nghiên cứu sinh tiến sĩ và nghiên cứu viên sau tiến sĩ về robot phục hồi chức năng cùng VinUni-Illinois Smart Health Center.</span> <a href="./content/openings/index.html"><span data-l="en">Read more</span><span data-l="vi" lang="vi">Xem thêm</span></a></p></li>
-        <li class="nrow" data-kind="award"><span class="nrow__d">2025</span><span class="nrow__k"><span data-l="en">Award</span><span data-l="vi" lang="vi">Giải thưởng</span></span><p class="nrow__t"><span data-l="en">Faculty of the Year 2025 Award, VinUniversity.</span><span data-l="vi" lang="vi">Giải thưởng Faculty of the Year 2025, Trường Đại học VinUni.</span></p></li>
-        <li class="nrow" data-kind="award"><span class="nrow__d">2025</span><span class="nrow__k"><span data-l="en">Award</span><span data-l="vi" lang="vi">Giải thưởng</span></span><p class="nrow__t"><span data-l="en">Best Research Paper, IFToMM Conference on Mechanisms, Transmissions and Applications (MeTrApp), Taoyuan, Taiwan.</span><span data-l="vi" lang="vi">Giải Bài báo nghiên cứu xuất sắc nhất, IFToMM Conference on Mechanisms, Transmissions and Applications (MeTrApp), Taoyuan, Đài Loan.</span></p></li>
-        <li class="nrow" data-kind="award"><span class="nrow__d">2025</span><span class="nrow__k"><span data-l="en">Award</span><span data-l="vi" lang="vi">Giải thưởng</span></span><p class="nrow__t"><span data-l="en">IFToMM Young Delegates Program (YDP) Award.</span><span data-l="vi" lang="vi">Giải thưởng IFToMM Young Delegates Program (YDP).</span></p></li>
-        <li class="nrow" data-kind="service"><span class="nrow__d">2025</span><span class="nrow__k"><span data-l="en">Service</span><span data-l="vi" lang="vi">Hoạt động</span></span><p class="nrow__t"><span data-l="en">Dr. Nguyen Vu Linh becomes Associate Editor of ASME Letters in Translational Robotics.</span><span data-l="vi" lang="vi">TS. Nguyễn Vũ Linh trở thành Biên tập viên (Associate Editor) của ASME Letters in Translational Robotics.</span></p></li>
-        <li class="nrow" data-kind="talk"><span class="nrow__d"><span data-l="en">Oct 2024</span><span data-l="vi" lang="vi">Tháng 10/2024</span></span><span class="nrow__k"><span data-l="en">Talk</span><span data-l="vi" lang="vi">Báo cáo</span></span><p class="nrow__t"><span data-l="en">SICE Luncheon Seminar, "Gravity Compensation for Robots and Mechanisms", IEEE/RSJ IROS 2024, Abu Dhabi.</span><span data-l="vi" lang="vi">SICE Luncheon Seminar với chủ đề "Gravity Compensation for Robots and Mechanisms", IEEE/RSJ IROS 2024, Abu Dhabi.</span></p></li>
-        <li class="nrow" data-kind="award"><span class="nrow__d"><span data-l="en">Aug 2024</span><span data-l="vi" lang="vi">Tháng 8/2024</span></span><span class="nrow__k"><span data-l="en">Award</span><span data-l="vi" lang="vi">Giải thưởng</span></span><p class="nrow__t"><span data-l="en">JMR Best Paper Honorable Mention Award (2023 volume), ASME Journal of Mechanisms and Robotics.</span><span data-l="vi" lang="vi">Giải thưởng JMR Best Paper Honorable Mention (tập 2023), ASME Journal of Mechanisms and Robotics.</span></p></li>
-        <li class="nrow" data-kind="grant"><span class="nrow__d">2024</span><span class="nrow__k"><span data-l="en">Grant</span><span data-l="vi" lang="vi">Đề tài</span></span><p class="nrow__t"><span data-l="en">Start of "The future of rehabilitation robotics: a framework for human-robot interaction for complete training and assessment", VinUni-Illinois Smart Health Center (PI).</span><span data-l="vi" lang="vi">Khởi động dự án "Tương lai của robot phục hồi chức năng: khung tương tác người - robot cho tập luyện và đánh giá toàn diện", VinUni-Illinois Smart Health Center (PI).</span></p></li>
-        <li class="nrow" data-kind="award"><span class="nrow__d"><span data-l="en">May 2023</span><span data-l="vi" lang="vi">Tháng 5/2023</span></span><span class="nrow__k"><span data-l="en">Award</span><span data-l="vi" lang="vi">Giải thưởng</span></span><p class="nrow__t"><span data-l="en">Best Application Paper, IFToMM MeTrApp, Poitiers, France.</span><span data-l="vi" lang="vi">Giải Bài báo ứng dụng xuất sắc nhất, IFToMM MeTrApp, Poitiers, Pháp.</span></p></li>
-        <li class="nrow" data-kind="lab"><span class="nrow__d"><span data-l="en">Feb 2023</span><span data-l="vi" lang="vi">Tháng 2/2023</span></span><span class="nrow__k"><span data-l="en">Lab</span><span data-l="vi" lang="vi">Phòng lab</span></span><p class="nrow__t"><span data-l="en">Dr. Nguyen Vu Linh joins VinUniversity as Assistant Professor of Mechanical Engineering. The Interactive Robot Design Lab starts at the College of Engineering and Computer Science.</span><span data-l="vi" lang="vi">TS. Nguyễn Vũ Linh gia nhập Trường Đại học VinUni với vị trí Giảng viên (Assistant Professor) ngành Kỹ thuật Cơ khí. Phòng thí nghiệm Interactive Robot Design (IRoD Lab) bắt đầu hoạt động tại Viện Kỹ thuật và Khoa học Máy tính.</span></p></li>
-      </ol>
-      <!-- news:end -->
+    <header class="hsec__head"><div><p class="eyebrow"><span data-l="en">Research</span><span data-l="vi" lang="vi">Nghiên cứu</span></p><h2 class="hsec__t" id="areas-h"><span data-l="en">Core research areas</span><span data-l="vi" lang="vi">Các hướng nghiên cứu trọng tâm</span></h2></div><a class="more" href="content/research/index.html"><span data-l="en">All research</span><span data-l="vi" lang="vi">Tất cả nghiên cứu</span> <span aria-hidden="true">→</span></a></header>
+    <ul class="agrid"><li class="acard"><a href="content/research/areas/mechanism-design/index.html">
+  <span class="acard__art"><svg class="art" viewBox="0 0 320 180" data-art="mechanism-design" aria-hidden="true" focusable="false">
+  <g class="g"><path d="M70 150h180"/><path d="M80 150l-8 10M100 150l-8 10M120 150l-8 10M140 150l-8 10M160 150l-8 10M180 150l-8 10M200 150l-8 10M220 150l-8 10M240 150l-8 10"/></g>
+  <path class="f" d="M96 150l-12 0 12-18 12 18zM216 150l-12 0 12-18 12 18z"/>
+  <path class="l w" d="M96 132L120 62L214 52L216 132"/>
+  <path class="a" d="M120 62L131 55L137 69L146 58L152 72L161 61L167 75L176 64L182 78L191 67L196 75"/>
+  <path class="l" d="M214 52L262 34"/><rect class="f l" x="252" y="16" width="30" height="30" rx="3" transform="rotate(-20 267 31)"/>
+  <circle class="j" cx="96" cy="132" r="6"/><circle class="j" cx="216" cy="132" r="6"/><circle class="j" cx="120" cy="62" r="5"/><circle class="j" cx="214" cy="52" r="5"/>
+  <path class="d" d="M40 132a56 56 0 0 1 56-56"/><path class="d" d="M36 40v100"/></svg></span>
+  <span class="acard__body">
+    <span class="acard__n"><span data-l="en">Area</span><span data-l="vi" lang="vi">Hướng</span> 01</span>
+    <span class="acard__t"><span data-l="en">Mechanically Intelligent Robot Design</span><span data-l="vi" lang="vi">Thiết kế robot thông minh cơ học</span></span>
+    <span class="acard__d"><span data-l="en">Compliant mechanisms, variable-stiffness structures, gravity compensation, and advanced robotic mechanisms.</span><span data-l="vi" lang="vi">Cơ cấu đàn hồi, kết cấu độ cứng biến thiên, cân bằng trọng lực và các cơ cấu robot tiên tiến.</span></span>
+    <span class="acard__c"><span data-l="en">4 projects</span><span data-l="vi" lang="vi">4 dự án</span> <span aria-hidden="true">→</span></span>
+  </span>
+</a></li><li class="acard"><a href="content/research/areas/physical-hri/index.html">
+  <span class="acard__art"><svg class="art" viewBox="0 0 320 180" data-art="physical-hri" aria-hidden="true" focusable="false">
+  <rect class="f l" x="34" y="66" width="46" height="46" rx="6"/><circle class="l" cx="57" cy="89" r="11"/><circle class="j" cx="57" cy="89" r="3"/>
+  <path class="l" d="M80 89h14"/><path class="a w" d="M94 89l6-14 10 28 10-28 10 28 10-28 10 28 6-14"/><path class="l w" d="M156 89h34"/>
+  <circle class="j" cx="196" cy="89" r="8"/>
+  <circle class="f l" cx="262" cy="36" r="13"/>
+  <path class="l w" d="M262 50v62M262 112l-16 42M262 112l16 42M262 70l-58 18M262 70l22 34"/>
+  <path class="a" d="M214 62l-10 8 12 4M214 116l-10-8 12-4"/>
+  <path class="g" d="M30 156h270"/>
+  <path class="d" d="M34 132h112"/></svg></span>
+  <span class="acard__body">
+    <span class="acard__n"><span data-l="en">Area</span><span data-l="vi" lang="vi">Hướng</span> 02</span>
+    <span class="acard__t"><span data-l="en">Compliant Actuation and Physical Human–Robot Interaction</span><span data-l="vi" lang="vi">Truyền động đàn hồi và Tương tác vật lý người–robot</span></span>
+    <span class="acard__d"><span data-l="en">Compliant actuation, adaptive control, and safe physical interaction.</span><span data-l="vi" lang="vi">Truyền động đàn hồi, điều khiển thích nghi và tương tác vật lý an toàn.</span></span>
+    <span class="acard__c"><span data-l="en">Coming soon</span><span data-l="vi" lang="vi">Sắp cập nhật</span> <span aria-hidden="true">→</span></span>
+  </span>
+</a></li><li class="acard"><a href="content/research/areas/physics-informed-ai/index.html">
+  <span class="acard__art"><svg class="art" viewBox="0 0 320 180" data-art="physics-informed-ai" aria-hidden="true" focusable="false">
+  <g class="l"><path d="M44 50L92 40M44 50L92 90M44 50L92 140M44 100L92 40M44 100L92 90M44 100L92 140M44 150L92 40M44 150L92 90M44 150L92 140M92 40L140 65M92 90L140 65M92 140L140 65M92 40L140 115M92 90L140 115M92 140L140 115"/></g>
+  <g class="j"><circle cx="44" cy="50" r="7"/><circle cx="44" cy="100" r="7"/><circle cx="44" cy="150" r="7"/><circle cx="92" cy="40" r="7"/><circle cx="92" cy="90" r="7"/><circle cx="92" cy="140" r="7"/><circle cx="140" cy="65" r="7"/><circle cx="140" cy="115" r="7"/></g>
+  <path class="a" d="M156 90h18M168 84l6 6-6 6"/>
+  <path class="d" d="M186 150h104M186 150V30"/>
+  <path class="a w" d="M186 90c10-56 18-56 26 0s16 40 24 0 14-26 20 0 10 16 16 0 8-8 18 0"/>
+  <g class="dot"><circle cx="199" cy="52" r="3.5"/><circle cx="224" cy="122" r="3.5"/><circle cx="246" cy="70" r="3.5"/><circle cx="266" cy="104" r="3.5"/><circle cx="284" cy="86" r="3.5"/></g></svg></span>
+  <span class="acard__body">
+    <span class="acard__n"><span data-l="en">Area</span><span data-l="vi" lang="vi">Hướng</span> 03</span>
+    <span class="acard__t"><span data-l="en">Physics-Informed AI and Embodied Robotic Intelligence</span><span data-l="vi" lang="vi">AI tích hợp vật lý và Trí tuệ robot hiện thân</span></span>
+    <span class="acard__d"><span data-l="en">Physics-guided learning, intelligent control, and multimodal robot reasoning.</span><span data-l="vi" lang="vi">Học máy định hướng vật lý, điều khiển thông minh và suy luận robot đa phương thức.</span></span>
+    <span class="acard__c"><span data-l="en">Coming soon</span><span data-l="vi" lang="vi">Sắp cập nhật</span> <span aria-hidden="true">→</span></span>
+  </span>
+</a></li><li class="acard"><a href="content/research/areas/rehabilitation/index.html">
+  <span class="acard__art"><svg class="art" viewBox="0 0 320 180" data-art="rehabilitation" aria-hidden="true" focusable="false">
+  <path class="g" d="M20 158h280"/>
+  <path class="l" d="M40 14v50M40 64h70M48 64v94M104 64v94"/><rect class="f l" x="36" y="58" width="80" height="10" rx="4"/>
+  <path class="l w" d="M84 54L196 70L176 150L222 154"/>
+  <path class="a w" d="M90 68L196 84L182 150"/>
+  <rect class="f l" x="124" y="56" width="26" height="22" rx="4" transform="rotate(8 137 67)"/><rect class="f l" x="168" y="108" width="26" height="22" rx="4" transform="rotate(-76 181 119)"/>
+  <circle class="j" cx="196" cy="78" r="12"/><circle class="j" cx="196" cy="78" r="4"/>
+  <path class="d" d="M226 54a36 36 0 0 1 0 50"/><path class="a" d="M221 100l5 4 3-6"/></svg></span>
+  <span class="acard__body">
+    <span class="acard__n"><span data-l="en">Area</span><span data-l="vi" lang="vi">Hướng</span> 04</span>
+    <span class="acard__t"><span data-l="en">Rehabilitation and Assistive Robotics</span><span data-l="vi" lang="vi">Robot phục hồi chức năng và hỗ trợ</span></span>
+    <span class="acard__d"><span data-l="en">Robotic exoskeletons, body-weight support systems, and intelligent rehabilitation.</span><span data-l="vi" lang="vi">Robot khung xương ngoài, hệ thống nâng đỡ trọng lượng cơ thể và phục hồi chức năng thông minh.</span></span>
+    <span class="acard__c"><span data-l="en">1 project</span><span data-l="vi" lang="vi">1 dự án</span> <span aria-hidden="true">→</span></span>
+  </span>
+</a></li><li class="acard"><a href="content/research/areas/manipulation-manufacturing/index.html">
+  <span class="acard__art"><svg class="art" viewBox="0 0 320 180" data-art="manipulation-manufacturing" aria-hidden="true" focusable="false">
+  <path class="l" d="M30 140h260M30 152h260"/><g class="j"><circle cx="50" cy="146" r="6"/><circle cx="110" cy="146" r="6"/><circle cx="170" cy="146" r="6"/><circle cx="230" cy="146" r="6"/><circle cx="270" cy="146" r="6"/></g>
+  <rect class="f l" x="186" y="112" width="28" height="28" rx="2"/><rect class="f l" x="240" y="112" width="28" height="28" rx="2"/>
+  <path class="f l" d="M70 140h40l-6-18H76z"/>
+  <path class="l w" d="M90 122V96L140 52L190 78"/><path class="a w" d="M190 78v16"/>
+  <path class="a" d="M182 94h16M182 94v10M198 94v10"/>
+  <circle class="j" cx="90" cy="96" r="7"/><circle class="j" cx="140" cy="52" r="7"/><circle class="j" cx="190" cy="78" r="6"/></svg></span>
+  <span class="acard__body">
+    <span class="acard__n"><span data-l="en">Area</span><span data-l="vi" lang="vi">Hướng</span> 05</span>
+    <span class="acard__t"><span data-l="en">Intelligent Robotic Manipulation and Collaborative Manufacturing</span><span data-l="vi" lang="vi">Thao tác robot thông minh và Sản xuất cộng tác</span></span>
+    <span class="acard__d"><span data-l="en">Robot manipulators, mobile robotics, and human–robot collaborative manufacturing.</span><span data-l="vi" lang="vi">Tay máy robot, robot di động và sản xuất cộng tác người–robot.</span></span>
+    <span class="acard__c"><span data-l="en">4 projects</span><span data-l="vi" lang="vi">4 dự án</span> <span aria-hidden="true">→</span></span>
+  </span>
+</a></li></ul>
   </div>
 </section>
-
-<!-- ============ CLOSE · title block ============ -->
-<section id="colophon" class="ch ch--close" data-sc-act="flow" data-chapter="4" data-chapter-title="Title block" data-chapter-title-vi="Khung tên" data-ground="paper">
+<section class="hsec" aria-labelledby="news-h">
   <div class="ch__wrap">
-    <p class="close__line" data-sc-in><span data-l="en">Want to build mechanisms like these? Read the <a href="./content/openings/index.html">Openings</a>, then write to <a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a>.</span><span data-l="vi" lang="vi">Muốn cùng chế tạo những cơ cấu như thế này? Hãy xem mục <a href="./content/openings/index.html">Tuyển dụng</a>, rồi viết thư tới <a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a>.</span></p>
-
-    <footer class="tblock" aria-label="Lab details" data-aria-vi="Thông tin phòng lab">
-      <div class="tblock__cell tblock__cell--name">
-        <span class="tblock__k"><span data-l="en">Drawn by</span><span data-l="vi" lang="vi">Thực hiện</span></span>
-        <span class="tblock__brand"><img src="images/logo.png" alt="" width="698" height="427"> Interactive Robot Design Lab</span>
-      </div>
-      <div class="tblock__cell"><span class="tblock__k"><span data-l="en">Location</span><span data-l="vi" lang="vi">Địa chỉ</span></span><span><span data-l="en">H114, VinUniversity, Hanoi, Vietnam</span><span data-l="vi" lang="vi">Phòng H114, Trường Đại học VinUni, Hà Nội, Việt Nam</span></span></div>
-      <div class="tblock__cell"><span class="tblock__k"><span data-l="en">Contact</span><span data-l="vi" lang="vi">Liên hệ</span></span><a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a></div>
-      <div class="tblock__cell"><span class="tblock__k"><span data-l="en">Elsewhere</span><span data-l="vi" lang="vi">Trang khác</span></span><span><a href="https://scholar.google.com/citations?user=d1J4vbsAAAAJ&amp;hl=en">Google Scholar</a> · <a href="https://github.com/IROD-Lab">GitHub</a></span></div>
-      <div class="tblock__cell tblock__cell--pages"><span class="tblock__k"><span data-l="en">Sheets</span><span data-l="vi" lang="vi">Các trang</span></span>
-        <span><a href="./index.html" aria-current="page"><span data-l="en">Home</span><span data-l="vi" lang="vi">Trang chủ</span></a> · <a href="./content/news/index.html"><span data-l="en">News</span><span data-l="vi" lang="vi">Tin tức</span></a> · <a href="./content/research/index.html"><span data-l="en">Research</span><span data-l="vi" lang="vi">Nghiên cứu</span></a> · <a href="./content/people/index.html"><span data-l="en">People</span><span data-l="vi" lang="vi">Thành viên</span></a> · <a href="./content/openings/index.html"><span data-l="en">Openings</span><span data-l="vi" lang="vi">Tuyển dụng</span></a></span></div>
-      <div class="tblock__cell"><span class="tblock__k">Rev.</span><span>© 2026 Interactive Robot Design Lab</span></div>
-    </footer>
+    <header class="hsec__head"><div><p class="eyebrow"><span data-l="en">News</span><span data-l="vi" lang="vi">Tin tức</span></p><h2 class="hsec__t" id="news-h"><span data-l="en">Latest news</span><span data-l="vi" lang="vi">Tin mới</span></h2></div><a class="more" href="content/news/index.html"><span data-l="en">All news</span><span data-l="vi" lang="vi">Tất cả tin tức</span> <span aria-hidden="true">→</span></a></header>
+    <ol class="nlist"><li class="nrow" data-kind="service"><span class="nrow__d">2026</span><span class="nrow__k"><span data-l="en">Service</span><span data-l="vi" lang="vi">Hoạt động</span></span><p class="nrow__t"><span data-l="en">Dr. Nguyen Vu Linh serves as General Chair of the 9th IFToMM International Symposium on Robotics and Mechatronics (ISRM 2026), Hanoi, and co-edits its proceedings, <i>Robotics and Mechatronics: Proceedings of ISRM 2026</i> (Mechanisms and Machine Science, vol. 213).</span><span data-l="vi" lang="vi">TS. Nguyễn Vũ Linh đảm nhiệm vai trò Chủ tịch (General Chair) của Hội nghị IFToMM International Symposium on Robotics and Mechatronics lần thứ 9 (ISRM 2026) tại Hà Nội, đồng thời là đồng biên tập kỷ yếu hội nghị, <i>Robotics and Mechatronics: Proceedings of ISRM 2026</i> (Mechanisms and Machine Science, tập 213).</span></p></li><li class="nrow" data-kind="award"><span class="nrow__d">2026</span><span class="nrow__k"><span data-l="en">Award</span><span data-l="vi" lang="vi">Giải thưởng</span></span><p class="nrow__t"><span data-l="en">Reviewer of the Year 2025 Award, ASME Journal of Mechanical Design.</span><span data-l="vi" lang="vi">Giải thưởng Reviewer of the Year 2025, ASME Journal of Mechanical Design.</span></p></li><li class="nrow" data-kind="award"><span class="nrow__d">2026</span><span class="nrow__k"><span data-l="en">Award</span><span data-l="vi" lang="vi">Giải thưởng</span></span><p class="nrow__t"><span data-l="en">Finalist for Best Research Paper, IFToMM International Symposium on Robotics and Mechatronics (ISRM), Hanoi.</span><span data-l="vi" lang="vi">Lọt vào chung kết Giải Bài báo nghiên cứu xuất sắc nhất, IFToMM International Symposium on Robotics and Mechatronics (ISRM), Hà Nội.</span></p></li><li class="nrow" data-kind="grant"><span class="nrow__d">2026</span><span class="nrow__k"><span data-l="en">Grant</span><span data-l="vi" lang="vi">Đề tài</span></span><p class="nrow__t"><span data-l="en">New projects led by the lab: smart and adaptive robotic systems for stroke recovery (Vingroup Innovation Foundation), physics-guided scientific machine learning for trustworthy mechanical systems (VinUni–NTU Center for AI Research), and variable-stiffness actuators with reinforcement learning control for rehabilitation (ReVSA-Rehab, CECS Seed Grant).</span><span data-l="vi" lang="vi">Các dự án mới do phòng thí nghiệm chủ trì: hệ thống robot thông minh và thích ứng cho phục hồi sau đột quỵ (Vingroup Innovation Foundation), học máy khoa học định hướng vật lý cho các hệ thống cơ khí đáng tin cậy (VinUni–NTU Center for AI Research), và bộ chấp hành độ cứng biến thiên với điều khiển bằng học tăng cường cho phục hồi chức năng (ReVSA-Rehab, CECS Seed Grant).</span></p></li><li class="nrow" data-kind="grant"><span class="nrow__d">2026</span><span class="nrow__k"><span data-l="en">Grant</span><span data-l="vi" lang="vi">Đề tài</span></span><p class="nrow__t"><span data-l="en">The lab joins a Marie Skłodowska-Curie Actions project on responsible generative AI in healthcare, an intelligent biomimetic humanoid robot for patient assistance (co-PI), and autonomous multi-robot EV charging (AIREC).</span><span data-l="vi" lang="vi">Phòng thí nghiệm tham gia một dự án thuộc chương trình Marie Skłodowska-Curie Actions về AI tạo sinh có trách nhiệm trong chăm sóc sức khỏe, một dự án robot hình người phỏng sinh học thông minh hỗ trợ bệnh nhân (co-PI), và một dự án sạc xe điện tự động bằng hệ thống đa robot (AIREC).</span></p></li><li class="nrow" data-kind="opening"><span class="nrow__d"><span data-l="en">Nov 2025</span><span data-l="vi" lang="vi">Tháng 11/2025</span></span><span class="nrow__k"><span data-l="en">Opening</span><span data-l="vi" lang="vi">Tuyển dụng</span></span><p class="nrow__t"><span data-l="en">Calls for PhD and Postdoc applications in rehabilitation robotics with the VinUni-Illinois Smart Health Center.</span><span data-l="vi" lang="vi">Thông báo tuyển nghiên cứu sinh tiến sĩ và nghiên cứu viên sau tiến sĩ về robot phục hồi chức năng cùng VinUni-Illinois Smart Health Center.</span> <a href="content/openings/index.html"><span data-l="en">Read more</span><span data-l="vi" lang="vi">Xem thêm</span></a></p></li></ol>
   </div>
 </section>
-
+<section class="cta" aria-labelledby="cta-h">
+  <div class="ch__wrap cta__in">
+    <div><h2 class="cta__t" id="cta-h"><span data-l="en">Join IRoD Lab</span><span data-l="vi" lang="vi">Tham gia IRoD Lab</span></h2>
+    <p><span data-l="en">We welcome research assistants, master’s and PhD students, and postdoctoral researchers throughout the year.</span><span data-l="vi" lang="vi">Chúng tôi chào đón trợ lý nghiên cứu, học viên cao học, nghiên cứu sinh và nghiên cứu viên sau tiến sĩ trong suốt cả năm.</span></p></div>
+    <a class="btn-w" href="content/openings/index.html"><span data-l="en">See open positions</span><span data-l="vi" lang="vi">Xem vị trí tuyển dụng</span></a>
+  </div>
+</section>
 </main>
-
+<footer class="foot">
+  <div class="ch__wrap foot__grid">
+    <div class="foot__about">
+      <p class="foot__brand"><span class="mast__tile mast__tile--sm"><img src="images/logo.png" alt="" width="698" height="427"></span>Interactive Robot Design Lab</p>
+      <p><span data-l="en">Robot design, compliant actuation and physics-informed AI for safe physical human–robot interaction.</span><span data-l="vi" lang="vi">Thiết kế robot, truyền động đàn hồi và AI tích hợp vật lý cho tương tác vật lý người–robot an toàn.</span></p>
+    </div>
+    <div>
+      <h2 class="foot__h"><span data-l="en">Visit us</span><span data-l="vi" lang="vi">Địa chỉ</span></h2>
+      <p><span data-l="en">Room H114, VinUniversity<br>Vinhomes Ocean Park, Gia Lam<br>Hanoi, Vietnam</span><span data-l="vi" lang="vi">Phòng H114, Trường Đại học VinUni<br>Vinhomes Ocean Park, Gia Lâm<br>Hà Nội, Việt Nam</span></p>
+    </div>
+    <div>
+      <h2 class="foot__h"><span data-l="en">Contact</span><span data-l="vi" lang="vi">Liên hệ</span></h2>
+      <ul class="foot__list"><li><a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a></li><li><a href="https://scholar.google.com/citations?user=d1J4vbsAAAAJ&amp;hl=en">Google Scholar</a></li><li><a href="https://github.com/IROD-Lab">GitHub</a></li></ul>
+    </div>
+    <div>
+      <h2 class="foot__h"><span data-l="en">Pages</span><span data-l="vi" lang="vi">Các trang</span></h2>
+      <ul class="foot__list"><li><a href="index.html"><span data-l="en">Home</span><span data-l="vi" lang="vi">Trang chủ</span></a></li><li><a href="content/research/index.html"><span data-l="en">Research</span><span data-l="vi" lang="vi">Nghiên cứu</span></a></li><li><a href="content/news/index.html"><span data-l="en">News</span><span data-l="vi" lang="vi">Tin tức</span></a></li><li><a href="content/publications/index.html"><span data-l="en">Publications</span><span data-l="vi" lang="vi">Công bố</span></a></li><li><a href="content/people/index.html"><span data-l="en">People</span><span data-l="vi" lang="vi">Thành viên</span></a></li><li><a href="content/openings/index.html"><span data-l="en">Join</span><span data-l="vi" lang="vi">Tham gia</span></a></li></ul>
+    </div>
+  </div>
+  <div class="ch__wrap foot__base">© 2026 Interactive Robot Design Lab · VinUniversity</div>
+</footer>
 <script src="ui.js"></script>
 <script src="scrollcraft.js"></script>
 <script>
-  // Reduced motion: real numbers show as final values, no count-up.
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll('[data-sc-count]').forEach(function (n) { n.removeAttribute('data-sc-count'); });
-  }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.querySelectorAll('[data-sc-count]').forEach(function (n) { n.removeAttribute('data-sc-count'); });
   ScrollCraft.mount(document.body);
 </script>
-<script src="site.js"></script>
+<script src="pages.js"></script>
+<script src="art.js"></script>
 </body>
 </html>

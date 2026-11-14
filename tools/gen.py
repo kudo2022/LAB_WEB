@@ -175,7 +175,7 @@ NAV = [('Home', 'Trang chủ', 'index.html', 'Home'), ('Research', 'Nghiên cứ
 # The footer also lists News, which is no longer in the bar.
 FOOT = NAV[:2] + [('News', 'Tin tức', 'content/news/index.html', 'News')] + NAV[2:]
 
-FONTS = 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500..700&family=Google+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap'
+FONTS = 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap'
 
 # Runs before first paint: stored choice, else the system setting / browser language.
 BOOT = '''<script>(function(){var d=document.documentElement,s=null;try{s=window.localStorage}catch(e){}
@@ -191,31 +191,43 @@ GH = '<svg class="ic ic--fill" viewBox="0 0 16 16" aria-hidden="true" focusable=
 MENU = '<svg class="ic" viewBox="0 0 30 30" aria-hidden="true" focusable="false"><path d="M4 7h22M4 15h22M4 23h22" stroke-width="2"/></svg>'
 
 def bar(pre, section):
-    """Top bar after the navbar of irodlab.com: logo and lab name on the left, the five sections on the right,
-    then GitHub, language and theme. Below 992px the sections fold into a menu button, as on the old site."""
+    """Two-tier header after robotics.sites.tau.ac.il: a masthead with the lab mark and full name, then a
+    ruled navigation strip that sticks to the top while scrolling. Below 992px the sections fold into a menu."""
     nav = ''.join('<li><a href="%s%s"%s>%s</a></li>' % (pre, href, ' aria-current="page"' if key == section else '', t(en, vi)) for en, vi, href, key in NAV)
-    return f'''<header class="bar">
-  <a class="bar__logo" href="{pre}index.html" aria-label="Interactive Robot Design Lab, home" data-aria-vi="Interactive Robot Design Lab, trang chủ"><img src="{pre}images/logo.png" alt="" width="698" height="427"><span class="bar__name">Interactive Robot Design Lab</span><span class="bar__short">IRoD Lab</span></a>
-  <button type="button" class="bar__menu" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-aria-vi="Mở menu">{MENU}</button>
-  <nav class="bar__nav" id="site-nav" aria-label="Site" data-aria-vi="Điều hướng"><ul class="navlist">{nav}</ul></nav>
-  <div class="bar__tools">
-    <a class="bar__gh" href="https://github.com/IROD-Lab" aria-label="IRoD Lab on GitHub" data-aria-vi="IRoD Lab trên GitHub">{GH}</a>
-    <div class="seg" role="group" aria-label="Language" data-aria-vi="Ngôn ngữ"><button type="button" class="seg__b" data-set-lang="en" aria-pressed="true">EN</button><button type="button" class="seg__b" data-set-lang="vi" aria-pressed="false">VI</button></div>
-    <button type="button" class="themeb" data-theme-toggle aria-label="Switch to dark mode">{SUN}{MOON}</button>
+    return f'''<header class="mast">
+  <div class="ch__wrap mast__in">
+    <a class="mast__brand" href="{pre}index.html" aria-label="Interactive Robot Design Lab, home" data-aria-vi="Interactive Robot Design Lab, trang chủ">
+      <span class="mast__tile"><img src="{pre}images/logo.png" alt="" width="698" height="427"></span>
+      <span class="mast__text"><span class="mast__name">Interactive Robot Design Lab</span><span class="mast__sub">{t('College of Engineering and Computer Science · VinUniversity', 'Viện Kỹ thuật và Khoa học Máy tính · Trường Đại học VinUni')}</span></span>
+    </a>
+    <div class="bar__tools">
+      <a class="bar__gh" href="https://github.com/IROD-Lab" aria-label="IRoD Lab on GitHub" data-aria-vi="IRoD Lab trên GitHub">{GH}</a>
+      <div class="seg" role="group" aria-label="Language" data-aria-vi="Ngôn ngữ"><button type="button" class="seg__b" data-set-lang="en" aria-pressed="true">EN</button><button type="button" class="seg__b" data-set-lang="vi" aria-pressed="false">VI</button></div>
+      <button type="button" class="themeb" data-theme-toggle aria-label="Switch to dark mode">{SUN}{MOON}</button>
+    </div>
   </div>
-</header>'''
+</header>
+<div class="bar">
+  <div class="ch__wrap bar__in">
+    <a class="bar__short" href="{pre}index.html">IRoD Lab</a>
+    <nav class="bar__nav" id="site-nav" aria-label="Site" data-aria-vi="Điều hướng"><ul class="navlist">{nav}</ul></nav>
+    <button type="button" class="bar__menu" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-aria-vi="Mở menu">{MENU}</button>
+  </div>
+</div>'''
 
-def page(path, title, desc, section, code, sheet_title, body, title_vi=None, sheet_vi=None):
+def page(path, title, desc, section, code, sheet_title, body, title_vi=None, sheet_vi=None, home=False):
     depth = path.count('/')
     pre = '../' * depth
     if title_vi is None: title_vi = plain_vi(E(title))
     if sheet_vi is None: sheet_vi = sheet_title
+    full_en = E(title) if home else '%s · Interactive Robot Design Lab' % E(title)
+    full_vi = E(title_vi) if home else '%s · Interactive Robot Design Lab' % E(title_vi)
     out = f'''<!doctype html>
-<html lang="en" data-title-vi="{E(title_vi)} · Interactive Robot Design Lab">
+<html lang="en" data-title-vi="{full_vi}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{E(title)} · Interactive Robot Design Lab</title>
+<title>{full_en}</title>
 <meta name="description" content="{E(desc)}">
 <meta name="color-scheme" content="light dark">
 {BOOT}
@@ -226,13 +238,10 @@ def page(path, title, desc, section, code, sheet_title, body, title_vi=None, she
 <link rel="stylesheet" href="{pre}scrollcraft.css">
 <link rel="stylesheet" href="{pre}site.css">
 <link rel="stylesheet" href="{pre}pages.css">
+<link rel="stylesheet" href="{pre}theme.css">
 </head>
-<body class="sub">
+<body class="{'home' if home else 'sub'}">
 <a class="skip" href="#main">{t('Skip to content', 'Chuyển đến nội dung chính')}</a>
-<div class="folio" aria-hidden="true">
-  <a class="folio__mark" href="{pre}index.html" tabindex="-1">IRoD</a>
-  <span class="folio__sheet"><span class="folio__code">{E(code)}</span> <span class="folio__title">{t(E(sheet_title), E(sheet_vi))}</span></span>
-</div>
 {bar(pre, section)}
 <main id="main" tabindex="-1">
 {body}
@@ -245,9 +254,12 @@ def page(path, title, desc, section, code, sheet_title, body, title_vi=None, she
   ScrollCraft.mount(document.body);
 </script>
 <script src="{pre}pages.js"></script>
+<script src="{pre}art.js"></script>
 </body>
 </html>
 '''
+    # Content is visible from the first paint: no scroll-triggered reveals.
+    out = re.sub(r' data-sc-(?:in|stagger)(?:="[^"]*")?', '', out)
     dest = os.path.join(ROOT, path)
     os.makedirs(os.path.dirname(dest) or ROOT, exist_ok=True)
     vis = re.sub(r'<script.*?</script>', '', out, flags=re.S)
@@ -256,18 +268,27 @@ def page(path, title, desc, section, code, sheet_title, body, title_vi=None, she
     return dest
 
 def footer(pre):
-    links = ' · '.join('<a href="%s%s">%s</a>' % (pre, h, t(en, vi)) for en, vi, h, _ in FOOT)
-    return f'''<footer class="ch ch--close ch--close-sub">
-  <div class="ch__wrap">
-    <div class="tblock" aria-label="Lab details" data-aria-vi="Thông tin phòng lab">
-      <div class="tblock__cell tblock__cell--name"><span class="tblock__k">{t('Drawn by', 'Thực hiện')}</span><span class="tblock__brand"><img src="{pre}images/logo.png" alt="" width="698" height="427"> Interactive Robot Design Lab</span></div>
-      <div class="tblock__cell"><span class="tblock__k">{t('Location', 'Địa chỉ')}</span><span>{t('H114, VinUniversity, Hanoi, Vietnam', 'Phòng H114, Trường Đại học VinUni, Hà Nội, Việt Nam')}</span></div>
-      <div class="tblock__cell"><span class="tblock__k">{t('Contact', 'Liên hệ')}</span><a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a></div>
-      <div class="tblock__cell"><span class="tblock__k">{t('Elsewhere', 'Trang khác')}</span><span><a href="https://scholar.google.com/citations?user=d1J4vbsAAAAJ&amp;hl=en">Google Scholar</a> · <a href="https://github.com/IROD-Lab">GitHub</a></span></div>
-      <div class="tblock__cell tblock__cell--pages"><span class="tblock__k">{t('Sheets', 'Các trang')}</span><span>{links}</span></div>
-      <div class="tblock__cell"><span class="tblock__k">Rev.</span><span>© 2026 Interactive Robot Design Lab</span></div>
+    links = ''.join('<li><a href="%s%s">%s</a></li>' % (pre, h, t(en, vi)) for en, vi, h, _ in FOOT)
+    return f'''<footer class="foot">
+  <div class="ch__wrap foot__grid">
+    <div class="foot__about">
+      <p class="foot__brand"><span class="mast__tile mast__tile--sm"><img src="{pre}images/logo.png" alt="" width="698" height="427"></span>Interactive Robot Design Lab</p>
+      <p>{t('Robot design, compliant actuation and physics-informed AI for safe physical human–robot interaction.', 'Thiết kế robot, truyền động đàn hồi và AI tích hợp vật lý cho tương tác vật lý người–robot an toàn.')}</p>
+    </div>
+    <div>
+      <h2 class="foot__h">{t('Visit us', 'Địa chỉ')}</h2>
+      <p>{t('Room H114, VinUniversity<br>Vinhomes Ocean Park, Gia Lam<br>Hanoi, Vietnam', 'Phòng H114, Trường Đại học VinUni<br>Vinhomes Ocean Park, Gia Lâm<br>Hà Nội, Việt Nam')}</p>
+    </div>
+    <div>
+      <h2 class="foot__h">{t('Contact', 'Liên hệ')}</h2>
+      <ul class="foot__list"><li><a href="mailto:linh.nv2@vinuni.edu.vn">linh.nv2@vinuni.edu.vn</a></li><li><a href="https://scholar.google.com/citations?user=d1J4vbsAAAAJ&amp;hl=en">Google Scholar</a></li><li><a href="https://github.com/IROD-Lab">GitHub</a></li></ul>
+    </div>
+    <div>
+      <h2 class="foot__h">{t('Pages', 'Các trang')}</h2>
+      <ul class="foot__list">{links}</ul>
     </div>
   </div>
+  <div class="ch__wrap foot__base">© 2026 Interactive Robot Design Lab · VinUniversity</div>
 </footer>'''
 
 def head_block(label, h1, lede=None, meta=None, glyph=True):
@@ -275,7 +296,7 @@ def head_block(label, h1, lede=None, meta=None, glyph=True):
     m = ''
     if meta:
         m = '<dl class="meta">' + ''.join('<div><dt>%s</dt><dd>%s</dd></div>' % (k, v) for k, v in meta) + '</dl>'
-    g = GLYPH if glyph else ''
+    g = ''  # the drafting glyph is retired: page heads are a plain title band
     l = '<p class="label">%s</p>' % label if label else ''
     ld = '<p class="phead__lede">%s</p>' % lede if lede else ''
     return f'''<section class="phead">
@@ -373,31 +394,83 @@ def area_project(p, pre):
   <span class="rwork__more">{t('Read more', 'Xem chi tiết')} <span aria-hidden="true">→</span></span>
 </a></li>'''
 
+# ------------------------------------------------------- research areas ----
+# One line drawing per core area, same stroke style for all five (an area with no projects yet still
+# needs a picture). .l = ink line, .a = accent line, .f = accent tint fill, .g = ground, .j = joint, .d = dimension.
+_ART = {
+ 'mechanism-design': '''
+  <g class="g"><path d="M70 150h180"/><path d="M80 150l-8 10M100 150l-8 10M120 150l-8 10M140 150l-8 10M160 150l-8 10M180 150l-8 10M200 150l-8 10M220 150l-8 10M240 150l-8 10"/></g>
+  <path class="f" d="M96 150l-12 0 12-18 12 18zM216 150l-12 0 12-18 12 18z"/>
+  <path class="l w" d="M96 132L120 62L214 52L216 132"/>
+  <path class="a" d="M120 62L131 55L137 69L146 58L152 72L161 61L167 75L176 64L182 78L191 67L196 75"/>
+  <path class="l" d="M214 52L262 34"/><rect class="f l" x="252" y="16" width="30" height="30" rx="3" transform="rotate(-20 267 31)"/>
+  <circle class="j" cx="96" cy="132" r="6"/><circle class="j" cx="216" cy="132" r="6"/><circle class="j" cx="120" cy="62" r="5"/><circle class="j" cx="214" cy="52" r="5"/>
+  <path class="d" d="M40 132a56 56 0 0 1 56-56"/><path class="d" d="M36 40v100"/>''',
+ 'physical-hri': '''
+  <rect class="f l" x="34" y="66" width="46" height="46" rx="6"/><circle class="l" cx="57" cy="89" r="11"/><circle class="j" cx="57" cy="89" r="3"/>
+  <path class="l" d="M80 89h14"/><path class="a w" d="M94 89l6-14 10 28 10-28 10 28 10-28 10 28 6-14"/><path class="l w" d="M156 89h34"/>
+  <circle class="j" cx="196" cy="89" r="8"/>
+  <circle class="f l" cx="262" cy="36" r="13"/>
+  <path class="l w" d="M262 50v62M262 112l-16 42M262 112l16 42M262 70l-58 18M262 70l22 34"/>
+  <path class="a" d="M214 62l-10 8 12 4M214 116l-10-8 12-4"/>
+  <path class="g" d="M30 156h270"/>
+  <path class="d" d="M34 132h112"/>''',
+ 'physics-informed-ai': '''
+  <g class="l"><path d="M44 50L92 40M44 50L92 90M44 50L92 140M44 100L92 40M44 100L92 90M44 100L92 140M44 150L92 40M44 150L92 90M44 150L92 140M92 40L140 65M92 90L140 65M92 140L140 65M92 40L140 115M92 90L140 115M92 140L140 115"/></g>
+  <g class="j"><circle cx="44" cy="50" r="7"/><circle cx="44" cy="100" r="7"/><circle cx="44" cy="150" r="7"/><circle cx="92" cy="40" r="7"/><circle cx="92" cy="90" r="7"/><circle cx="92" cy="140" r="7"/><circle cx="140" cy="65" r="7"/><circle cx="140" cy="115" r="7"/></g>
+  <path class="a" d="M156 90h18M168 84l6 6-6 6"/>
+  <path class="d" d="M186 150h104M186 150V30"/>
+  <path class="a w" d="M186 90c10-56 18-56 26 0s16 40 24 0 14-26 20 0 10 16 16 0 8-8 18 0"/>
+  <g class="dot"><circle cx="199" cy="52" r="3.5"/><circle cx="224" cy="122" r="3.5"/><circle cx="246" cy="70" r="3.5"/><circle cx="266" cy="104" r="3.5"/><circle cx="284" cy="86" r="3.5"/></g>''',
+ 'rehabilitation': '''
+  <path class="g" d="M20 158h280"/>
+  <path class="l" d="M40 14v50M40 64h70M48 64v94M104 64v94"/><rect class="f l" x="36" y="58" width="80" height="10" rx="4"/>
+  <path class="l w" d="M84 54L196 70L176 150L222 154"/>
+  <path class="a w" d="M90 68L196 84L182 150"/>
+  <rect class="f l" x="124" y="56" width="26" height="22" rx="4" transform="rotate(8 137 67)"/><rect class="f l" x="168" y="108" width="26" height="22" rx="4" transform="rotate(-76 181 119)"/>
+  <circle class="j" cx="196" cy="78" r="12"/><circle class="j" cx="196" cy="78" r="4"/>
+  <path class="d" d="M226 54a36 36 0 0 1 0 50"/><path class="a" d="M221 100l5 4 3-6"/>''',
+ 'manipulation-manufacturing': '''
+  <path class="l" d="M30 140h260M30 152h260"/><g class="j"><circle cx="50" cy="146" r="6"/><circle cx="110" cy="146" r="6"/><circle cx="170" cy="146" r="6"/><circle cx="230" cy="146" r="6"/><circle cx="270" cy="146" r="6"/></g>
+  <rect class="f l" x="186" y="112" width="28" height="28" rx="2"/><rect class="f l" x="240" y="112" width="28" height="28" rx="2"/>
+  <path class="f l" d="M70 140h40l-6-18H76z"/>
+  <path class="l w" d="M90 122V96L140 52L190 78"/><path class="a w" d="M190 78v16"/>
+  <path class="a" d="M182 94h16M182 94v10M198 94v10"/>
+  <circle class="j" cx="90" cy="96" r="7"/><circle class="j" cx="140" cy="52" r="7"/><circle class="j" cx="190" cy="78" r="6"/>''',
+}
+_ART_DEFAULT = '<circle class="j" cx="160" cy="90" r="30"/><path class="a" d="M120 90h80"/>'
+
+def area_art(slug, cls='art'):
+    # art.js redraws known slugs as animated mechanisms; this static drawing is the no-JS fallback
+    return '<svg class="%s" viewBox="0 0 320 180" data-art="%s" aria-hidden="true" focusable="false">%s</svg>' % (cls, E(slug), _ART.get(slug, _ART_DEFAULT))
+
+def area_href(pre, a): return '%scontent/research/areas/%s/index.html' % (pre, a['slug'])
+def area_projects(a): return [p for p in PROJECTS if p['area'] == a['slug']]
+def area_count(n): return t('%d project%s' % (n, '' if n == 1 else 's'), '%d dự án' % n) if n else t('Coming soon', 'Sắp cập nhật')
+
+def area_card(a, k, pre):
+    """Illustrated card for one core area (homepage and Research page); opens the area's own page."""
+    return f'''<li class="acard"><a href="{area_href(pre, a)}">
+  <span class="acard__art">{area_art(a['slug'])}</span>
+  <span class="acard__body">
+    <span class="acard__n">{t('Area', 'Hướng')} {k + 1:02d}</span>
+    <span class="acard__t">{t(E(a['en']), E(a['vi']))}</span>
+    <span class="acard__d">{t(E(a['d_en']), E(a['d_vi']))}</span>
+    <span class="acard__c">{area_count(len(area_projects(a)))} <span aria-hidden="true">→</span></span>
+  </span>
+</a></li>'''
+
 def research_index(journals, confs, links):
     pre = '../../'
-    groups = [(a, [p for p in PROJECTS if p['area'] == a['slug']]) for a in AREAS]
+    cards = ''.join(area_card(a, k, pre) for k, a in enumerate(AREAS))
     rest = [p for p in PROJECTS if not area_of(p)]
+    other = ''
     if rest:
-        groups.append((dict(slug='other', en='Other projects', vi='Dự án khác', d_en='', d_vi=''), rest))
-    topics = ''.join('<li><a href="#%s"><span class="rintro__n">%02d</span><span class="rintro__t">%s</span></a><span class="rintro__d">%s</span></li>'
-                     % (a['slug'], k + 1, t(E(a['en']), E(a['vi'])), t(E(a['d_en']), E(a['d_vi'])))
-                     for k, (a, ps) in enumerate(groups) if a['slug'] != 'other')
-    blocks = ''
-    for k, (a, ps) in enumerate(groups):
-        if ps:
-            items = '<ul class="rgrid">%s</ul>' % ''.join(area_project(p, pre) for p in ps)
-        else:
-            items = '<p class="rarea__empty">%s</p>' % t('Projects in this area are under way and will be published here.',
-                                                         'Các dự án thuộc hướng này đang được triển khai và sẽ được đăng tại đây.')
-        desc = '<p class="rarea__d">%s</p>' % t(E(a['d_en']), E(a['d_vi'])) if a['d_en'] else ''
-        num = '<span class="rarea__n">%s %02d</span>' % (t('Area', 'Hướng'), k + 1) if a['slug'] != 'other' else ''
-        blocks += f'''
-<section class="rarea{' rarea--alt' if k % 2 else ''}{'' if ps else ' rarea--empty'}" id="{a['slug']}" aria-labelledby="{a['slug']}-h">
-  <div class="ch__wrap">
-    <header class="rarea__head">{num}<h2 class="rarea__t" id="{a['slug']}-h">{t(E(a['en']), E(a['vi']))}</h2>{desc}</header>
-    {items}
-  </div>
-</section>'''
+        other = f'''
+<section class="rarea"><div class="ch__wrap">
+  <header class="rarea__head"><h2 class="rarea__t">{t('Other projects', 'Dự án khác')}</h2></header>
+  <ul class="rgrid">{''.join(area_project(p, pre) for p in rest)}</ul>
+</div></section>'''
     body = f'''<section class="rbanner">
   <img class="rbanner__img" src="{pre}images/robot.jpg" alt="Lab members working with robotic equipment at VinUniversity" data-alt-vi="Thành viên lab làm việc với thiết bị robot tại Trường Đại học VinUni" width="700" height="525">
   <div class="rbanner__in ch__wrap">
@@ -407,15 +480,50 @@ def research_index(journals, confs, links):
 </section>
 <section class="rintro">
   <div class="ch__wrap rintro__wrap">
-    <p class="rintro__lede">{t('The <em>Interactive Robot Design Lab</em> at VinUniversity conducts research in %d core areas, combining mechanically intelligent robot design with safe physical human–robot interaction and physics-informed AI:' % len(AREAS),
-                               '<em>Interactive Robot Design Lab</em> tại Trường Đại học VinUni nghiên cứu %d hướng trọng tâm, kết hợp thiết kế robot thông minh cơ học với tương tác vật lý người–robot an toàn và AI tích hợp vật lý:' % len(AREAS))}</p>
-    <ol class="rintro__list">{topics}</ol>
-    <p class="rintro__note">{t(f'Below are our projects in each area. For papers, see the <a href="{pre}content/publications/index.html">Publications</a> page.',
-                               f'Dưới đây là các dự án theo từng hướng. Danh sách bài báo xem tại trang <a href="{pre}content/publications/index.html">Công bố</a>.')}</p>
+    <p class="rintro__lede">{t('The <em>Interactive Robot Design Lab</em> at VinUniversity conducts research in %d core areas, combining mechanically intelligent robot design with safe physical human–robot interaction and physics-informed AI.' % len(AREAS),
+                               '<em>Interactive Robot Design Lab</em> tại Trường Đại học VinUni nghiên cứu %d hướng trọng tâm, kết hợp thiết kế robot thông minh cơ học với tương tác vật lý người–robot an toàn và AI tích hợp vật lý.' % len(AREAS))}</p>
+    <p class="rintro__note">{t(f'Choose an area to see its projects. For papers, see the <a href="{pre}content/publications/index.html">Publications</a> page.',
+                               f'Chọn một hướng để xem các dự án thuộc hướng đó. Danh sách bài báo xem tại trang <a href="{pre}content/publications/index.html">Công bố</a>.')}</p>
   </div>
-</section>{blocks}'''
+</section>
+<section class="hsec"><div class="ch__wrap">
+  <h2 class="visually-hidden">{t('Core research areas', 'Các hướng nghiên cứu trọng tâm')}</h2>
+  <ul class="agrid">{cards}</ul>
+</div></section>{other}'''
     page('content/research/index.html', 'Research', 'Core research areas and projects of the Interactive Robot Design Lab at VinUniversity.',
          'Research', 'R', 'Research', body, title_vi='Nghiên cứu', sheet_vi='Nghiên cứu')
+
+def area_pages():
+    """One page per core area, holding only that area's projects, with a switcher to the other areas."""
+    pre = '../../../../'
+    for k, a in enumerate(AREAS):
+        ps = area_projects(a)
+        tabs = ''.join('<li><a href="%s"%s><span class="atab__n">%02d</span> %s</a></li>' % (
+            area_href(pre, b), ' aria-current="page"' if b is a else '', j + 1, t(E(b['en']), E(b['vi']))) for j, b in enumerate(AREAS))
+        if ps:
+            items = '<ul class="rgrid">%s</ul>' % ''.join(area_project(p, pre) for p in ps)
+        else:
+            items = '<p class="rarea__empty">%s</p>' % t('Projects in this area are under way and will be published here.',
+                                                         'Các dự án thuộc hướng này đang được triển khai và sẽ được đăng tại đây.')
+        body = f'''<section class="ahead">
+  <div class="ch__wrap ahead__wrap">
+    <div class="ahead__text">
+      <nav class="crumbs" aria-label="Breadcrumb" data-aria-vi="Đường dẫn"><a href="{pre}content/research/index.html">{t('Research', 'Nghiên cứu')}</a> <span aria-hidden="true">/</span> {t('Area %02d' % (k + 1), 'Hướng %02d' % (k + 1))}</nav>
+      <h1 class="phead__title">{t(E(a['en']), E(a['vi']))}</h1>
+      <p class="phead__lede">{t(E(a['d_en']), E(a['d_vi']))}</p>
+      <p class="ahead__c">{area_count(len(ps))}</p>
+    </div>
+    <div class="ahead__art">{area_art(a['slug'])}</div>
+  </div>
+</section>
+<nav class="atabs" aria-label="Research areas" data-aria-vi="Các hướng nghiên cứu"><div class="ch__wrap"><ul class="atabs__list">{tabs}</ul></div></nav>
+<section class="rarea"><div class="ch__wrap">
+  <h2 class="visually-hidden">{t('Projects', 'Dự án')}</h2>
+  {items}
+  <p class="links aback"><a href="{pre}content/research/index.html">{t('All research areas', 'Tất cả hướng nghiên cứu')}</a></p>
+</div></section>'''
+        page('content/research/areas/%s/index.html' % a['slug'], a['en'], a['d_en'] or a['en'], 'Research', 'R', 'Research', body,
+             title_vi=a['vi'], sheet_vi='Nghiên cứu')
 
 def publications_page(journals, confs, links):
     pre = '../../'
@@ -470,7 +578,7 @@ def project_pages():
             return '<a class="pn pn--%s" href="%scontent/research/featured/%s/index.html"><span class="pn__k">%s</span><span class="pn__t">%s</span></a>' % (
                 k, pre, q['slug'], t('Newer', 'Mới hơn') if k == 'prev' else t('Older', 'Cũ hơn'), t(E(q['title']), E(q['title_vi'])))
         meta = [(t('Published', 'Ngày đăng'), t(E(p['date']), date_vi(p['date']))), (t('Year of work', 'Năm thực hiện'), E(str(p['year']))),
-                (t('Research area', 'Hướng nghiên cứu'), ('<a href="%scontent/research/index.html#%s">%s</a>' % (pre, area_of(p)['slug'], t(E(area_of(p)['en']), E(area_of(p)['vi'])))) if area_of(p) else tags_t(p['tags'])), (t('Sheet', 'Tờ'), t('%d of %d' % (i + 1, n), '%d / %d' % (i + 1, n)))]
+                (t('Research area', 'Hướng nghiên cứu'), ('<a href="%scontent/research/areas/%s/index.html">%s</a>' % (pre, area_of(p)['slug'], t(E(area_of(p)['en']), E(area_of(p)['vi'])))) if area_of(p) else tags_t(p['tags']))]
         body = head_block(t('Research project', 'Dự án nghiên cứu'), t(E(p['title']), E(p['title_vi'])), None, meta, glyph=False)
         body += f'''
 <section class="psec psec--fig">
@@ -700,58 +808,56 @@ def openings_pages():
         page('content/openings/positions/%s/index.html' % slug, title, title, 'Openings', 'O', kind + ' position', body,
              title_vi=plain_vi(h1), sheet_vi='Vị trí ' + kind_vi)
 
-def home_register():
-    """Rewrite the research or news list on the homepage between markers."""
-    path = os.path.join(ROOT, 'index.html')
-    h = open(path, encoding='utf8').read()
-    a, b = '<!-- research:start -->', '<!-- research:end -->'
-    if a in h and b in h:
-        rows = []
-        for i, p in enumerate(PROJECTS):
-            img = E(p['img'])
-            rows.append(f'''
-        <li class="reg__row{' is-active' if i == 0 else ''}" data-fig="{img}">
-          <a href="./content/research/featured/{p['slug']}/index.html">
-            <span class="reg__year">{E(str(p['year']))}</span>
-            <span class="reg__t">{t(E(p['title']), E(p['title_vi']))}</span>
-            <span class="reg__tags">{tags_t(p['tags'])}</span>
-            <img class="reg__img" loading="lazy" src="{img}"{wh(p)} alt="">
-          </a>
-        </li>''')
-        fig = ''
-        if PROJECTS:
-            f = PROJECTS[0]
-            y = E(str(f['year']))
-            fig = f'''
-      <figure class="reg__fig" data-sc-reveal="up" data-sc-reveal-at="0.1 0.3" aria-hidden="true">
-        <div class="reg__frame"><img id="reg-fig" src="{E(f['img'])}" alt=""></div>
-        <figcaption class="reg__cap"><span class="reg__capk">{t('Fig.', 'Hình')}</span> <span id="reg-cap">{t(E(f['title']) + ', ' + y, E(f['title_vi']) + ', ' + y)}</span></figcaption>
-      </figure>'''
-        block = f'''{a}
-    <div class="reg">
-      <ol class="reg__list">{''.join(rows)}
-      </ol>{fig}
+def home_page(journals, confs):
+    """Homepage after robotics.sites.tau.ac.il: a full-width lab photo with a white introduction card on it,
+    then key figures, research areas (each opens its own page of projects), news and a call to join. Generated like every subpage."""
+    pre = ''
+    def arrow(en, vi, href, cls='more'):
+        return '<a class="%s" href="%s">%s <span aria-hidden="true">→</span></a>' % (cls, href, t(en, vi))
+    stats = [(len(journals), 'Journal articles', 'Bài báo tạp chí'), (len(confs), 'Conference papers', 'Bài báo hội nghị'),
+             (len(PROJECTS), 'Research projects', 'Dự án nghiên cứu'), (len(PEOPLE), 'Team members', 'Thành viên')]
+    stat_html = ''.join('<li><span class="stat__n">%d</span><span class="stat__k">%s</span></li>' % (n, t(en, vi)) for n, en, vi in stats)
+    area_html = ''.join(area_card(a, k, '') for k, a in enumerate(AREAS))
+    news_html = ''
+    for d, kind, text, link in NEWS[:6]:
+        more = (' <a href="%s">%s</a>' % (link, t('Read more', 'Xem thêm'))) if link else ''
+        news_html += f'<li class="nrow" data-kind="{kind.lower()}"><span class="nrow__d">{t(E(d), E(date_vi(d)))}</span><span class="nrow__k">{t(kind, KIND_VI[kind])}</span><p class="nrow__t">{t(text)}{more}</p></li>'
+    body = f'''<section class="hero" aria-labelledby="hero-t">
+  <img class="hero__img" src="images/robot.jpg" alt="" width="700" height="525">
+  <div class="ch__wrap hero__wrap">
+    <div class="hero__card">
+      <p class="eyebrow">{t('VinUniversity · Hanoi, Vietnam', 'Trường Đại học VinUni · Hà Nội, Việt Nam')}</p>
+      <h1 class="hero__t" id="hero-t">{t('The Interactive Robot Design Lab', 'Phòng thí nghiệm Thiết kế Robot Tương tác')}</h1>
+      <p class="hero__p">{t('IRoD Lab studies advanced mechanism design, compliant actuation, and physics-informed AI to enable safer, more adaptive, and energy-efficient physical interactions between robots and humans. We apply this research to rehabilitation exoskeletons, body-weight support systems, surgical and service robots, and collaborative manufacturing.',
+                           'IRoD Lab nghiên cứu thiết kế cơ cấu tiên tiến, truyền động đàn hồi và AI tích hợp vật lý nhằm mang lại sự tương tác vật lý an toàn, thích nghi và tiết kiệm năng lượng hơn giữa robot và con người. Chúng tôi ứng dụng các nghiên cứu này vào robot khung xương ngoài phục hồi chức năng, hệ thống nâng đỡ trọng lượng cơ thể, robot y tế, robot dịch vụ và sản xuất cộng tác.')}</p>
+      <p class="hero__by">{t('Led by <a href="content/people/members/linh.nv/index.html">Dr. Nguyen Vu Linh</a>, College of Engineering and Computer Science.', 'Trưởng lab: <a href="content/people/members/linh.nv/index.html">TS. Nguyễn Vũ Linh</a>, Viện Kỹ thuật và Khoa học Máy tính.')}</p>
+      <div class="btns"><a class="btn-p" href="content/research/index.html">{t('Explore our research', 'Xem nghiên cứu')}</a><a class="btn-s" href="content/people/index.html">{t('Meet the team', 'Đội ngũ thành viên')}</a></div>
     </div>
-    {b}'''
-        i = h.index(a); j = h.index(b) + len(b)
-        h = h[:i] + block + h[j:]
-    na, nb = '<!-- news:start -->', '<!-- news:end -->'
-    if na in h and nb in h:
-        nitems = []
-        for d, kind, text, link in NEWS:
-            more = (' <a href="./%s">%s</a>' % (link, t('Read more', 'Xem thêm'))) if link else ''
-            nitems.append(f'\n        <li class="nrow" data-kind="{kind.lower()}"><span class="nrow__d">{t(E(d), E(date_vi(d)))}</span><span class="nrow__k">{t(kind, KIND_VI[kind])}</span><p class="nrow__t">{t(text)}{more}</p></li>')
-        nblock = f'''{na}
-      <ol class="nlist">{''.join(nitems)}
-      </ol>
-      {nb}'''
-        ni = h.index(na); nj = h.index(nb) + len(nb)
-        h = h[:ni] + nblock + h[nj:]
-    # the homepage is hand-written, but its bar and fonts come from the same source as every subpage
-    h = re.sub(r'<header class="bar">.*?</header>', lambda m: bar('./', 'Home'), h, count=1, flags=re.S)
-    h = re.sub(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2[^"]*">',
-               lambda m: '<link rel="stylesheet" href="%s">' % FONTS.replace('&', '&amp;'), h, count=1)
-    open(path, 'w', encoding='utf8').write(h)
+  </div>
+</section>
+<section class="stats" aria-label="Lab at a glance" data-aria-vi="Tổng quan về lab"><div class="ch__wrap"><ul class="stats__list">{stat_html}</ul></div></section>
+<section class="hsec" aria-labelledby="areas-h">
+  <div class="ch__wrap">
+    <header class="hsec__head"><div><p class="eyebrow">{t('Research', 'Nghiên cứu')}</p><h2 class="hsec__t" id="areas-h">{t('Core research areas', 'Các hướng nghiên cứu trọng tâm')}</h2></div>{arrow('All research', 'Tất cả nghiên cứu', 'content/research/index.html')}</header>
+    <ul class="agrid">{area_html}</ul>
+  </div>
+</section>
+<section class="hsec" aria-labelledby="news-h">
+  <div class="ch__wrap">
+    <header class="hsec__head"><div><p class="eyebrow">{t('News', 'Tin tức')}</p><h2 class="hsec__t" id="news-h">{t('Latest news', 'Tin mới')}</h2></div>{arrow('All news', 'Tất cả tin tức', 'content/news/index.html')}</header>
+    <ol class="nlist">{news_html}</ol>
+  </div>
+</section>
+<section class="cta" aria-labelledby="cta-h">
+  <div class="ch__wrap cta__in">
+    <div><h2 class="cta__t" id="cta-h">{t('Join IRoD Lab', 'Tham gia IRoD Lab')}</h2>
+    <p>{t('We welcome research assistants, master’s and PhD students, and postdoctoral researchers throughout the year.', 'Chúng tôi chào đón trợ lý nghiên cứu, học viên cao học, nghiên cứu sinh và nghiên cứu viên sau tiến sĩ trong suốt cả năm.')}</p></div>
+    <a class="btn-w" href="content/openings/index.html">{t('See open positions', 'Xem vị trí tuyển dụng')}</a>
+  </div>
+</section>'''
+    page('index.html', 'Interactive Robot Design Lab · VinUniversity',
+         'The Interactive Robot Design (IRoD) Lab at VinUniversity designs compliant, reconfigurable and gravity-balanced mechanisms for safer human-robot interaction.',
+         'Home', 'H', 'Home', body, title_vi='Interactive Robot Design Lab · Trường Đại học VinUni', home=True)
 
 def main():
     PROJECTS[:] = load_projects()
@@ -760,13 +866,14 @@ def main():
     journals, confs = cv['journals'], cv['conferences']
     links = [tuple(x) for x in cv['pub_links']]
     research_index(journals, confs, links)
+    area_pages()
     publications_page(journals, confs, links)
     project_pages()
     news_page()
     people_pages()
     pi_page(journals, confs, links)
     openings_pages()
-    home_register()
+    home_page(journals, confs)
     # projects removed or hidden in the CMS: drop their old page (images stay where they are)
     feat = os.path.join(ROOT, 'content', 'research', 'featured')
     live = set(p['slug'] for p in PROJECTS)
@@ -776,6 +883,14 @@ def main():
             os.remove(f)
             print('removed stale page', d)
             if not os.listdir(os.path.join(feat, d)): os.rmdir(os.path.join(feat, d))
+    adir = os.path.join(ROOT, 'content', 'research', 'areas')
+    live_a = set(a['slug'] for a in AREAS)
+    for d in (os.listdir(adir) if os.path.isdir(adir) else []):
+        f = os.path.join(adir, d, 'index.html')
+        if d not in live_a and os.path.exists(f):
+            os.remove(f)
+            print('removed stale area page', d)
+            if not os.listdir(os.path.join(adir, d)): os.rmdir(os.path.join(adir, d))
     todo = os.path.join(ROOT, 'tools', 'vi_todo.json')
     json.dump(TODO, open(todo, 'w', encoding='utf8'), ensure_ascii=False, indent=1)
     print('journals', len(journals), 'conferences', len(confs), 'links', len(links), 'untranslated', len(TODO))
